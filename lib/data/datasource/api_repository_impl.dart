@@ -69,8 +69,6 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
 
   @override
   Future<LoginResponse> login(LoginRequest login) async {
-    await Future.delayed(Duration(seconds: 3));
-
     var result = await client.post(getMainUrl('/api/login/'),
         body: {'email': login.email, 'password': login.password});
 

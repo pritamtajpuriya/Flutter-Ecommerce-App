@@ -64,9 +64,14 @@ class LoginController extends GetxController {
       isLoading(true);
       final loginResponse = await apiRepositoryInterface.register(
           RegisterRequest(name: name, email: email, password: password));
-      await localRepositoryInterface.saveToken(loginResponse.token);
-      await localRepositoryInterface.saveUser(loginResponse.user);
-      return true;
+      if (loginResponse != null) {
+        await localRepositoryInterface.saveToken(loginResponse.token);
+        await localRepositoryInterface.saveUser(loginResponse.user);
+        return true;
+      } else
+        isLoading(false);
+
+      return false;
     } on AuthException catch (_) {
       isLoading(false);
       return false;

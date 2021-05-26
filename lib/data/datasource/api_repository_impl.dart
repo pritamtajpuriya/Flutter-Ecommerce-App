@@ -95,7 +95,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     //           username: 'tekrajguragain',
     //           images: 'assets/images/tekraj.jpg'));
     // }
-    throw AuthException();
+    // throw AuthException();
   }
 
   @override

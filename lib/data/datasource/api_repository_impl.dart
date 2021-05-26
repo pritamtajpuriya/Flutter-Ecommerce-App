@@ -47,7 +47,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     var result = await client.get(getMainUrl('/api/user/profile/'), headers: {
       "Content-type": "application/json",
       "Accept": "application/json",
-      "Authorization": "Token $token"
+      "Authorization": "Bearer $token"
     });
     if (result.statusCode == 200) {
       var jsonData = result.body;

@@ -1,3 +1,4 @@
+import 'package:sajilo_dokan/domain/model/cart.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/domain/model/user.dart';
 import 'package:sajilo_dokan/domain/request/login_request.dart';
@@ -15,4 +16,6 @@ abstract class ApiRepositoryInterface {
 
   Future getCategories();
   Future<List<Product>> getCategorieProduct(String categoryName);
+  Future<List<Cart>> getCartList(String token);
+  Future<void> addToCart(String token, int id);
 }

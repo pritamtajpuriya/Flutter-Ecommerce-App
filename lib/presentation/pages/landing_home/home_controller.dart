@@ -55,17 +55,17 @@ class HomeController extends GetxController {
     isFavorite.value = !isFavorite.value;
   }
 
-  void fetchCartList() {
-    cartList(demoCarts);
+  void fetchCartList() async {
+    final token = await localRepositoryInterface.getToken();
+    var carts = await apiRepositoryInterface.getCartList(token);
+    cartList(carts);
   }
 
-  void addToCard(Product product) {
-    print(cartList.asMap().containsKey(product.id));
-    if (cartList.asMap().containsKey(product.id))
-      return null;
-    else {
-      cartList.add(Cart(product: product, numOfItem: 1));
-    }
+  void addToCard(int id) async {
+    final token = await localRepositoryInterface.getToken();
+
+    await apiRepositoryInterface.addToCart(token, id);
+    fetchCartList();
   }
 
   void removeProductFromCart(int index) {

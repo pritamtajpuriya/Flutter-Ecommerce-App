@@ -91,7 +91,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                           backgroundDecoration:
                               BoxDecoration(color: Colors.white),
                           imageProvider: NetworkImage(
-                              'https://onlinehatiya.herokuapp.com/' +
+                              'https://onlinehatiya.herokuapp.com' +
                                   args.product.image),
                           maxScale: PhotoViewComputedScale.covered * 2.0,
                           minScale: PhotoViewComputedScale.contained * 0.8,
@@ -279,7 +279,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
       bottomNavigationBar: AddToCard(
         product: args.product,
         onChanged: () {
-          controller.addToCard(args.product);
+          controller.addToCard(args.product.id);
         },
       ),
     );

@@ -26,7 +26,9 @@ class CartItem extends StatelessWidget {
               onTap: () => Navigator.pushNamed(
                   context, SajiloDokanRoutes.productDetails,
                   arguments: ProductDetailsArguments(product: cart.product)),
-              child: Image.network(cart.product.image, height: 100),
+              child: Image.network(
+                  'https://onlinehatiya.herokuapp.com' + cart.product.image,
+                  height: 100),
             ),
 
             Expanded(
@@ -60,7 +62,7 @@ class CartItem extends StatelessWidget {
                         ),
                         Expanded(
                             child: AddQuantity(
-                          noOfItem: cart.numOfItem,
+                          noOfItem: cart.quantity,
                         ))
                       ],
                     )

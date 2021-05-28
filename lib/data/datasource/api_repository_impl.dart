@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:sajilo_dokan/domain/exception/auth_exception.dart';
+import 'package:sajilo_dokan/domain/model/cart.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/domain/model/user.dart';
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
@@ -152,5 +153,34 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     } else {
       return null;
     }
+  }
+
+  @override
+  Future<List<Cart>> getCartList(String token) async {
+    var result = await client.get(getMainUrl('/api/carts/'), headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    });
+    if (result.statusCode == 200) {
+      var jsonData = result.body;
+      print('CategoryProducts call');
+
+      return cartFromJson(jsonData);
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> addToCart(String token, int id) async {
+    var result = await client
+      ..post(getMainUrl('/api/carts/'), headers: {
+        "Content-type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Bearer $token"
+      }, body: {
+        "id": id
+      });
   }
 }

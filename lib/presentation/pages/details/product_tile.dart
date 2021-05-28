@@ -27,14 +27,11 @@ class ProductTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
-                        child: AspectRatio(
-                      aspectRatio: 0.8,
-                      child: Image.network(
-                        'https://onlinehatiya.herokuapp.com/' + product.image,
-                        height: 170,
-                        width: 130,
-                        fit: BoxFit.fill,
-                      ),
+                        child: Image.network(
+                      'https://onlinehatiya.herokuapp.com' + product.image,
+                      height: 170,
+                      width: 130,
+                      fit: BoxFit.fill,
                     )),
                   ),
                   SizedBox(height: 8),

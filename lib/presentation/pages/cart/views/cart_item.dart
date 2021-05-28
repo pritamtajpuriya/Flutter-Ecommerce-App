@@ -72,7 +72,7 @@ class CartItem extends StatelessWidget {
             ),
             IconButton(
                 onPressed: () {
-                  controller.removeProductFromCart(cartIndex);
+                  controller.removeProductFromCart(cart.id);
                 },
                 icon: Icon(Icons.cancel))
 

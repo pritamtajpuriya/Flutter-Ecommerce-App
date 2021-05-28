@@ -82,7 +82,7 @@ class CartScreen extends StatelessWidget {
                   ],
                 );
               } else {
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               }
             }),
             bottomNavigationBar: CheckoutCart()));

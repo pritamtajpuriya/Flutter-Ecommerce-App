@@ -78,8 +78,11 @@ class HomeController extends GetxController {
     fetchCartList();
   }
 
-  void removeProductFromCart(int index) {
-    cartList.removeAt(index);
+  void removeProductFromCart(int id) async {
+    final token = await localRepositoryInterface.getToken();
+
+    await apiRepositoryInterface.deleteCart(token, id);
+    fetchCartList();
   }
 
   void clearCart() {

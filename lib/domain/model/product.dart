@@ -11,16 +11,16 @@ String productToJson(List<Product> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Product {
-  Product({
-    this.id,
-    this.title,
-    this.keywords,
-    this.description,
-    this.image,
-    this.price,
-    this.slug,
-    this.favorte,
-  });
+  Product(
+      {this.id,
+      this.title,
+      this.keywords,
+      this.description,
+      this.image,
+      this.price,
+      this.slug,
+      this.favorte,
+      this.category});
 
   int id;
   String title;
@@ -30,17 +30,18 @@ class Product {
   double price;
   String slug;
   bool favorte;
+  String category;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["id"],
-        title: json["title"],
-        keywords: json["keywords"],
-        description: json["description"],
-        image: json["image"],
-        price: json["price"].toDouble(),
-        slug: json["slug"],
-        favorte: json["favorte"],
-      );
+      id: json["id"],
+      title: json["title"],
+      keywords: json["keywords"],
+      description: json["description"],
+      image: json["image"],
+      price: json["price"].toDouble(),
+      slug: json["slug"],
+      favorte: json["favorte"],
+      category: json['category']);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -51,5 +52,6 @@ class Product {
         "price": price,
         "slug": slug,
         "favorte": favorte,
+        "category": category
       };
 }

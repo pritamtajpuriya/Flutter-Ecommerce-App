@@ -23,13 +23,13 @@ class Cart {
   int id;
   int quantity;
   Product product;
-  int amount;
+  double amount;
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
         id: json["id"],
         quantity: json["quantity"],
         product: Product.fromJson(json["product"]),
-        amount: json["amount"],
+        amount: json["amount"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {

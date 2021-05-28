@@ -27,7 +27,7 @@ class CartScreen extends StatelessWidget {
             ),
             backgroundColor: Colors.grey.withOpacity(0.1),
             body: Obx(() {
-              if (controller.isLoading.value) {
+              if (!controller.isCartLoad.value) {
                 return ListView(
                   children: [
                     Row(

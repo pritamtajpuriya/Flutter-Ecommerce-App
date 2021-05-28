@@ -14,12 +14,16 @@ class PopulorProduct extends StatelessWidget {
       child: Row(
         children: [
           ...List.generate(products.length, (index) {
-            return InkWell(
-                onTap: () => Navigator.pushNamed(
-                    context, SajiloDokanRoutes.productDetails,
-                    arguments:
-                        ProductDetailsArguments(product: products[index])),
-                child: ProductTile(products[index]));
+            if (products[index].price <= 5000)
+              return InkWell(
+                  onTap: () => Navigator.pushNamed(
+                      context, SajiloDokanRoutes.productDetails,
+                      arguments:
+                          ProductDetailsArguments(product: products[index])),
+                  child: ProductTile(products[index]));
+            else {
+              return SizedBox.shrink();
+            }
             // return Padding(
             //   padding: const EdgeInsets.all(10.0),
             //   child: SizedBox(
@@ -50,6 +54,7 @@ class PopulorProduct extends StatelessWidget {
             //               fontWeight: FontWeight.w600,
             //               color: Colors.red),
             //         )
+
             //       ],
             //     ),
             //   ),

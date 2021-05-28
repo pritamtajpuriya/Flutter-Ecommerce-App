@@ -17,11 +17,13 @@ class HomeController extends GetxController {
 
   RxBool isFavorite = false.obs;
   var cartList = <Cart>[].obs;
+  RxBool isCartLoad = false.obs;
   @override
   void onReady() {
     loadUser();
     super.onReady();
     fetchProduct();
+    fetchCartList();
   }
 
   loadUser() {
@@ -57,8 +59,16 @@ class HomeController extends GetxController {
 
   void fetchCartList() async {
     final token = await localRepositoryInterface.getToken();
-    var carts = await apiRepositoryInterface.getCartList(token);
-    cartList(carts);
+    try {
+      isCartLoad(true);
+      var carts = await apiRepositoryInterface.getCartList(token);
+      print('Cartlist called');
+      if (carts != null) {
+        cartList(carts);
+      }
+    } finally {
+      isCartLoad(false);
+    }
   }
 
   void addToCard(int id) async {

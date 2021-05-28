@@ -147,6 +147,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
         await client.get(getUrl('/products/category/${(categoryName)}'));
     if (result.statusCode == 200) {
       var jsonData = result.body;
+
       print('CategoryProducts call');
 
       return productFromJson(jsonData);
@@ -164,7 +165,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     });
     if (result.statusCode == 200) {
       var jsonData = result.body;
-      print('CategoryProducts call');
+      print('getCartList');
 
       return cartFromJson(jsonData);
     } else {
@@ -174,13 +175,11 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
 
   @override
   Future<void> addToCart(String token, int id) async {
-    var result = await client
-      ..post(getMainUrl('/api/carts/'), headers: {
-        "Content-type": "application/json",
-        "Accept": "application/json",
-        "Authorization": "Bearer $token"
-      }, body: {
-        "id": id
-      });
+    var result = await client.post(getMainUrl('/api/carts/'), headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    }, body: {
+      "id": "$id"
+    });
   }
 }

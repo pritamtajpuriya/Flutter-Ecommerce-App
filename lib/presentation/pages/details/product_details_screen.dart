@@ -90,7 +90,9 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                         child: PhotoView(
                           backgroundDecoration:
                               BoxDecoration(color: Colors.white),
-                          imageProvider: NetworkImage(args.product.image),
+                          imageProvider: NetworkImage(
+                              'https://onlinehatiya.herokuapp.com/' +
+                                  args.product.image),
                           maxScale: PhotoViewComputedScale.covered * 2.0,
                           minScale: PhotoViewComputedScale.contained * 0.8,
                         ),
@@ -257,19 +259,19 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                   ),
                 ),
               ),
-              Container(child: Obx(() {
-                if (controller.isLoading.value) {
-                  final list = controller.productList
-                      .where((i) => i.category != args.product.category)
-                      .toList();
+              // Container(child: Obx(() {
+              //   if (controller.isLoading.value) {
+              //     final list = controller.productList
+              //         .where((i) => i. != args.product.category)
+              //         .toList();
 
-                  return ProductGridviewTile(
-                    productList: list,
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              })),
+              //     return ProductGridviewTile(
+              //       productList: list,
+              //     );
+              //   } else {
+              //     return Center(child: CircularProgressIndicator());
+              //   }
+              // })),
             ]))
           ],
         ),

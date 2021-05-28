@@ -14,57 +14,42 @@ class Product {
   Product({
     this.id,
     this.title,
-    this.price,
+    this.keywords,
     this.description,
-    this.category,
     this.image,
+    this.price,
+    this.slug,
+    this.favorte,
   });
 
   int id;
   String title;
-  double price;
+  String keywords;
   String description;
-  Category category;
   String image;
+  double price;
+  String slug;
+  bool favorte;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
         title: json["title"],
-        price: json["price"].toDouble(),
+        keywords: json["keywords"],
         description: json["description"],
-        category: categoryValues.map[json["category"]],
         image: json["image"],
+        price: json["price"].toDouble(),
+        slug: json["slug"],
+        favorte: json["favorte"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
-        "price": price,
+        "keywords": keywords,
         "description": description,
-        "category": categoryValues.reverse[category],
         "image": image,
+        "price": price,
+        "slug": slug,
+        "favorte": favorte,
       };
-}
-
-enum Category { MEN_CLOTHING, JEWELERY, ELECTRONICS, WOMEN_CLOTHING }
-
-final categoryValues = EnumValues({
-  "electronics": Category.ELECTRONICS,
-  "jewelery": Category.JEWELERY,
-  "men clothing": Category.MEN_CLOTHING,
-  "women clothing": Category.WOMEN_CLOTHING
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
 }

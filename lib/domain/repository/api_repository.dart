@@ -11,7 +11,7 @@ abstract class ApiRepositoryInterface {
   Future<LoginResponse> register(RegisterRequest register);
 
   Future<void> logout(String token);
-  Future<List<Product>> fetchingProdcut();
+  Future<List<Product>> fetchingProdcut(String token);
 
   Future getCategories();
   Future<List<Product>> getCategorieProduct(String categoryName);

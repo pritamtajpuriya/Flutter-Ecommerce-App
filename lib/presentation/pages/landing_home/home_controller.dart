@@ -39,9 +39,10 @@ class HomeController extends GetxController {
   }
 
   void fetchProduct() async {
+    final token = await localRepositoryInterface.getToken();
     isLoading(false);
     try {
-      var products = await apiRepositoryInterface.fetchingProdcut();
+      var products = await apiRepositoryInterface.fetchingProdcut(token);
       if (products != null) {
         productList(products);
       }

@@ -105,11 +105,12 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<List<Product>> fetchingProdcut() async {
-    var url =
-        Uri.https('fakestoreapi.herokuapp.com', '/products', {'q': '{https}'});
-
-    var result = await client.get(getUrl('/products'));
+  Future<List<Product>> fetchingProdcut(String token) async {
+    var result = await client.get(getMainUrl('/api/products/'), headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    });
     if (result.statusCode == 200) {
       var jsonData = result.body;
       print('Fetch product called');

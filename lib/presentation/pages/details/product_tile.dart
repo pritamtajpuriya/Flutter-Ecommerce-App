@@ -27,13 +27,15 @@ class ProductTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Center(
+                        child: AspectRatio(
+                      aspectRatio: 0.8,
                       child: Image.network(
-                        product.image,
+                        'https://onlinehatiya.herokuapp.com/' + product.image,
                         height: 170,
                         width: 130,
                         fit: BoxFit.fill,
                       ),
-                    ),
+                    )),
                   ),
                   SizedBox(height: 8),
                   Text(
@@ -44,7 +46,7 @@ class ProductTile extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   SizedBox(height: 8),
-                  Text('\$${product.price}',
+                  Text('Rs. ' + '${product.price}',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,

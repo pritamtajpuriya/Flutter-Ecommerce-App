@@ -20,7 +20,9 @@ class Product {
       this.price,
       this.slug,
       this.favorte,
-      this.category});
+      this.category,
+      this.noofreviews,
+      this.avaragereview});
 
   int id;
   String title;
@@ -31,6 +33,8 @@ class Product {
   String slug;
   bool favorte;
   String category;
+  int noofreviews;
+  double avaragereview;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
       id: json["id"],
@@ -41,7 +45,9 @@ class Product {
       price: json["price"].toDouble(),
       slug: json["slug"],
       favorte: json["favorte"],
-      category: json['category']);
+      category: json['category'],
+      noofreviews: json['no_of_freviews'],
+      avaragereview: json['avaragereview'].toDouble());
 
   Map<String, dynamic> toJson() => {
         "id": id,

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sajilo_dokan/config/theme.dart';
 
 import 'package:sajilo_dokan/domain/model/product.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -48,6 +49,19 @@ class ProductTile extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFFFF7643))),
+                  SizedBox(height: 8),
+                  SmoothStarRating(
+                    rating: product.avaragereview,
+                    isReadOnly: true,
+                    size: 15,
+                    filledIconData: Icons.star,
+                    borderColor: Colors.red,
+                    color: Colors.red,
+                    halfFilledIconData: Icons.star_half,
+                    defaultIconData: Icons.star_border,
+                    starCount: 5,
+                    allowHalfRating: true,
+                  ),
                 ],
               ),
             ),
@@ -62,7 +76,7 @@ class ProductTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5), color: Colors.red),
                 child: Center(
                   child: Text(
-                    product.price <= 30 ? 'New' : '-30%',
+                    product.price <= 5000 ? 'New' : '-30%',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -81,7 +95,9 @@ class ProductTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Icon(
-                        Icons.favorite_border,
+                        product.favorte
+                            ? Icons.favorite
+                            : Icons.favorite_border,
                         color: Colors.red,
                       )),
                 ),

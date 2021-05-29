@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'package:flutter_svg/svg.dart';
 
@@ -133,24 +134,65 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: Text(
-                              args.product.title,
-                              style: GoogleFonts.ptSans(
-                                  textStyle: TextStyle(
-                                fontSize: 18,
-                              )),
-                            ),
+                          Text(
+                            '\$' + args.product.price.toString(),
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.redAccent),
                           ),
-                          IconButton(onPressed: () {}, icon: Icon(Icons.share))
+                          Row(
+                            children: [
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.favorite_border)),
+                              IconButton(
+                                  onPressed: () {}, icon: Icon(Icons.share)),
+                            ],
+                          )
                         ],
                       ),
                       Text(
-                        '\$' + args.product.price.toString(),
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.redAccent),
+                        args.product.title,
+                        style: GoogleFonts.ptSans(
+                            textStyle: TextStyle(
+                          fontSize: 18,
+                        )),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              SmoothStarRating(
+                                rating: args.product.avaragereview,
+                                isReadOnly: true,
+                                size: 15,
+                                filledIconData: Icons.star,
+                                borderColor: Colors.red,
+                                color: Colors.red,
+                                halfFilledIconData: Icons.star_half,
+                                defaultIconData: Icons.star_border,
+                                starCount: 5,
+                                allowHalfRating: true,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                args.product.avaragereview.toString(),
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              Text(
+                                ' / ' + '(${args.product.noofreviews}) reviews',
+                                style: TextStyle(color: Colors.red),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),

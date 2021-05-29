@@ -207,6 +207,162 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                 height: 10,
               ),
               Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    height: 250,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/images/insurance.png',
+                                height: 30,
+                                width: 30,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Expanded(
+                                child: RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    text: TextSpan(
+                                        text: 'Secure Shoping',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                        children: [
+                                          TextSpan(
+                                              text:
+                                                  ' We are committed to protecting the security of your informatio',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14,
+                                              ))
+                                        ])),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/images/return.png',
+                                height: 30,
+                                width: 30,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Expanded(
+                                child: RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    text: TextSpan(
+                                        text: '7 Days Returns',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                        children: [
+                                          TextSpan(
+                                              text:
+                                                  ' Change of mind is not applicable',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14,
+                                              ))
+                                        ])),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/images/quality.png',
+                                height: 30,
+                                width: 30,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Expanded(
+                                child: RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    text: TextSpan(
+                                        text: 'Quality Checked',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                        children: [
+                                          TextSpan(
+                                              text:
+                                                  ' We are providing top quality products and service.',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14,
+                                              ))
+                                        ])),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'assets/images/time.png',
+                                height: 30,
+                                width: 30,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Expanded(
+                                child: RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    text: TextSpan(
+                                        text: 'Estimated Delivery Time',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                        children: [
+                                          TextSpan(
+                                              text: ' Damak city: 1 to 3 Days',
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14,
+                                              ))
+                                        ])),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Container(
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border(bottom: BorderSide(color: Colors.grey))),

@@ -19,8 +19,12 @@ class SplashController extends GetxController {
     final token = await localRepositoryInterface.getToken();
     if (token != null) {
       final result = await apiRepositoryInterface.getUserFromToken(token);
-      await localRepositoryInterface.saveUser(result.user);
-      Get.offNamed(SajiloDokanRoutes.landingHome);
+      if (result != null) {
+        await localRepositoryInterface.saveUser(result.user);
+        Get.offNamed(SajiloDokanRoutes.landingHome);
+      } else {
+        Get.offNamed(SajiloDokanRoutes.login);
+      }
     } else
       Get.offNamed(SajiloDokanRoutes.login);
   }

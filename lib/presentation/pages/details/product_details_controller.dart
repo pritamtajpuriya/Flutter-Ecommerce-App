@@ -8,4 +8,6 @@ class ProductDetailsController extends GetxController {
 
   ProductDetailsController(
       {this.apiRepositoryInterface, this.localRepositoryInterface});
+
+  RxInt selectedImage = 0.obs;
 }

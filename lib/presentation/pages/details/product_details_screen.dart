@@ -20,7 +20,10 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
     final ProductDetailsArguments args =
         ModalRoute.of(context).settings.arguments;
 
-    final controller = Get.find<HomeController>();
+    final homecontroller = Get.find<HomeController>();
+    int length() {
+      return args.product.images.length;
+    }
 
     return Scaffold(
       body: SafeArea(
@@ -58,7 +61,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                   Border.all(color: Colors.white, width: 2)),
                           child: Center(
                             child: Text(
-                              controller.cartList.length.toString(),
+                              homecontroller.cartList.length.toString(),
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -77,46 +80,90 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
               snap: false,
               elevation: 2,
               flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.pin,
-                centerTitle: true,
-                background: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
-                    AspectRatio(
-                      aspectRatio: 4 / 3,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: PhotoView(
-                          backgroundDecoration:
-                              BoxDecoration(color: Colors.white),
-                          imageProvider: NetworkImage(
-                              'https://onlinehatiya.herokuapp.com' +
-                                  args.product.image),
-                          maxScale: PhotoViewComputedScale.covered * 2.0,
-                          minScale: PhotoViewComputedScale.contained * 0.8,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.black.withOpacity(0.4)),
-                        height: 25,
-                        width: 40,
-                        child: Center(
-                          child: Text(
-                            '1/1',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                  collapseMode: CollapseMode.pin,
+                  centerTitle: true,
+                  background: Obx(() {
+                    return Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
+                        GestureDetector(
+                          onHorizontalDragUpdate: (details) {
+                            // int sensitivity = 12;
+                            // if (details.delta.dx > sensitivity) {
+                            //   //swipping in right direction
+                            //   controller.selectedImage += 1;
+                            //   print('right');
+                            // } else if (details.delta.dx < -sensitivity) {
+                            //   //swipping in right direction
+                            //   controller.selectedImage -= 1;
+                            //   print('left');
+                            // }
+                          },
+                          child: AspectRatio(
+                            aspectRatio: 4 / 3,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: PhotoView(
+                                backgroundDecoration:
+                                    BoxDecoration(color: Colors.white),
+                                imageProvider: NetworkImage(
+                                    'https://onlinehatiya.herokuapp.com' +
+                                        args.product.images[1].image),
+                                maxScale: PhotoViewComputedScale.covered * 2.0,
+                                minScale:
+                                    PhotoViewComputedScale.contained * 0.8,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                    // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios)),
-                  ],
-                ),
-              ),
+                        Positioned(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: Colors.black.withOpacity(0.4)),
+                            height: 25,
+                            width: 40,
+                            child: Center(
+                              child: Text(
+                                controller.selectedImage.toString() +
+                                    '/' +
+                                    args.product.images.length.toString(),
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 150,
+                          left: 0,
+                          child: IconButton(
+                              icon: Icon(Icons.arrow_back_ios),
+                              onPressed: () {
+                                print(args.product.images[1].image);
+                                if (controller.selectedImage.value != 0) {
+                                  controller.selectedImage -= 1;
+                                } else {}
+                              }),
+                        ),
+                        Positioned(
+                          top: 150,
+                          right: 0,
+                          child: IconButton(
+                              icon: Icon(Icons.arrow_forward_ios),
+                              onPressed: () {
+                                if (controller.selectedImage.value !=
+                                    args.product.images.length) {
+                                  controller.selectedImage += 1;
+                                }
+                              }),
+                        )
+                        // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios)),
+                      ],
+                    );
+                  })),
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
@@ -468,7 +515,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
       bottomNavigationBar: AddToCard(
         product: args.product,
         onChanged: () {
-          controller.addToCard(args.product.id);
+          homecontroller.addToCard(args.product.id);
         },
       ),
     );

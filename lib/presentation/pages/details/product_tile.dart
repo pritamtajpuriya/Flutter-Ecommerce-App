@@ -95,7 +95,7 @@ class ProductTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Icon(
-                        product.favorte
+                        product.favorite
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.red,

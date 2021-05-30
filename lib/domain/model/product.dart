@@ -11,18 +11,20 @@ String productToJson(List<Product> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Product {
-  Product(
-      {this.id,
-      this.title,
-      this.keywords,
-      this.description,
-      this.image,
-      this.price,
-      this.slug,
-      this.favorte,
-      this.category,
-      this.noofreviews,
-      this.avaragereview});
+  Product({
+    this.id,
+    this.title,
+    this.keywords,
+    this.description,
+    this.image,
+    this.price,
+    this.slug,
+    this.category,
+    this.avaragereview,
+    this.noOfReviews,
+    this.images,
+    this.favorite,
+  });
 
   int id;
   String title;
@@ -31,23 +33,27 @@ class Product {
   String image;
   double price;
   String slug;
-  bool favorte;
   String category;
-  int noofreviews;
   double avaragereview;
+  int noOfReviews;
+  List<Images> images;
+  bool favorite;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-      id: json["id"],
-      title: json["title"],
-      keywords: json["keywords"],
-      description: json["description"],
-      image: json["image"],
-      price: json["price"].toDouble(),
-      slug: json["slug"],
-      favorte: json["favorte"],
-      category: json['category'],
-      noofreviews: json['no_of_freviews'],
-      avaragereview: json['avaragereview'].toDouble());
+        id: json["id"],
+        title: json["title"],
+        keywords: json["keywords"],
+        description: json["description"],
+        image: json["image"],
+        price: json["price"].toDouble(),
+        slug: json["slug"],
+        category: json["category"],
+        avaragereview: json["avaragereview"].toDouble(),
+        noOfReviews: json["no_of_reviews"],
+        images:
+            List<Images>.from(json["images"].map((x) => Images.fromJson(x))),
+        favorite: json["favorite"],
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -57,7 +63,26 @@ class Product {
         "image": image,
         "price": price,
         "slug": slug,
-        "favorte": favorte,
-        "category": category
+        "category": category,
+        "avaragereview": avaragereview,
+        "no_of_reviews": noOfReviews,
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "favorite": favorite,
+      };
+}
+
+class Images {
+  Images({
+    this.image,
+  });
+
+  String image;
+
+  factory Images.fromJson(Map<String, dynamic> json) => Images(
+        image: json["image"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "image": image,
       };
 }

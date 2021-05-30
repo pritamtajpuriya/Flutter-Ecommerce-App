@@ -13,7 +13,6 @@ import 'package:sajilo_dokan/presentation/pages/details/view/add_cart.dart';
 
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
-import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
 
 class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
   @override
@@ -187,7 +186,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                 style: TextStyle(color: Colors.red),
                               ),
                               Text(
-                                ' / ' + '(${args.product.noofreviews}) reviews',
+                                ' / ' + '(${args.product.noOfReviews}) reviews',
                                 style: TextStyle(color: Colors.red),
                               )
                             ],

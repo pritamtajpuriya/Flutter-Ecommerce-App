@@ -10,4 +10,5 @@ class ProductDetailsController extends GetxController {
       {this.apiRepositoryInterface, this.localRepositoryInterface});
 
   RxInt selectedImage = 0.obs;
+  int get index => selectedImage.value;
 }

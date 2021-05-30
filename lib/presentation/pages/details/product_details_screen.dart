@@ -198,9 +198,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -211,32 +209,26 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Sold by',
-                        style: TextStyle(color: Colors.black.withOpacity(0.5)),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Waiva Mobile',
-                            style: GoogleFonts.roboto(
-                                textStyle: TextStyle(
-                              fontSize: 18,
-                            )),
-                          ),
+                          RichText(
+                              text: TextSpan(
+                                  text: 'Seller:',
+                                  style: TextStyle(color: Colors.black),
+                                  children: [
+                                TextSpan(
+                                    text: ' DmkMart',
+                                    style: TextStyle(color: Colors.black))
+                              ])),
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                'View Shop',
-                              ),
+                              child: Text('View Shop',
+                                  style: TextStyle(color: Colors.green)),
                             ),
                           )
                         ],

@@ -45,6 +45,7 @@ class SajiloDokanPages {
     GetPage(
         name: SajiloDokanRoutes.productDetails,
         page: () => ProductDetailsScreen(),
+        binding: ProductDetailsBinding(),
         bindings: [ProductDetailsBinding(), MainBinding()]),
     GetPage(
         name: SajiloDokanRoutes.cart,

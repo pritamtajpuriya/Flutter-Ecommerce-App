@@ -19,4 +19,5 @@ abstract class ApiRepositoryInterface {
   Future<List<Cart>> getCartList(String token);
   Future<void> addToCart(String token, int id);
   Future<void> deleteCart(String token, int id);
+  Future<void> makeFavorite(String token, int id);
 }

@@ -11,4 +11,10 @@ class ProductDetailsController extends GetxController {
 
   RxInt selectedImage = 0.obs;
   int get index => selectedImage.value;
+
+  Future<void> makeFavorite(int id) async {
+    final token = await localRepositoryInterface.getToken();
+    await apiRepositoryInterface.makeFavorite(token, id);
+    print('fab btn called');
+  }
 }

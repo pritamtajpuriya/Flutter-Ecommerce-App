@@ -192,4 +192,14 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
       "id": "$id"
     });
   }
+
+  @override
+  Future<void> makeFavorite(String token, int id) async {
+    var result = await client.post(getMainUrl('/api/makefavorite/'), headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    }, body: {
+      "id": "$id"
+    });
+  }
 }

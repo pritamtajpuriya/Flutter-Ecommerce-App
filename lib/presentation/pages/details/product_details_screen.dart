@@ -22,9 +22,6 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
         ModalRoute.of(context).settings.arguments;
 
     final homecontroller = Get.find<HomeController>();
-    int length() {
-      return args.product.images.length;
-    }
 
     return Scaffold(
       body: SafeArea(
@@ -210,8 +207,16 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                           Row(
                             children: [
                               IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.favorite_border)),
+                                  onPressed: () {
+                                    controller.makeFavorite(args.product.id);
+                                    homecontroller.fetchProduct();
+                                  },
+                                  icon: args.product.favorite
+                                      ? Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                        )
+                                      : Icon(Icons.favorite_border)),
                               IconButton(
                                   onPressed: () {
                                     Share.share('App link not available');

@@ -24,6 +24,8 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
 
     final homecontroller = Get.find<HomeController>();
 
+    controller.setInit(args.product.favorite);
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -207,17 +209,19 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                           ),
                           Row(
                             children: [
-                              IconButton(
-                                  onPressed: () {
-                                    controller.makeFavorite(args.product.id);
-                                    homecontroller.fetchProduct();
-                                  },
-                                  icon: args.product.favorite
-                                      ? Icon(
-                                          Icons.favorite,
-                                          color: Colors.red,
-                                        )
-                                      : Icon(Icons.favorite_border)),
+                              Obx(() {
+                                return IconButton(
+                                    onPressed: () {
+                                      controller.makeFavorite(args.product.id);
+                                      homecontroller.fetchProduct();
+                                    },
+                                    icon: controller.initbool.value
+                                        ? Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                          )
+                                        : Icon(Icons.favorite_border));
+                              }),
                               IconButton(
                                   onPressed: () {
                                     Share.share('App link not available');
@@ -247,8 +251,8 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                 isReadOnly: true,
                                 size: 15,
                                 filledIconData: Icons.star,
-                                borderColor: Colors.red,
-                                color: Colors.red,
+                                borderColor: Colors.red.withOpacity(0.8),
+                                color: Colors.yellow,
                                 halfFilledIconData: Icons.star_half,
                                 defaultIconData: Icons.star_border,
                                 starCount: 5,
@@ -491,27 +495,30 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                         children: [
                           ...List.generate(
                             args.product.productSpecification.length,
-                            (index) => Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '•',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    args.product.productSpecification[index]
-                                        .point,
-                                    overflow: TextOverflow.clip,
-                                    style: GoogleFonts.ptSans(
-                                        fontSize: 16,
-                                        color: Colors.black.withOpacity(0.6)),
+                            (index) => Padding(
+                              padding: const EdgeInsets.only(bottom: 5),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '•',
+                                    style: TextStyle(fontSize: 18),
                                   ),
-                                ),
-                              ],
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      args.product.productSpecification[index]
+                                          .point,
+                                      overflow: TextOverflow.clip,
+                                      style: GoogleFonts.ptSans(
+                                          fontSize: 16,
+                                          color: Colors.black.withOpacity(0.6)),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         ],
@@ -587,300 +594,3 @@ class ProductDetailsArguments {
   final Product product;
   ProductDetailsArguments({this.product});
 }
-
-
-  // SajiloDokanScaffold(
-  //     title: null,
-  //     appBar: AppBar(
-  //       backgroundColor: Colors.white,
-  //       elevation: 0,
-  //       backwardsCompatibility: false,
-  //       systemOverlayStyle: SystemUiOverlayStyle(
-  //         statusBarColor: Colors.transparent,
-  //         statusBarIconBrightness: Brightness.dark,
-  //       ),
-  //       actions: [
-  //         InkWell(
-  //             onTap: () {
-  //               Navigator.of(context).pushNamed(SajiloDokanRoutes.cart);
-  //             },
-  //             child: SvgPicture.asset(
-  //               'assets/icons/bottom_menu/cart.svg',
-  //               color: Colors.black,
-  //             )),
-  //         SizedBox(
-  //           width: 30,
-  //         )
-  //       ],
-  //     ),
-  //     body: Scaffold(
-  //       backgroundColor: Colors.grey.withOpacity(0.1),
-  //       body: ListView(
-  //         children: [
-  //           Stack(
-  //             alignment: Alignment.bottomRight,
-  //             children: [
-  //               // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
-  //               AspectRatio(
-  //                 aspectRatio: 4 / 3,
-  //                 child: Padding(
-  //                   padding: const EdgeInsets.only(left: 10, right: 10),
-  //                   child: ClipRRect(
-  //                     child: PhotoView(
-  //                       backgroundDecoration:
-  //                           BoxDecoration(color: Colors.white),
-  //                       imageProvider: NetworkImage(args.product.image
-  //                           .replaceAll(
-  //                               'fakestoreapi', 'fakestoreapi.herokuapp')),
-  //                       maxScale: PhotoViewComputedScale.covered * 2.0,
-  //                       minScale: PhotoViewComputedScale.contained * 0.8,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //               Positioned(
-  //                   child: Padding(
-  //                 padding: const EdgeInsets.all(10.0),
-  //                 child: Container(
-  //                   decoration: BoxDecoration(
-  //                       borderRadius: BorderRadius.circular(30),
-  //                       color: Colors.grey.withOpacity(0.5)),
-  //                   height: 40,
-  //                   width: 40,
-  //                   child: Center(
-  //                     child: Text(
-  //                       '1/1',
-  //                       style: TextStyle(fontSize: 18),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ))
-  //               // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios)),
-  //             ],
-  //           ),
-  //           // Row(
-  //           //   mainAxisAlignment: MainAxisAlignment.center,
-  //           //   children: [
-  //           //     ...List.generate(
-  //           //         1,
-  //           //         (index) => AnimatedContainer(
-  //           //               padding: EdgeInsets.all(10),
-  //           //               margin: EdgeInsets.all(10),
-  //           //               duration: Duration(seconds: 1),
-  //           //               height: 70,
-  //           //               width: 70,
-  //           //               decoration: BoxDecoration(
-  //           //                   color: Colors.white,
-  //           //                   borderRadius: BorderRadius.circular(10),
-  //           //                   border: Border.all(
-  //           //                       color: Colors.purple
-  //           //                           .withOpacity(index == 0 ? 1 : 0))),
-  //           //               child: Image.network(args.product.image.replaceAll(
-  //           //                   'fakestoreapi', 'fakestoreapi.herokuapp')),
-  //           //             ))
-  //           //   ],
-  //           // ),
-  //           Container(
-  //             decoration: BoxDecoration(
-  //                 color: Colors.white,
-  //                 border: Border(bottom: BorderSide(color: Colors.grey))),
-  //             child: Padding(
-  //               padding: const EdgeInsets.all(10.0),
-  //               child: Column(
-  //                 mainAxisAlignment: MainAxisAlignment.start,
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                     children: [
-  //                       Text(
-  //                         '\$' + args.product.price.toString(),
-  //                         style: TextStyle(
-  //                             fontSize: 20,
-  //                             fontWeight: FontWeight.bold,
-  //                             color: Colors.redAccent),
-  //                       ),
-  //                       IconButton(onPressed: () {}, icon: Icon(Icons.share))
-  //                     ],
-  //                   ),
-  //                   Text(
-  //                     args.product.title,
-  //                     style: GoogleFonts.ptSans(
-  //                         textStyle: TextStyle(
-  //                       fontSize: 18,
-  //                     )),
-  //                   ),
-
-  //                   // Row(
-  //                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   //   children: [
-  //                   //     RichText(
-  //                   //         text: TextSpan(children: [
-  //                   //       TextSpan(
-  //                   //           text: 'Seller :',
-  //                   //           style: TextStyle(
-  //                   //               fontSize: 14,
-  //                   //               color: Colors.black.withOpacity(0.5))),
-  //                   //       TextSpan(
-  //                   //           text: ' Waiva Mobile',
-  //                   //           style: TextStyle(
-  //                   //               fontSize: 14,
-  //                   //               color: Colors.black.withOpacity(0.5)))
-  //                   //     ])),
-  //                   //     InkWell(
-  //                   //       onTap: () {},
-  //                   //       child: Text(
-  //                   //         'Visit Store',
-  //                   //         style:
-  //                   //             TextStyle(fontSize: 14, color: Colors.redAccent),
-  //                   //       ),
-  //                   //     )
-  //                   //   ],
-  //                   // )
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-
-  //           Container(
-  //             width: double.infinity,
-  //             decoration: BoxDecoration(
-  //                 color: Colors.white,
-  //                 border: Border(bottom: BorderSide(color: Colors.grey))),
-  //             child: Padding(
-  //               padding: const EdgeInsets.all(10),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     'Sold by',
-  //                     style: TextStyle(color: Colors.black.withOpacity(0.5)),
-  //                   ),
-  //                   SizedBox(
-  //                     height: 10,
-  //                   ),
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                     children: [
-  //                       Text(
-  //                         'Waiva Mobile',
-  //                         style: GoogleFonts.roboto(
-  //                             textStyle: TextStyle(
-  //                           fontSize: 18,
-  //                         )),
-  //                       ),
-  //                       Container(
-  //                         decoration: BoxDecoration(
-  //                           border: Border.all(color: Colors.grey),
-  //                         ),
-  //                         child: Padding(
-  //                           padding: const EdgeInsets.all(5.0),
-  //                           child: Text(
-  //                             'View Shop',
-  //                           ),
-  //                         ),
-  //                       )
-  //                     ],
-  //                   ),
-  //                   // Container(
-  //                   //   decoration: BoxDecoration(
-  //                   //       border: Border.all(color: Colors.redAccent),
-  //                   //       color: Colors.redAccent.withOpacity(0.3)),
-  //                   //   child: Padding(
-  //                   //     padding: const EdgeInsets.all(5.0),
-  //                   //     child: Text('Chat Now'),
-  //                   //   ),
-  //                   // )
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-
-  //           Container(
-  //             decoration: BoxDecoration(
-  //                 color: Colors.white,
-  //                 border: Border(bottom: BorderSide(color: Colors.grey))),
-  //             child: Padding(
-  //               padding: const EdgeInsets.all(10),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     'Product Information',
-  //                     style: TextStyle(fontSize: 14),
-  //                   ),
-  //                   SizedBox(
-  //                     height: 10,
-  //                   ),
-  //                   Padding(
-  //                     padding: const EdgeInsets.only(right: 100),
-  //                     child: Text(
-  //                       args.product.description,
-  //                       style: GoogleFonts.ptSans(
-  //                           fontSize: 14, color: Colors.black.withOpacity(0.5)),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-
-  //           // Container(
-  //           //   decoration: BoxDecoration(color: Colors.white),
-  //           //   child: ExpansionTile(
-  //           //     title: Text(
-  //           //       'Product Information',
-  //           //       style: TextStyle(
-  //           //           color: Colors.black.withOpacity(0.6), fontSize: 14),
-  //           //     ),
-  //           //     backgroundColor: Colors.white,
-  //           //     children: [
-  //           //       Padding(
-  //           //         padding: const EdgeInsets.only(left: 20, right: 20),
-  //           //         child: Text(
-  //           //           args.product.description,
-  //           //           style: GoogleFonts.ptSans(
-  //           //               fontSize: 14, color: Colors.black.withOpacity(0.5)),
-  //           //         ),
-  //           //       ),
-  //           //     ],
-  //           //   ),
-  //           // ),
-
-  //           Container(
-  //               decoration: BoxDecoration(
-  //                   color: Colors.white,
-  //                   border: Border(bottom: BorderSide(color: Colors.grey))),
-  //               child: ExpansionTile(
-  //                   title: Text(
-  //                 'Specification',
-  //                 style: TextStyle(
-  //                     color: Colors.black.withOpacity(0.5), fontSize: 14),
-  //               ))),
-  //           SizedBox(height: 10),
-
-  //           Padding(
-  //             padding: const EdgeInsets.all(20.0),
-  //             child: Text(
-  //               'Related Products',
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-  //             ),
-  //           ),
-  //           Container(child: Obx(() {
-  //             if (controller.isLoading.value) {
-  //               final list = controller.productList
-  //                   .where((i) => i.category != args.product.category)
-  //                   .toList();
-
-  //               return ProductGridviewTile(
-  //                 productList: list,
-  //               );
-  //             } else {
-  //               return Center(child: CircularProgressIndicator());
-  //             }
-  //           })),
-  //         ],
-  //       ),
-  //     ),
-  //     bottomNavigationBar: AddToCard(),
-  //   );

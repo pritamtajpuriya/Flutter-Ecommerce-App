@@ -174,32 +174,44 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<void> addToCart(String token, int id) async {
+  Future<bool> addToCart(String token, int id) async {
     var result = await client.post(getMainUrl('/api/carts/'), headers: {
       "Accept": "application/json",
       "Authorization": "Bearer $token"
     }, body: {
       "id": "$id"
     });
+    if (result.statusCode == 200) {
+      return true;
+    }
+    return false;
   }
 
   @override
-  Future<void> deleteCart(String token, int id) async {
+  Future<bool> deleteCart(String token, int id) async {
     var result = await client.post(getMainUrl('/api/deletecart/'), headers: {
       "Accept": "application/json",
       "Authorization": "Bearer $token"
     }, body: {
       "id": "$id"
     });
+    if (result.statusCode == 200) {
+      return true;
+    }
+    return false;
   }
 
   @override
-  Future<void> makeFavorite(String token, int id) async {
+  Future<bool> makeFavorite(String token, int id) async {
     var result = await client.post(getMainUrl('/api/makefavorite/'), headers: {
       "Accept": "application/json",
       "Authorization": "Bearer $token"
     }, body: {
       "id": "$id"
     });
+    if (result.statusCode == 200) {
+      return true;
+    }
+    return false;
   }
 }

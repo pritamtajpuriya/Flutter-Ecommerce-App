@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/domain/model/cart.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
@@ -74,8 +75,21 @@ class HomeController extends GetxController {
   void addToCard(int id) async {
     final token = await localRepositoryInterface.getToken();
 
-    await apiRepositoryInterface.addToCart(token, id);
+    var result = await apiRepositoryInterface.addToCart(token, id);
     fetchCartList();
+    if (result == true) {
+      Get.snackbar('Added to cart successfully!', '',
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          borderRadius: 0,
+          backgroundColor: Colors.black.withOpacity(0.8),
+          isDismissible: true,
+          margin: EdgeInsets.all(0),
+          padding: EdgeInsets.all(5)
+          // animationDuration: Duration(seconds: 1),
+          // duration: Duration(seconds: 2),
+          );
+    }
   }
 
   void removeProductFromCart(int id) async {

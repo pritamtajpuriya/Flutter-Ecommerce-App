@@ -3,10 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_controller.dart';
-import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class ProductTile extends GetWidget<ProductDetailsController> {
+class ProductTile extends StatelessWidget {
   final Product product;
   ProductTile(this.product);
 
@@ -82,30 +81,30 @@ class ProductTile extends GetWidget<ProductDetailsController> {
                   ),
                 ),
               )),
-          Positioned(
-              bottom: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  onTap: () {
-                    controller.makeFavorite(product.id);
-                    // productController.makeFavorite(product.id);
-                  },
-                  child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Icon(
-                        product.favorite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Colors.red,
-                      )),
-                ),
-              )),
+          // Positioned(
+          //     bottom: 0,
+          //     right: 0,
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: InkWell(
+          //         onTap: () {
+          //           controller.makeFavorite(product.id);
+          //           // productController.makeFavorite(product.id);
+          //         },
+          //         child: Container(
+          //             height: 30,
+          //             width: 30,
+          //             decoration: BoxDecoration(
+          //               borderRadius: BorderRadius.circular(30),
+          //             ),
+          //             child: Icon(
+          //               product.favorite
+          //                   ? Icons.favorite
+          //                   : Icons.favorite_border,
+          //               color: Colors.red,
+          //             )),
+          //       ),
+          //     )),
         ],
       ),
     );

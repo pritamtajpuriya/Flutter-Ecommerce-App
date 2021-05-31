@@ -17,7 +17,7 @@ abstract class ApiRepositoryInterface {
   Future getCategories();
   Future<List<Product>> getCategorieProduct(String categoryName);
   Future<List<Cart>> getCartList(String token);
-  Future<void> addToCart(String token, int id);
-  Future<void> deleteCart(String token, int id);
-  Future<void> makeFavorite(String token, int id);
+  Future<bool> addToCart(String token, int id);
+  Future<bool> deleteCart(String token, int id);
+  Future<bool> makeFavorite(String token, int id);
 }

@@ -38,6 +38,7 @@ dependencies:
   get_storage: ^2.0.2
   smooth_star_rating: ^1.1.1
   extended_image: ^4.1.0
+  share:
 
 dev_dependencies:
   flutter_test:

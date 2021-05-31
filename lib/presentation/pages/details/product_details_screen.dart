@@ -6,13 +6,14 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:photo_view/photo_view.dart';
+
 import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_controller.dart';
 import 'package:sajilo_dokan/presentation/pages/details/view/add_cart.dart';
 
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
+import 'package:share/share.dart';
 
 class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
   @override
@@ -103,20 +104,22 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                           child: Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
-                              child: InteractiveViewer(
-                                  minScale: 0.2,
-                                  maxScale: 10.0,
-                                  child: Image.network(args
-                                              .product.images.length ==
-                                          0
-                                      ? 'https://onlinehatiya.herokuapp.com' +
-                                          args.product.image
-                                      : 'https://onlinehatiya.herokuapp.com' +
-                                          args
-                                              .product
-                                              .images[controller
-                                                  .selectedImage.value]
-                                              .image))
+                              child: Container(
+                                child: InteractiveViewer(
+                                    minScale: 0.2,
+                                    maxScale: 10.0,
+                                    child: Image.network(args
+                                                .product.images.length ==
+                                            0
+                                        ? 'https://onlinehatiya.herokuapp.com' +
+                                            args.product.image
+                                        : 'https://onlinehatiya.herokuapp.com' +
+                                            args
+                                                .product
+                                                .images[controller
+                                                    .selectedImage.value]
+                                                .image)),
+                              )
                               // child: PhotoView(
                               //   backgroundDecoration:
                               //       BoxDecoration(color: Colors.white),
@@ -140,9 +143,13 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                             width: 40,
                             child: Center(
                               child: Text(
-                                '${controller.index + 1} '
-                                        '/' +
-                                    args.product.images.length.toString(),
+                                args.product.images.length == 0
+                                    ? '${controller.index + 1} '
+                                            '/' +
+                                        '${args.product.images.length + 1}'
+                                    : '${controller.index + 1} '
+                                            '/' +
+                                        args.product.images.length.toString(),
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.white),
                               ),
@@ -206,7 +213,10 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                   onPressed: () {},
                                   icon: Icon(Icons.favorite_border)),
                               IconButton(
-                                  onPressed: () {}, icon: Icon(Icons.share)),
+                                  onPressed: () {
+                                    Share.share('App link not available');
+                                  },
+                                  icon: Icon(Icons.share)),
                             ],
                           )
                         ],

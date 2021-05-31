@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'package:flutter_svg/svg.dart';
@@ -272,7 +273,6 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                   ),
                 ),
               ),
-
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -472,43 +472,76 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
               ),
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(bottom: BorderSide(color: Colors.grey))),
+                  color: Colors.white,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Product Information',
-                        style: TextStyle(fontSize: 14),
+                        'Specification',
+                        style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 100),
-                        child: Text(
-                          args.product.description,
-                          style: GoogleFonts.ptSans(
-                              fontSize: 14,
-                              color: Colors.black.withOpacity(0.5)),
-                        ),
-                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ...List.generate(
+                            args.product.productSpecification.length,
+                            (index) => Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '•',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    args.product.productSpecification[index]
+                                        .point,
+                                    overflow: TextOverflow.clip,
+                                    style: GoogleFonts.ptSans(
+                                        fontSize: 16,
+                                        color: Colors.black.withOpacity(0.6)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ),
               ),
               Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(bottom: BorderSide(color: Colors.grey))),
+                    color: Colors.white,
+                  ),
                   child: ExpansionTile(
-                      title: Text(
-                    'Specification',
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(0.5), fontSize: 14),
-                  ))),
+                    expandedAlignment: Alignment.topLeft,
+                    title: Text(
+                      'Product Details',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Text(
+                          args.product.description,
+                          style: GoogleFonts.ptSans(
+                              fontSize: 16,
+                              color: Colors.black.withOpacity(0.6)),
+                        ),
+                      )
+                    ],
+                  )),
               SizedBox(height: 10),
               Container(
                 color: Colors.white.withOpacity(0.4),
@@ -516,26 +549,26 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Continue Shopping',
+                      'You may also like',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
               ),
-              // Container(child: Obx(() {
-              //   if (controller.isLoading.value) {
-              //     final list = controller.productList
-              //         .where((i) => i. != args.product.category)
-              //         .toList();
+              Container(child: Obx(() {
+                if (homecontroller.isLoading.value) {
+                  final list = homecontroller.productList
+                      .where((i) => i.category == args.product.category)
+                      .toList();
 
-              //     return ProductGridviewTile(
-              //       productList: list,
-              //     );
-              //   } else {
-              //     return Center(child: CircularProgressIndicator());
-              //   }
-              // })),
+                  return ProductGridviewTile(
+                    productList: list,
+                  );
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              })),
             ]))
           ],
         ),

@@ -29,7 +29,8 @@ class ProductTile extends StatelessWidget {
                     ),
                     child: Center(
                         child: Image.network(
-                      'https://onlinehatiya.herokuapp.com' + product.image,
+                      'https://onlinehatiya.herokuapp.com' +
+                          product.images[0].image,
                       height: 170,
                       width: 130,
                       fit: BoxFit.fill,

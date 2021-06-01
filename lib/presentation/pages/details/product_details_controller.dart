@@ -16,9 +16,16 @@ class ProductDetailsController extends GetxController {
 
   RxBool initbool = true.obs;
 
-  final scaleStateController = PhotoViewScaleStateController();
+  PhotoViewScaleStateController controllerState;
+
+  @override
+  void onReady() {
+    super.onReady();
+    controllerState = PhotoViewScaleStateController();
+  }
+
   void goBack() {
-    scaleStateController.scaleState = PhotoViewScaleState.originalSize;
+    controllerState.scaleState = PhotoViewScaleState.initial;
   }
 
   void setInit(bool fab) {

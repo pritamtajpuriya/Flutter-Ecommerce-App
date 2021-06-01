@@ -24,16 +24,17 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                             .image),
                 maxScale: PhotoViewComputedScale.covered * 2.0,
                 minScale: PhotoViewComputedScale.contained * 0.8,
-                scaleStateController: controller.scaleStateController,
-                loadingBuilder: (context, event) => Center(
+                initialScale: PhotoViewComputedScale.contained * 0.5,
+                scaleStateController: controller.controllerState,
+                loadingBuilder: (context, progress) => Center(
                   child: Container(
                     width: 20.0,
                     height: 20.0,
                     child: CircularProgressIndicator(
-                      value: event == null
-                          ? 0
-                          : event.cumulativeBytesLoaded /
-                              event.expectedTotalBytes,
+                      value: progress == null
+                          ? null
+                          : progress.cumulativeBytesLoaded /
+                              progress.expectedTotalBytes,
                     ),
                   ),
                 ),
@@ -51,42 +52,51 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                       Navigator.of(context).pop();
                       controller.goBack();
                     })),
-            Positioned(
-              bottom: 40,
-              child: Row(
-                children: [
-                  ...List.generate(
-                      args.product.images.length,
-                      (index) => Obx(() {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: InkWell(
-                                onTap: () {
-                                  controller.selectedImage(index);
-                                  controller.goBack();
-                                },
-                                child: Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color:
-                                              controller.selectedImage.value ==
-                                                      index
-                                                  ? Colors.red
-                                                  : Colors.black)),
-                                  child: Image.network(
-                                      'https://onlinehatiya.herokuapp.com' +
-                                          args.product.images[index].image),
-                                ),
-                              ),
-                            );
-                          }))
-                ],
-              ),
-            )
+            // Positioned(
+            //   bottom: 40,
+
+            // ),
           ],
+        ),
+      ),
+      bottomNavigationBar: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              ...List.generate(
+                  args.product.images.length,
+                  (index) => Obx(() {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: InkWell(
+                            onTap: () {
+                              controller.selectedImage(index);
+                              controller.goBack();
+                            },
+                            child: Container(
+                              height: 60,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: controller.selectedImage.value ==
+                                              index
+                                          ? Colors.red
+                                          : Colors.black)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Image.network(
+                                    'https://onlinehatiya.herokuapp.com' +
+                                        args.product.images[index].image),
+                              ),
+                            ),
+                          ),
+                        );
+                      }))
+            ],
+          ),
         ),
       ),
     );

@@ -124,13 +124,16 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                       );
                                     },
                                     itemCount: args.product.images.length,
-                                    loadingBuilder: (context, event) => Center(
+                                    loadingBuilder: (context, progress) =>
+                                        Center(
                                       child: Container(
+                                        width: 20.0,
+                                        height: 20.0,
                                         child: CircularProgressIndicator(
-                                          value: event == null
-                                              ? 0
-                                              : event.cumulativeBytesLoaded /
-                                                  event.expectedTotalBytes,
+                                          value: progress == null
+                                              ? null
+                                              : progress.cumulativeBytesLoaded /
+                                                  progress.expectedTotalBytes,
                                         ),
                                       ),
                                     ),

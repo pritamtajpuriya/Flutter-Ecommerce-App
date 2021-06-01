@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sajilo_dokan/presentation/pages/details/view/image_screen.dart';
 import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -105,20 +106,29 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: Container(
-                                child: InteractiveViewer(
-                                    minScale: 0.2,
-                                    maxScale: 10.0,
-                                    child: Image.network(args
-                                                .product.images.length ==
-                                            0
-                                        ? 'https://onlinehatiya.herokuapp.com' +
-                                            args.product.image
-                                        : 'https://onlinehatiya.herokuapp.com' +
-                                            args
-                                                .product
-                                                .images[controller
-                                                    .selectedImage.value]
-                                                .image)),
+                                child: InkWell(
+                                  onDoubleTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => ImageScreen(
+                                                  product: args.product,
+                                                )));
+                                  },
+                                  child: InteractiveViewer(
+                                      minScale: 0.2,
+                                      maxScale: 10.0,
+                                      child: Image.network(args
+                                                  .product.images.length ==
+                                              0
+                                          ? 'https://onlinehatiya.herokuapp.com' +
+                                              args.product.image
+                                          : 'https://onlinehatiya.herokuapp.com' +
+                                              args
+                                                  .product
+                                                  .images[controller
+                                                      .selectedImage.value]
+                                                  .image)),
+                                ),
                               )
                               // child: PhotoView(
                               //   backgroundDecoration:

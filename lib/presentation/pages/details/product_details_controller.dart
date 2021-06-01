@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 
@@ -14,7 +13,6 @@ class ProductDetailsController extends GetxController {
   RxInt selectedImage = 0.obs;
   int get index => selectedImage.value;
 
-  RxInt init = 0.obs;
   RxBool initbool = true.obs;
 
   void setInit(bool fab) {
@@ -30,7 +28,6 @@ class ProductDetailsController extends GetxController {
     var result = await apiRepositoryInterface.makeFavorite(token, id);
     print('fab btn called');
 
-    init += 1;
     if (result == true) {
       clickFavorite();
       Get.snackbar(

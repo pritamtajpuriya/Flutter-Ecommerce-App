@@ -108,11 +108,10 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               child: Container(
                                 child: InkWell(
                                   onDoubleTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) => ImageScreen(
-                                                  product: args.product,
-                                                )));
+                                    navigator.pushNamed(
+                                        SajiloDokanRoutes.imageScreen,
+                                        arguments: ImageScreenArguments(
+                                            product: args.product));
                                   },
                                   child: InteractiveViewer(
                                       minScale: 0.2,

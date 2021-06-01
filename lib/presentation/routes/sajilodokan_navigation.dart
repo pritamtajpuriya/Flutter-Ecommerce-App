@@ -5,6 +5,7 @@ import 'package:sajilo_dokan/presentation/pages/Category/category_products.dart'
 import 'package:sajilo_dokan/presentation/pages/cart/cart_screen.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_binding.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
+import 'package:sajilo_dokan/presentation/pages/details/view/image_screen.dart';
 
 import 'package:sajilo_dokan/presentation/pages/home/home_screen.dart';
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_binding.dart';
@@ -22,6 +23,7 @@ class SajiloDokanRoutes {
   static final String productDetails = '/productDetails';
   static final String cart = '/cart';
   static final String categoryProduct = '/categoryProduct';
+  static final String imageScreen = '/imageScreen';
 }
 
 class SajiloDokanPages {
@@ -54,6 +56,11 @@ class SajiloDokanPages {
     GetPage(
         name: SajiloDokanRoutes.categoryProduct,
         page: () => CategoryProducts(),
-        bindings: [MainBinding(), CategoriesBinding()])
+        bindings: [MainBinding(), CategoriesBinding()]),
+
+    GetPage(
+        name: SajiloDokanRoutes.imageScreen,
+        page: () => ImageScreen(),
+        bindings: [ProductDetailsBinding()])
   ];
 }

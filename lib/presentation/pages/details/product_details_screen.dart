@@ -91,74 +91,57 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                       alignment: Alignment.bottomCenter,
                       children: [
                         // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
-                        GestureDetector(
-                          onHorizontalDragUpdate: (details) {
-                            int sensitivity = 12;
-                            if (details.delta.dx > sensitivity) {
-                              //swipping in right direction
-
-                              print('right');
-                            } else if (details.delta.dx < -sensitivity) {
-                              //swipping in right direction
-
-                              print('left');
-                            }
-                          },
-                          child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              child: Container(
-                                child: InkWell(
-                                    onDoubleTap: () {
-                                      navigator.pushNamed(
-                                          SajiloDokanRoutes.imageScreen,
-                                          arguments: ImageScreenArguments(
-                                              product: args.product));
+                        Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Container(
+                              child: InkWell(
+                                  onDoubleTap: () {
+                                    navigator.pushNamed(
+                                        SajiloDokanRoutes.imageScreen,
+                                        arguments: ImageScreenArguments(
+                                            product: args.product));
+                                  },
+                                  child: PhotoViewGallery.builder(
+                                    scrollPhysics:
+                                        const BouncingScrollPhysics(),
+                                    builder: (BuildContext context, int index) {
+                                      return PhotoViewGalleryPageOptions(
+                                        disableGestures: true,
+                                        imageProvider: NetworkImage(args
+                                                    .product.images.length ==
+                                                0
+                                            ? 'https://onlinehatiya.herokuapp.com' +
+                                                args.product.image
+                                            : 'https://onlinehatiya.herokuapp.com' +
+                                                args
+                                                    .product
+                                                    .images[controller
+                                                        .selectedImage.value]
+                                                    .image),
+                                        initialScale:
+                                            PhotoViewComputedScale.contained *
+                                                0.8,
+                                      );
                                     },
-                                    child: PhotoViewGallery.builder(
-                                      scrollPhysics:
-                                          const BouncingScrollPhysics(),
-                                      builder:
-                                          (BuildContext context, int index) {
-                                        return PhotoViewGalleryPageOptions(
-                                          disableGestures: true,
-                                          imageProvider: NetworkImage(args
-                                                      .product.images.length ==
-                                                  0
-                                              ? 'https://onlinehatiya.herokuapp.com' +
-                                                  args.product.image
-                                              : 'https://onlinehatiya.herokuapp.com' +
-                                                  args
-                                                      .product
-                                                      .images[controller
-                                                          .selectedImage.value]
-                                                      .image),
-                                          initialScale:
-                                              PhotoViewComputedScale.contained *
-                                                  0.8,
-                                        );
-                                      },
-                                      itemCount: args.product.images.length,
-                                      loadingBuilder: (context, event) =>
-                                          Center(
-                                        child: Container(
-                                          child: CircularProgressIndicator(
-                                            value: event == null
-                                                ? 0
-                                                : event.cumulativeBytesLoaded /
-                                                    event.expectedTotalBytes,
-                                          ),
+                                    itemCount: args.product.images.length,
+                                    loadingBuilder: (context, event) => Center(
+                                      child: Container(
+                                        child: CircularProgressIndicator(
+                                          value: event == null
+                                              ? 0
+                                              : event.cumulativeBytesLoaded /
+                                                  event.expectedTotalBytes,
                                         ),
                                       ),
-                                      pageController: null,
-                                      backgroundDecoration:
-                                          BoxDecoration(color: Colors.white),
-                                      onPageChanged: (int index) {
-                                        controller.selectedImage(index);
-                                      },
-                                    )),
-                              )),
-                        ),
+                                    ),
+                                    pageController: null,
+                                    backgroundDecoration:
+                                        BoxDecoration(color: Colors.white),
+                                    onPageChanged: (int index) {
+                                      controller.selectedImage(index);
+                                    },
+                                  )),
+                            )),
 
                         Positioned(
                           child: Container(

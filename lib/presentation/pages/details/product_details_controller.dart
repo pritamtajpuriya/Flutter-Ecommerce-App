@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 
@@ -15,8 +16,10 @@ class ProductDetailsController extends GetxController {
 
   RxBool initbool = true.obs;
 
-  final TransformationController transformationController =
-      TransformationController();
+  final scaleStateController = PhotoViewScaleStateController();
+  void goBack() {
+    scaleStateController.scaleState = PhotoViewScaleState.originalSize;
+  }
 
   void setInit(bool fab) {
     initbool(fab);

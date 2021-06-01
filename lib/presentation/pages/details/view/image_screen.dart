@@ -24,6 +24,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                             .image),
                 maxScale: PhotoViewComputedScale.covered * 2.0,
                 minScale: PhotoViewComputedScale.contained * 0.8,
+                scaleStateController: controller.scaleStateController,
                 loadingBuilder: (context, event) => Center(
                   child: Container(
                     width: 20.0,
@@ -48,8 +49,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                     ),
                     onPressed: () {
                       Navigator.of(context).pop();
-                      controller.transformationController.value =
-                          Matrix4.identity();
+                      controller.goBack();
                     })),
             Positioned(
               bottom: 40,
@@ -63,8 +63,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                               child: InkWell(
                                 onTap: () {
                                   controller.selectedImage(index);
-                                  controller.transformationController.value =
-                                      Matrix4.identity();
+                                  controller.goBack();
                                 },
                                 child: Container(
                                   height: 60,

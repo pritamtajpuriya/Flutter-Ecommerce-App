@@ -15,6 +15,9 @@ class ProductDetailsController extends GetxController {
 
   RxBool initbool = true.obs;
 
+  final TransformationController transformationController =
+      TransformationController();
+
   void setInit(bool fab) {
     initbool(fab);
   }

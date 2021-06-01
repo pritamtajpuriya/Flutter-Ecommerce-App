@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sajilo_dokan/presentation/pages/details/view/image_screen.dart';
 import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -91,56 +93,71 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                         // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
                         GestureDetector(
                           onHorizontalDragUpdate: (details) {
-                            // int sensitivity = 12;
-                            // if (details.delta.dx > sensitivity) {
-                            //   //swipping in right direction
-                            //   controller.selectedImage += 1;
-                            //   print('right');
-                            // } else if (details.delta.dx < -sensitivity) {
-                            //   //swipping in right direction
-                            //   controller.selectedImage -= 1;
-                            //   print('left');
-                            // }
+                            int sensitivity = 12;
+                            if (details.delta.dx > sensitivity) {
+                              //swipping in right direction
+
+                              print('right');
+                            } else if (details.delta.dx < -sensitivity) {
+                              //swipping in right direction
+
+                              print('left');
+                            }
                           },
                           child: Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: Container(
                                 child: InkWell(
-                                  onDoubleTap: () {
-                                    navigator.pushNamed(
-                                        SajiloDokanRoutes.imageScreen,
-                                        arguments: ImageScreenArguments(
-                                            product: args.product));
-                                  },
-                                  child: InteractiveViewer(
-                                      minScale: 0.2,
-                                      maxScale: 10.0,
-                                      child: Image.network(args
-                                                  .product.images.length ==
-                                              0
-                                          ? 'https://onlinehatiya.herokuapp.com' +
-                                              args.product.image
-                                          : 'https://onlinehatiya.herokuapp.com' +
-                                              args
-                                                  .product
-                                                  .images[controller
-                                                      .selectedImage.value]
-                                                  .image)),
-                                ),
-                              )
-                              // child: PhotoView(
-                              //   backgroundDecoration:
-                              //       BoxDecoration(color: Colors.white),
-                              //   imageProvider: NetworkImage(
-
-                              //   'https://onlinehatiya.herokuapp.com' +
-                              //       args.product.images[0].image),
-                              //   maxScale: PhotoViewComputedScale.covered * 2.0,
-                              //   minScale:
-                              //       PhotoViewComputedScale.contained * 0.8,
-                              // ),
-                              ),
+                                    onDoubleTap: () {
+                                      navigator.pushNamed(
+                                          SajiloDokanRoutes.imageScreen,
+                                          arguments: ImageScreenArguments(
+                                              product: args.product));
+                                    },
+                                    child: PhotoViewGallery.builder(
+                                      scrollPhysics:
+                                          const BouncingScrollPhysics(),
+                                      builder:
+                                          (BuildContext context, int index) {
+                                        return PhotoViewGalleryPageOptions(
+                                          disableGestures: true,
+                                          imageProvider: NetworkImage(args
+                                                      .product.images.length ==
+                                                  0
+                                              ? 'https://onlinehatiya.herokuapp.com' +
+                                                  args.product.image
+                                              : 'https://onlinehatiya.herokuapp.com' +
+                                                  args
+                                                      .product
+                                                      .images[controller
+                                                          .selectedImage.value]
+                                                      .image),
+                                          initialScale:
+                                              PhotoViewComputedScale.contained *
+                                                  0.8,
+                                        );
+                                      },
+                                      itemCount: args.product.images.length,
+                                      loadingBuilder: (context, event) =>
+                                          Center(
+                                        child: Container(
+                                          child: CircularProgressIndicator(
+                                            value: event == null
+                                                ? 0
+                                                : event.cumulativeBytesLoaded /
+                                                    event.expectedTotalBytes,
+                                          ),
+                                        ),
+                                      ),
+                                      pageController: null,
+                                      backgroundDecoration:
+                                          BoxDecoration(color: Colors.white),
+                                      onPageChanged: (int index) {
+                                        controller.selectedImage(index);
+                                      },
+                                    )),
+                              )),
                         ),
 
                         Positioned(
@@ -165,30 +182,30 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 150,
-                          left: 0,
-                          child: IconButton(
-                              icon: Icon(Icons.arrow_back_ios),
-                              onPressed: () {
-                                print(args.product.images[1].image);
-                                if (controller.index != 0) {
-                                  controller.selectedImage -= 1;
-                                } else {}
-                              }),
-                        ),
-                        Positioned(
-                          top: 150,
-                          right: 0,
-                          child: IconButton(
-                              icon: Icon(Icons.arrow_forward_ios),
-                              onPressed: () {
-                                if (controller.index <
-                                    args.product.images.length - 1) {
-                                  controller.selectedImage += 1;
-                                } else {}
-                              }),
-                        )
+                        // Positioned(
+                        //   top: 150,
+                        //   left: 0,
+                        //   child: IconButton(
+                        //       icon: Icon(Icons.arrow_back_ios),
+                        //       onPressed: () {
+                        //         print(args.product.images[1].image);
+                        //         if (controller.index != 0) {
+                        //           controller.selectedImage -= 1;
+                        //         } else {}
+                        //       }),
+                        // ),
+                        // Positioned(
+                        //   top: 150,
+                        //   right: 0,
+                        //   child: IconButton(
+                        //       icon: Icon(Icons.arrow_forward_ios),
+                        //       onPressed: () {
+                        //         if (controller.index <
+                        //             args.product.images.length - 1) {
+                        //           controller.selectedImage += 1;
+                        //         } else {}
+                        //       }),
+                        // )
                         // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward_ios)),
                       ],
                     );

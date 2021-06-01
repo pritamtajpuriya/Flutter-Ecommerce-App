@@ -24,6 +24,18 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                             .image),
                 maxScale: PhotoViewComputedScale.covered * 2.0,
                 minScale: PhotoViewComputedScale.contained * 0.8,
+                loadingBuilder: (context, event) => Center(
+                  child: Container(
+                    width: 20.0,
+                    height: 20.0,
+                    child: CircularProgressIndicator(
+                      value: event == null
+                          ? 0
+                          : event.cumulativeBytesLoaded /
+                              event.expectedTotalBytes,
+                    ),
+                  ),
+                ),
               );
             }),
             Positioned(
@@ -36,11 +48,12 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                     ),
                     onPressed: () {
                       Navigator.of(context).pop();
+                      controller.transformationController.value =
+                          Matrix4.identity();
                     })),
             Positioned(
               bottom: 40,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ...List.generate(
                       args.product.images.length,
@@ -50,6 +63,8 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                               child: InkWell(
                                 onTap: () {
                                   controller.selectedImage(index);
+                                  controller.transformationController.value =
+                                      Matrix4.identity();
                                 },
                                 child: Container(
                                   height: 60,

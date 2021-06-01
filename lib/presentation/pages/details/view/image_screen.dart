@@ -24,7 +24,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                             .image),
                 maxScale: PhotoViewComputedScale.covered * 2.0,
                 minScale: PhotoViewComputedScale.contained * 0.8,
-                initialScale: PhotoViewComputedScale.contained * 0.5,
+                initialScale: PhotoViewComputedScale.contained,
                 scaleStateController: controller.controllerState,
                 loadingBuilder: (context, progress) => Center(
                   child: Container(
@@ -52,10 +52,6 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                       Navigator.of(context).pop();
                       controller.goBack();
                     })),
-            // Positioned(
-            //   bottom: 40,
-
-            // ),
           ],
         ),
       ),

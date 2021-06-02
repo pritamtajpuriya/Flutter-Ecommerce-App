@@ -27,7 +27,8 @@ class CategorieScreen extends StatelessWidget {
                     .loadCategoryProducts(controller.categoriesList[index]);
                 navigator.pushNamed(SajiloDokanRoutes.categoryProduct,
                     arguments: CategoryArguments(
-                        categoryName: controller.categoriesList[index]));
+                        categoryName: controller.categoriesList[index],
+                        product: controller.categoryProducts));
               },
             );
           else {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/config/theme.dart';
+import 'package:sajilo_dokan/presentation/pages/Category/category_products.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
 import 'package:sajilo_dokan/presentation/pages/home/views/category.dart';
 import 'package:sajilo_dokan/presentation/pages/home/views/header.dart';
@@ -37,7 +38,14 @@ class Home extends StatelessWidget {
               BlockHeader(
                 title: 'Popular Product',
                 linkText: 'View all',
-                onLinkTap: () {},
+                onLinkTap: () {
+                  final list = controller.productList
+                      .where((i) => i.price <= 5000)
+                      .toList();
+                  navigator.pushNamed(SajiloDokanRoutes.categoryProduct,
+                      arguments: CategoryArguments(
+                          product: list, categoryName: 'Popular Product'));
+                },
               ),
               Obx(() {
                 if (controller.isLoading.value) {
@@ -53,7 +61,12 @@ class Home extends StatelessWidget {
               BlockHeader(
                 title: 'New Product',
                 linkText: 'View all',
-                onLinkTap: () {},
+                onLinkTap: () {
+                  navigator.pushNamed(SajiloDokanRoutes.categoryProduct,
+                      arguments: CategoryArguments(
+                          product: controller.productList,
+                          categoryName: 'New Products'));
+                },
               ),
               Container(child: Obx(() {
                 if (controller.isLoading.value) {

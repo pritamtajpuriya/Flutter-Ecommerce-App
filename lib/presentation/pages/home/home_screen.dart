@@ -35,12 +35,6 @@ class Home extends StatelessWidget {
               Header(),
               SajiloCarousel(),
               BlockHeader(
-                title: 'Categories',
-                linkText: 'View all',
-                onLinkTap: () {},
-              ),
-              Categories(),
-              BlockHeader(
                 title: 'Popular Product',
                 linkText: 'View all',
                 onLinkTap: () {},

@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sajilo_dokan/config/theme.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/categories_controller.dart';
+import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
+import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CategoryProducts extends StatelessWidget {
   final controller = Get.find<CatergoriesController>();
@@ -96,117 +99,170 @@ class CategoryProducts extends StatelessWidget {
                         children: [
                           ...List.generate(
                               controller.categoryProducts.length,
-                              (index) => Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 25, right: 25, bottom: 25),
-                                    child: Stack(
-                                      children: [
-                                        Card(
-                                          elevation: 2,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 200,
-                                                width: 150,
-                                                color: AppColors.darkGray
-                                                    .withOpacity(0.2),
-                                                child: Center(
-                                                  child: Image.network(
-                                                    controller
-                                                        .categoryProducts[index]
-                                                        .image,
-                                                    height: 150,
-                                                    width: 80,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                ),
-                                              ),
-                                              Flexible(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        controller
-                                                            .categoryProducts[
-                                                                index]
-                                                            .title
-                                                            .toString(),
-                                                        maxLines: 2,
-                                                        style: GoogleFonts
-                                                            .ptSans(),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                      Text(
-                                                        'Rs ' +
-                                                            controller
-                                                                .categoryProducts[
-                                                                    index]
-                                                                .price
-                                                                .toString(),
-                                                        style: TextStyle(
-                                                            color: Colors
-                                                                .redAccent),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Positioned(
-                                            top: 0,
-                                            left: 0,
-                                            child: Container(
-                                              height: 20,
-                                              width: 40,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  color: Colors.red),
-                                              child: Center(
-                                                child: Text(
-                                                  controller
+                              (index) => InkWell(
+                                    onTap: () {
+                                      navigator.pushNamed(
+                                          SajiloDokanRoutes.productDetails,
+                                          arguments: ProductDetailsArguments(
+                                              product: controller
+                                                  .categoryProducts[index]));
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, right: 25, bottom: 25),
+                                      child: Stack(
+                                        children: [
+                                          Card(
+                                            elevation: 2,
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  height: 200,
+                                                  width: 150,
+                                                  child: Center(
+                                                    child: Image.network(
+                                                      'https://onlinehatiya.herokuapp.com' +
+                                                          controller
                                                               .categoryProducts[
                                                                   index]
-                                                              .price <=
-                                                          30
-                                                      ? 'New'
-                                                      : '-30%',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            )),
-                                        Positioned(
-                                            bottom: 0,
-                                            right: 0,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: InkWell(
-                                                onTap: () {},
-                                                child: Container(
-                                                    height: 30,
-                                                    width: 30,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30),
+                                                              .image,
+                                                      height: 150,
+                                                      width: 130,
+                                                      fit: BoxFit.fill,
                                                     ),
-                                                    child: Icon(
-                                                      Icons.favorite_border,
-                                                      color: Colors.red,
-                                                    )),
-                                              ),
-                                            )),
-                                      ],
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          controller
+                                                              .categoryProducts[
+                                                                  index]
+                                                              .title,
+                                                          maxLines: 2,
+                                                          style: GoogleFonts
+                                                              .ptSans(),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            SmoothStarRating(
+                                                              rating: controller
+                                                                  .categoryProducts[
+                                                                      index]
+                                                                  .avaragereview,
+                                                              isReadOnly: true,
+                                                              size: 15,
+                                                              filledIconData:
+                                                                  Icons.star,
+                                                              borderColor:
+                                                                  Colors.red,
+                                                              color: Colors.red,
+                                                              halfFilledIconData:
+                                                                  Icons
+                                                                      .star_half,
+                                                              defaultIconData:
+                                                                  Icons
+                                                                      .star_border,
+                                                              starCount: 5,
+                                                              allowHalfRating:
+                                                                  true,
+                                                            ),
+                                                            Text(
+                                                              ' ' +
+                                                                  controller
+                                                                      .categoryProducts[
+                                                                          index]
+                                                                      .avaragereview
+                                                                      .toString(),
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .red),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        Text(
+                                                          'Rs ' +
+                                                              controller
+                                                                  .categoryProducts[
+                                                                      index]
+                                                                  .price
+                                                                  .toString(),
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .redAccent),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Positioned(
+                                              top: 0,
+                                              left: 0,
+                                              child: Container(
+                                                height: 20,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color: Colors.red),
+                                                child: Center(
+                                                  child: Text(
+                                                    controller
+                                                                .categoryProducts[
+                                                                    index]
+                                                                .price <=
+                                                            30
+                                                        ? 'New'
+                                                        : '-30%',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              )),
+                                          Positioned(
+                                              bottom: 0,
+                                              right: 0,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: InkWell(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                      height: 30,
+                                                      width: 30,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.favorite_border,
+                                                        color: Colors.red,
+                                                      )),
+                                                ),
+                                              )),
+                                        ],
+                                      ),
                                     ),
                                   ))
                         ],

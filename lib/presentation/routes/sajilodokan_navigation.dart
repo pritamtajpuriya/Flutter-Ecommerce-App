@@ -61,6 +61,8 @@ class SajiloDokanPages {
     GetPage(
         name: SajiloDokanRoutes.imageScreen,
         page: () => ImageScreen(),
-        bindings: [ProductDetailsBinding()])
+        bindings: [
+          ProductDetailsBinding(),
+        ])
   ];
 }

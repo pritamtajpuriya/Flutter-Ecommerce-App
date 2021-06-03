@@ -20,7 +20,7 @@ class ProductGridviewTile extends StatelessWidget {
           shrinkWrap: true,
           primary: false,
           crossAxisCount: 2,
-          itemCount: productList.length,
+          itemCount: productList != null ? productList.length : 4,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
           itemBuilder: (context, index) {
@@ -30,7 +30,8 @@ class ProductGridviewTile extends StatelessWidget {
                       arguments:
                           ProductDetailsArguments(product: productList[index]));
                 },
-                child: ProductTile(productList[index]));
+                child: ProductTile(
+                    productList != null ? productList[index] : null));
           },
           staggeredTileBuilder: (index) => StaggeredTile.fit(1)),
     );

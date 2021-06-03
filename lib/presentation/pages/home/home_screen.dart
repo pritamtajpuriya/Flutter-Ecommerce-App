@@ -64,20 +64,15 @@ class Home extends StatelessWidget {
                 onLinkTap: () {
                   navigator.pushNamed(SajiloDokanRoutes.categoryProduct,
                       arguments: CategoryArguments(
-                          product: controller.productList,
-                          categoryName: 'New Products'));
+                          product: null, categoryName: 'New Products'));
                 },
               ),
               Container(child: Obx(() {
-                if (controller.isLoading.value) {
-                  return ProductGridviewTile(
-                    productList: controller.productList,
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
+                return ProductGridviewTile(
+                  productList: controller.isLoading.value
+                      ? controller.productList
+                      : null,
+                );
               })),
             ],
           ),

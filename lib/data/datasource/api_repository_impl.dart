@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:sajilo_dokan/domain/model/cart.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
+import 'package:sajilo_dokan/domain/model/product_comment.dart';
 
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/request/register_request.dart';
@@ -184,5 +185,15 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
       return true;
     }
     return false;
+  }
+
+  @override
+  Future<List<ProductComment>> getComments(int id) async {
+    var result = await client.get(getMainUrl('api/comments/$id'));
+    var jsonData = result.body;
+    if (result.statusCode == 200) {
+      return productCommentFromJson(jsonData);
+    } else
+      return null;
   }
 }

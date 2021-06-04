@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:get/get.dart';
 import 'package:sajilo_dokan/config/theme.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
-import 'package:sajilo_dokan/presentation/pages/details/product_details_controller.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductTile extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/presentation/pages/cart/views/cart_item.dart';
 import 'package:sajilo_dokan/presentation/pages/cart/views/checkout_cart.dart';
 import 'package:sajilo_dokan/presentation/pages/cart/views/items_number.dart';

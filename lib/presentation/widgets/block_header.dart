@@ -10,7 +10,6 @@ class BlockHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(

@@ -1,6 +1,6 @@
 import 'package:sajilo_dokan/domain/model/cart.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
-import 'package:sajilo_dokan/domain/model/user.dart';
+import 'package:sajilo_dokan/domain/model/product_comment.dart';
 import 'package:sajilo_dokan/domain/request/login_request.dart';
 import 'package:sajilo_dokan/domain/request/register_request.dart';
 import 'package:sajilo_dokan/domain/response/login_response.dart';
@@ -20,4 +20,5 @@ abstract class ApiRepositoryInterface {
   Future<bool> addToCart(String token, int id);
   Future<bool> deleteCart(String token, int id);
   Future<bool> makeFavorite(String token, int id);
+  Future<List<ProductComment>> getComments(int id);
 }

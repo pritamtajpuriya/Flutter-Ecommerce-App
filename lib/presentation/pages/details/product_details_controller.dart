@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:sajilo_dokan/domain/model/product_comment.dart';
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 
@@ -15,6 +16,10 @@ class ProductDetailsController extends GetxController {
   int get index => selectedImage.value;
 
   RxBool initbool = true.obs;
+  RxInt productid = 0.obs;
+
+  var comments = <ProductComment>[].obs;
+  RxBool isCommentsLoad = false.obs;
 
   PhotoViewScaleStateController controllerState;
 
@@ -22,6 +27,7 @@ class ProductDetailsController extends GetxController {
   void onReady() {
     super.onReady();
     controllerState = PhotoViewScaleStateController();
+    getComments(productid.value);
   }
 
   void goBack() {
@@ -59,5 +65,17 @@ class ProductDetailsController extends GetxController {
           // duration: Duration(seconds: 2),
           );
     }
+  }
+
+  Future<void> getComments(int id) async {
+    isCommentsLoad(true);
+    var data = await apiRepositoryInterface.getComments(id);
+
+    if (data != null) {
+      comments(data);
+    } else {
+      comments(null);
+    }
+    isCommentsLoad(false);
   }
 }

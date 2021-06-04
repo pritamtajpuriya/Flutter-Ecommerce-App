@@ -13,17 +13,14 @@ class PopulorProduct extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          ...List.generate(products.length, (index) {
-            if (products[index].price <= 5000)
-              return InkWell(
-                  onTap: () => Navigator.pushNamed(
-                      context, SajiloDokanRoutes.productDetails,
-                      arguments:
-                          ProductDetailsArguments(product: products[index])),
-                  child: ProductTile(products[index]));
-            else {
-              return SizedBox.shrink();
-            }
+          ...List.generate(products != null ? products.length : 3, (index) {
+            return InkWell(
+                onTap: () => Navigator.pushNamed(
+                    context, SajiloDokanRoutes.productDetails,
+                    arguments:
+                        ProductDetailsArguments(product: products[index])),
+                child: ProductTile(products != null ? products[index] : null));
+
             // return Padding(
             //   padding: const EdgeInsets.all(10.0),
             //   child: SizedBox(

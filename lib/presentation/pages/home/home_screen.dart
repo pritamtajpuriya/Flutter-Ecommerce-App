@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/config/theme.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/category_products.dart';
-import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
-import 'package:sajilo_dokan/presentation/pages/home/views/category.dart';
 import 'package:sajilo_dokan/presentation/pages/home/views/header.dart';
 import 'package:sajilo_dokan/presentation/pages/home/views/populor_product.dart';
-import 'package:sajilo_dokan/presentation/pages/details/product_tile.dart';
 import 'package:sajilo_dokan/presentation/pages/home/views/sajilo_carousel.dart';
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
@@ -48,15 +44,12 @@ class Home extends StatelessWidget {
                 },
               ),
               Obx(() {
-                if (controller.isLoading.value) {
-                  return PopulorProduct(
-                    products: controller.productList,
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
+                final list = controller.productList
+                    .where((i) => i.price <= 5000)
+                    .toList();
+                return PopulorProduct(
+                  products: controller.isLoading.value ? list : null,
+                );
               }),
               BlockHeader(
                 title: 'New Product',

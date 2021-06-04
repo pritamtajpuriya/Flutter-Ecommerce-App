@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _pref_token = 'TOKEN';
 const _pref_username = 'USERNAME';
 const _pref_name = 'NAME';
-const _pref_image = 'IMAGE';
 
 class LocalRepositoryImpl extends LocalRepositoryInterface {
   @override
@@ -25,7 +24,6 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final username = sharedPreferences.getString(_pref_username);
     final name = sharedPreferences.getString(_pref_name);
-    
 
     final user = User(name: name, username: username);
     return user;

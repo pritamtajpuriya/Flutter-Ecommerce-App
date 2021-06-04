@@ -28,7 +28,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
         ModalRoute.of(context).settings.arguments;
 
     final homecontroller = Get.find<HomeController>();
-
+    controller.productid(args.product.id);
     controller.setInit(args.product.favorite);
 
     return Scaffold(
@@ -554,10 +554,89 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                             )
                           ],
                         )),
-                    Container(
-                      key: dataKey,
-                      child: Text('review'),
-                    ),
+                    Obx(() {
+                      if (!controller.isCommentsLoad.value)
+                        return Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            key: dataKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Rating & Reviews (${controller.comments.length})',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    TextButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          'View Alll',
+                                          style: TextStyle(
+                                              color: Colors.redAccent),
+                                        ))
+                                  ],
+                                ),
+                                ...List.generate(
+                                    controller.comments.length,
+                                    (index) => Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  controller.comments[index]
+                                                      .user.username,
+                                                  style: TextStyle(
+                                                      color: Colors.black
+                                                          .withOpacity(0.6)),
+                                                ),
+                                                ProductRating(
+                                                  rating: controller
+                                                      .comments[index].rate
+                                                      .toDouble(),
+                                                  isReadOnly: true,
+                                                  size: 12,
+                                                  filledIconData: Icons.star,
+                                                  borderColor: Colors.red
+                                                      .withOpacity(0.8),
+                                                  color: Colors.red,
+                                                  halfFilledIconData:
+                                                      Icons.star_half,
+                                                  defaultIconData:
+                                                      Icons.star_border,
+                                                  starCount: 5,
+                                                  allowHalfRating: true,
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(controller
+                                                .comments[index].comment)
+                                          ],
+                                        ))
+                              ],
+                            ),
+                          ),
+                        );
+                      else {
+                        return SizedBox.shrink();
+                      }
+                    }),
                     SizedBox(height: 10),
                     Container(
                       color: Colors.white.withOpacity(0.4),

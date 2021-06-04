@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
-import 'package:sajilo_dokan/presentation/widgets/add_quantity.dart';
 
 class AddToCard extends StatelessWidget {
   final VoidCallback onChanged;

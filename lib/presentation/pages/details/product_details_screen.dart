@@ -657,6 +657,17 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                               .withOpacity(
                                                                   0.6)),
                                                     ),
+                                                    Text(
+                                                      ' | ' +
+                                                          controller
+                                                              .comments[index]
+                                                              .whenpublished,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors.black
+                                                              .withOpacity(
+                                                                  0.6)),
+                                                    ),
                                                     Spacer(),
                                                     IconButton(
                                                         icon: Icon(

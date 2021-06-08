@@ -16,6 +16,7 @@ class ProductComment {
     this.getTotalDislikes,
     this.like,
     this.dislike,
+    this.whenpublished,
   });
 
   int id;
@@ -26,18 +27,19 @@ class ProductComment {
   int getTotalDislikes;
   bool like;
   bool dislike;
+  String whenpublished;
 
   factory ProductComment.fromJson(Map<String, dynamic> json) => ProductComment(
-        id: json["id"],
-        user: User.fromJson(json["user"]),
-        comment: json["comment"],
-        rate: json["rate"],
-        getTotalLikes:
-            json["get_total_likes"] == null ? null : json["get_total_likes"],
-        getTotalDislikes: json["get_total_dislikes"] == null
-            ? null
-            : json["get_total_dislikes"],
-        like: json["like"],
-        dislike: json["dislike"],
-      );
+      id: json["id"],
+      user: User.fromJson(json["user"]),
+      comment: json["comment"],
+      rate: json["rate"],
+      getTotalLikes:
+          json["get_total_likes"] == null ? null : json["get_total_likes"],
+      getTotalDislikes: json["get_total_dislikes"] == null
+          ? null
+          : json["get_total_dislikes"],
+      like: json["like"],
+      dislike: json["dislike"],
+      whenpublished: json["whenpublished"]);
 }

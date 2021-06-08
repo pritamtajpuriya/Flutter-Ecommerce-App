@@ -24,10 +24,11 @@ class ProductDetailsController extends GetxController {
   PhotoViewScaleStateController controllerState;
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
     controllerState = PhotoViewScaleStateController();
-    getComments(productid.value);
+    final token = await localRepositoryInterface.getToken();
+    getComments(productid.value, token);
   }
 
   void goBack() {
@@ -67,15 +68,38 @@ class ProductDetailsController extends GetxController {
     }
   }
 
-  Future<void> getComments(int id) async {
+  Future<void> getComments(int id, String token) async {
+    String token = await localRepositoryInterface.getToken();
     isCommentsLoad(true);
-    var data = await apiRepositoryInterface.getComments(id);
-
+    var data = await apiRepositoryInterface.getComments(token, id);
+    print(id);
+    print('GetComment call');
+    print(data);
     if (data != null) {
       comments(data);
     } else {
       comments(null);
     }
     isCommentsLoad(false);
+  }
+
+  void likeBtn(int commentId, int productId) async {
+    var token = await localRepositoryInterface.getToken();
+    print(commentId);
+    var result = await apiRepositoryInterface.likeComment(token, commentId);
+    print(result);
+    if (result == true) {
+      await getComments(productId, token);
+    }
+  }
+
+  void dislikeBtn(int commentId, int productId) async {
+    var token = await localRepositoryInterface.getToken();
+    print(commentId);
+    var result = await apiRepositoryInterface.dislikeComment(token, commentId);
+    print(result);
+    if (result == true) {
+      await getComments(productId, token);
+    }
   }
 }

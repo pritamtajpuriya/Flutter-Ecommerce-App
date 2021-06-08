@@ -8,17 +8,36 @@ List<ProductComment> productCommentFromJson(String str) =>
 
 class ProductComment {
   ProductComment({
+    this.id,
     this.user,
     this.comment,
     this.rate,
+    this.getTotalLikes,
+    this.getTotalDislikes,
+    this.like,
+    this.dislike,
   });
 
+  int id;
   User user;
   String comment;
   int rate;
+  int getTotalLikes;
+  int getTotalDislikes;
+  bool like;
+  bool dislike;
 
   factory ProductComment.fromJson(Map<String, dynamic> json) => ProductComment(
-      user: User.fromJson(json["user"]),
-      comment: json["comment"],
-      rate: json["rate"]);
+        id: json["id"],
+        user: User.fromJson(json["user"]),
+        comment: json["comment"],
+        rate: json["rate"],
+        getTotalLikes:
+            json["get_total_likes"] == null ? null : json["get_total_likes"],
+        getTotalDislikes: json["get_total_dislikes"] == null
+            ? null
+            : json["get_total_dislikes"],
+        like: json["like"],
+        dislike: json["dislike"],
+      );
 }

@@ -188,12 +188,47 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<List<ProductComment>> getComments(int id) async {
-    var result = await client.get(getMainUrl('api/comments/$id'));
+  Future<List<ProductComment>> getComments(String token, int id) async {
+    var result = await client.get(getMainUrl('api/comments/$id'), headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    });
     var jsonData = result.body;
+    // print(jsonData);
     if (result.statusCode == 200) {
       return productCommentFromJson(jsonData);
     } else
       return null;
+  }
+
+  @override
+  Future<bool> dislikeComment(String token, int id) async {
+    var result = await client.post(getMainUrl('/api/dislike/'), headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    }, body: {
+      "id": "$id"
+    });
+    print(result);
+    if (result.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
+
+  @override
+  Future<bool> likeComment(String token, int id) async {
+    var result = await client.post(getMainUrl('/api/like/'), headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    }, body: {
+      "id": "$id"
+    });
+    print(result.body);
+
+    if (result.statusCode == 200) {
+      return true;
+    }
+    return false;
   }
 }

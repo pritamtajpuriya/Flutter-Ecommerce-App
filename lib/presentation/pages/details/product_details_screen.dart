@@ -556,15 +556,15 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                         )),
                     Obx(() {
                       if (!controller.isCommentsLoad.value)
-                        return Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            key: dataKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
+                        return Container(
+                          key: dataKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -572,65 +572,164 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                       'Rating & Reviews (${controller.comments.length})',
                                       style: TextStyle(fontSize: 16),
                                     ),
-                                    TextButton(
-                                        onPressed: () {},
-                                        child: Text(
-                                          'View Alll',
-                                          style: TextStyle(
-                                              color: Colors.redAccent),
-                                        ))
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.grey
+                                                    .withOpacity(0.4))),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'Rate Product',
+                                            style:
+                                                TextStyle(color: Colors.blue),
+                                          ),
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
-                                ...List.generate(
-                                    controller.comments.length,
-                                    (index) => Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                              ),
+                              ...List.generate(
+                                  controller.comments.length,
+                                  (index) => !controller.isCommentsLoad.value
+                                      ? Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  controller.comments[index]
-                                                      .user.username,
-                                                  style: TextStyle(
-                                                      color: Colors.black
-                                                          .withOpacity(0.6)),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(controller
+                                                        .comments[index]
+                                                        .comment),
+                                                    Spacer(),
+                                                    ProductRating(
+                                                      rating: controller
+                                                          .comments[index].rate
+                                                          .toDouble(),
+                                                      isReadOnly: true,
+                                                      size: 12,
+                                                      filledIconData:
+                                                          Icons.star,
+                                                      borderColor: Colors.red
+                                                          .withOpacity(0.8),
+                                                      color: Colors.red,
+                                                      halfFilledIconData:
+                                                          Icons.star_half,
+                                                      defaultIconData:
+                                                          Icons.star_border,
+                                                      starCount: 5,
+                                                      allowHalfRating: true,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 15,
+                                                    )
+                                                  ],
                                                 ),
-                                                ProductRating(
-                                                  rating: controller
-                                                      .comments[index].rate
-                                                      .toDouble(),
-                                                  isReadOnly: true,
-                                                  size: 12,
-                                                  filledIconData: Icons.star,
-                                                  borderColor: Colors.red
-                                                      .withOpacity(0.8),
-                                                  color: Colors.red,
-                                                  halfFilledIconData:
-                                                      Icons.star_half,
-                                                  defaultIconData:
-                                                      Icons.star_border,
-                                                  starCount: 5,
-                                                  allowHalfRating: true,
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      controller.comments[index]
+                                                          .user.username
+                                                          .replaceAll(
+                                                              '@gmail.com',
+                                                              '*****'),
+                                                      style: TextStyle(
+                                                          color: Colors.black
+                                                              .withOpacity(
+                                                                  0.6)),
+                                                    ),
+                                                    Spacer(),
+                                                    IconButton(
+                                                        icon: Icon(
+                                                          Icons.thumb_up,
+                                                          size: 12,
+                                                          color: controller
+                                                                      .comments[
+                                                                          index]
+                                                                      .like ==
+                                                                  true
+                                                              ? Colors.blue
+                                                              : Colors.black,
+                                                        ),
+                                                        onPressed: () {
+                                                          controller.likeBtn(
+                                                              controller
+                                                                  .comments[
+                                                                      index]
+                                                                  .id,
+                                                              args.product.id);
+                                                        }),
+                                                    Text(
+                                                      controller.comments[index]
+                                                                  .getTotalLikes ==
+                                                              null
+                                                          ? '0'
+                                                          : controller
+                                                              .comments[index]
+                                                              .getTotalLikes
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 12),
+                                                    ),
+                                                    IconButton(
+                                                        icon: Icon(
+                                                          Icons.thumb_down,
+                                                          size: 12,
+                                                          color: controller
+                                                                      .comments[
+                                                                          index]
+                                                                      .dislike ==
+                                                                  true
+                                                              ? Colors.blue
+                                                              : Colors.black,
+                                                        ),
+                                                        onPressed: () {
+                                                          controller.dislikeBtn(
+                                                              controller
+                                                                  .comments[
+                                                                      index]
+                                                                  .id,
+                                                              args.product.id);
+                                                        }),
+                                                    Text(
+                                                      controller.comments[index]
+                                                                  .getTotalDislikes ==
+                                                              null
+                                                          ? '0'
+                                                          : controller
+                                                              .comments[index]
+                                                              .getTotalDislikes
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 12),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Text(controller
-                                                .comments[index].comment)
-                                          ],
-                                        ))
-                              ],
-                            ),
+                                          ),
+                                        )
+                                      : CircularProgressIndicator())
+                            ],
                           ),
                         );
                       else {

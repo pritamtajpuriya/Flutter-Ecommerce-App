@@ -20,5 +20,7 @@ abstract class ApiRepositoryInterface {
   Future<bool> addToCart(String token, int id);
   Future<bool> deleteCart(String token, int id);
   Future<bool> makeFavorite(String token, int id);
-  Future<List<ProductComment>> getComments(int id);
+  Future<List<ProductComment>> getComments(String token, int id);
+  Future<bool> likeComment(String token, int id);
+  Future<bool> dislikeComment(String token, int id);
 }

@@ -39,6 +39,7 @@ dependencies:
   smooth_star_rating: ^1.1.1
   extended_image: ^4.1.0
   share:
+  animations: ^2.0.0
 
 dev_dependencies:
   flutter_test:

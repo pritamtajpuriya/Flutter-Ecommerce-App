@@ -193,7 +193,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '\$' + args.product.price.toString(),
+                                  'Rs.' + args.product.price.toString(),
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -319,161 +319,38 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                       height: 10,
                     ),
                     Container(
+                      height: 90,
+                      width: double.infinity,
+                      decoration: BoxDecoration(color: Colors.white),
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          height: 250,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/insurance.png',
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Expanded(
-                                      child: RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          text: TextSpan(
-                                              text: 'Secure Shoping',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        ' We are committed to protecting the security of your informatio',
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 14,
-                                                    ))
-                                              ])),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/return.png',
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Expanded(
-                                      child: RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          text: TextSpan(
-                                              text: '7 Days Returns',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        ' Change of mind is not applicable',
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 14,
-                                                    ))
-                                              ])),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/quality.png',
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Expanded(
-                                      child: RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          text: TextSpan(
-                                              text: 'Quality Checked',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        ' We are providing top quality products and service.',
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 14,
-                                                    ))
-                                              ])),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/time.png',
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Expanded(
-                                      child: RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          text: TextSpan(
-                                              text: 'Estimated Delivery Time',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        ' Damak city: 1 to 3 Days',
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 14,
-                                                    ))
-                                              ])),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Easy 7 days return and Exchange',
+                              style: GoogleFonts.ptSans(
+                                  textStyle: TextStyle(
+                                fontSize: 16,
+                              )),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'You can return the product within 7 days if the product is damaged, expired , different from order',
+                              overflow: TextOverflow.clip,
+                              style: GoogleFonts.ptSans(
+                                  fontSize: 15,
+                                  color: Colors.black.withOpacity(0.6)),
+                            )
+                          ],
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -486,10 +363,13 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                           children: [
                             Text(
                               'Specification',
-                              style: TextStyle(fontSize: 16),
+                              style: GoogleFonts.ptSans(
+                                  textStyle: TextStyle(
+                                fontSize: 16,
+                              )),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -517,7 +397,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                 .point,
                                             overflow: TextOverflow.clip,
                                             style: GoogleFonts.ptSans(
-                                                fontSize: 16,
+                                                fontSize: 15,
                                                 color: Colors.black
                                                     .withOpacity(0.6)),
                                           ),
@@ -532,6 +412,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 10),
                     Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -540,7 +421,10 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                           expandedAlignment: Alignment.topLeft,
                           title: Text(
                             'Product Details',
-                            style: TextStyle(fontSize: 18),
+                            style: GoogleFonts.ptSans(
+                                textStyle: TextStyle(
+                              fontSize: 16,
+                            )),
                           ),
                           children: [
                             Padding(
@@ -548,15 +432,17 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               child: Text(
                                 args.product.description,
                                 style: GoogleFonts.ptSans(
-                                    fontSize: 16,
+                                    fontSize: 15,
                                     color: Colors.black.withOpacity(0.6)),
                               ),
                             )
                           ],
                         )),
+                    SizedBox(height: 10),
                     Obx(() {
                       if (!controller.isCommentsLoad.value)
                         return Container(
+                          color: Colors.white,
                           key: dataKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -593,7 +479,9 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                 ),
                               ),
                               ...List.generate(
-                                  controller.comments.length,
+                                  controller.comments.length > 3
+                                      ? 3
+                                      : controller.comments.length,
                                   (index) => !controller.isCommentsLoad.value
                                       ? Card(
                                           child: Padding(
@@ -671,7 +559,8 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                     Spacer(),
                                                     IconButton(
                                                         icon: Icon(
-                                                          Icons.thumb_up,
+                                                          Icons
+                                                              .thumb_up_alt_outlined,
                                                           size: 12,
                                                           color: controller
                                                                       .comments[
@@ -703,7 +592,8 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                     ),
                                                     IconButton(
                                                         icon: Icon(
-                                                          Icons.thumb_down,
+                                                          Icons
+                                                              .thumb_down_outlined,
                                                           size: 12,
                                                           color: controller
                                                                       .comments[

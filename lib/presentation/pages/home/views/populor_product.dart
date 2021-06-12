@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
-import 'package:sajilo_dokan/presentation/pages/details/product_tile.dart';
+import 'package:sajilo_dokan/presentation/widgets/product_tile.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
 class PopulorProduct extends StatelessWidget {
@@ -19,7 +19,8 @@ class PopulorProduct extends StatelessWidget {
                     context, SajiloDokanRoutes.productDetails,
                     arguments:
                         ProductDetailsArguments(product: products[index])),
-                child: ProductTile(products != null ? products[index] : null));
+                child: ProductTile(
+                    product: products != null ? products[index] : null));
 
             // return Padding(
             //   padding: const EdgeInsets.all(10.0),

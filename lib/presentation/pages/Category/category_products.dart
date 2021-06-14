@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sajilo_dokan/config/theme.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/categories_controller.dart';
-import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
-import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
 import 'package:sajilo_dokan/presentation/widgets/product_list_tile.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CategoryProducts extends StatelessWidget {
   final controller = Get.find<CatergoriesController>();

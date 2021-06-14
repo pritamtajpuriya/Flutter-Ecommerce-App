@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/domain/model/cart.dart';
+import 'package:sajilo_dokan/presentation/pages/cart/cart_controller.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
-import 'package:sajilo_dokan/presentation/widgets/add_quantity.dart';
 
 class CartItem extends StatelessWidget {
   final Cart cart;
   final int cartIndex;
   CartItem({this.cart, this.cartIndex});
-  final controller = Get.find<HomeController>();
+  final homeController = Get.find<HomeController>();
+  final controller = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,11 +26,14 @@ class CartItem extends StatelessWidget {
               onTap: () => Navigator.pushNamed(
                   context, SajiloDokanRoutes.productDetails,
                   arguments: ProductDetailsArguments(product: cart.product)),
-              child: Image.network(
-                  'https://onlinehatiya.herokuapp.com' + cart.product.image,
-                  height: 100),
+              child: Container(
+                height: 60,
+                width: 50,
+                child: Image.network(
+                    'https://onlinehatiya.herokuapp.com' + cart.product.image,
+                    height: 100),
+              ),
             ),
-
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 40),
@@ -49,20 +53,26 @@ class CartItem extends StatelessWidget {
                       cart.product.description,
                       maxLines: 2,
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '\$' + cart.product.price.toString(),
+                          'Rs ' + cart.product.price.toString(),
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Colors.redAccent),
                         ),
-                        Expanded(
-                            child: AddQuantity(
-                          noOfItem: cart.quantity,
-                        ))
+                        InkWell(
+                            onTap: () {
+                              controller.quantity(cart.quantity);
+                              controller.showButtomSheed(
+                                  context, () {}, cart.quantity);
+                            },
+                            child: Text('Qty:${cart.quantity} ▾'))
                       ],
                     )
                   ],
@@ -71,36 +81,9 @@ class CartItem extends StatelessWidget {
             ),
             IconButton(
                 onPressed: () {
-                  controller.removeProductFromCart(cart.id);
+                  homeController.removeProductFromCart(cart.id);
                 },
                 icon: Icon(Icons.cancel))
-
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 70),
-            //   child: Row(
-            //     children: [
-            //       Container(
-            //         decoration: BoxDecoration(
-            //             color: Colors.redAccent,
-            //             borderRadius: BorderRadius.circular(10)),
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             Padding(
-            //               padding: const EdgeInsets.all(8.0),
-            //               child: Text(
-            //                 'Remove',
-            //                 style: TextStyle(
-            //                     fontWeight: FontWeight.bold,
-            //                     color: Colors.white),
-            //               ),
-            //             )
-            //           ],
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // )
           ],
         ),
       ),

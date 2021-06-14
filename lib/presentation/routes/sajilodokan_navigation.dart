@@ -2,6 +2,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:sajilo_dokan/bindings/main_binding.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/categories_binding.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/category_products.dart';
+import 'package:sajilo_dokan/presentation/pages/cart/cart_binding.dart';
 import 'package:sajilo_dokan/presentation/pages/cart/cart_screen.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_binding.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
@@ -52,7 +53,7 @@ class SajiloDokanPages {
     GetPage(
         name: SajiloDokanRoutes.cart,
         page: () => CartScreen(0),
-        bindings: [MainBinding()]),
+        bindings: [MainBinding(), CartBinding()]),
     GetPage(
         name: SajiloDokanRoutes.categoryProduct,
         page: () => CategoryProducts(),

@@ -19,6 +19,7 @@ class HomeController extends GetxController {
   RxBool isFavorite = false.obs;
   var cartList = <Cart>[].obs;
   RxBool isCartLoad = false.obs;
+
   @override
   void onReady() {
     loadUser();
@@ -75,20 +76,23 @@ class HomeController extends GetxController {
   void addToCard(int id) async {
     final token = await localRepositoryInterface.getToken();
 
-    var result = await apiRepositoryInterface.addToCart(token, id);
-    fetchCartList();
-    if (result == true) {
-      Get.snackbar('Added to cart successfully!', '',
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          borderRadius: 0,
-          backgroundColor: Colors.black.withOpacity(0.8),
-          isDismissible: true,
-          margin: EdgeInsets.all(0),
-          padding: EdgeInsets.all(5)
-          // animationDuration: Duration(seconds: 1),
-          // duration: Duration(seconds: 2),
-          );
+    if (!isCartLoad.value) {
+      var result = await apiRepositoryInterface.addToCart(token, id);
+
+      fetchCartList();
+      if (result == true) {
+        Get.snackbar('Added to cart successfully!', '',
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Colors.white,
+            borderRadius: 0,
+            backgroundColor: Colors.black.withOpacity(0.8),
+            isDismissible: true,
+            margin: EdgeInsets.all(0),
+            padding: EdgeInsets.all(5)
+            // animationDuration: Duration(seconds: 1),
+            // duration: Duration(seconds: 2),
+            );
+      }
     }
   }
 

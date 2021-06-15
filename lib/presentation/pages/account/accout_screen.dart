@@ -37,7 +37,7 @@ class AccountScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    user.username,
+                    user.username != null ? user.username : 'Sign Up/Login',
                     style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   ),
                 ),

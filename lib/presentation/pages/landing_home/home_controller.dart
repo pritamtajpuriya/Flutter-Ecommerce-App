@@ -5,6 +5,7 @@ import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/domain/model/user.dart';
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
+import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
 class HomeController extends GetxController {
   final ApiRepositoryInterface apiRepositoryInterface;
@@ -55,9 +56,9 @@ class HomeController extends GetxController {
     }
   }
 
-  void favoritebtn() {
-    isFavorite.value = !isFavorite.value;
-  }
+  // void favoritebtn() {
+  //   isFavorite.value = !isFavorite.value;
+  // }
 
   void fetchCartList() async {
     final token = await localRepositoryInterface.getToken();
@@ -75,21 +76,27 @@ class HomeController extends GetxController {
 
   void addToCard(int id) async {
     final token = await localRepositoryInterface.getToken();
+    if (token != null) {
+      if (!isCartLoad.value) {
+        var result = await apiRepositoryInterface.addToCart(token, id);
 
-    if (!isCartLoad.value) {
-      var result = await apiRepositoryInterface.addToCart(token, id);
-
-      fetchCartList();
-      if (result == true) {
-        Get.snackbar('Added to cart successfully!', '',
-            snackPosition: SnackPosition.BOTTOM,
-            colorText: Colors.white,
-            borderRadius: 0,
-            backgroundColor: Colors.black.withOpacity(0.8),
-            isDismissible: true,
-            margin: EdgeInsets.all(0),
-            padding: EdgeInsets.all(5));
+        fetchCartList();
+        if (result == true) {
+          Get.snackbar('Added to cart successfully!', '',
+              snackPosition: SnackPosition.BOTTOM,
+              colorText: Colors.white,
+              borderRadius: 0,
+              backgroundColor: Colors.black.withOpacity(0.8),
+              isDismissible: true,
+              margin: EdgeInsets.all(0),
+              padding: EdgeInsets.all(5)
+              // animationDuration: Duration(seconds: 1),
+              // duration: Duration(seconds: 2),
+              );
+        }
       }
+    } else {
+      Get.offNamed(SajiloDokanRoutes.login);
     }
   }
 

@@ -24,6 +24,12 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     return url;
   }
 
+  static Map<String, String> header(String token) => {
+        "Content-type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Bearer $token"
+      };
+
   @override
   Future<LoginResponse> register(RegisterRequest registerRequest) async {
     print('register');
@@ -82,11 +88,8 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
 
   @override
   Future<List<Product>> fetchingProdcut(String token) async {
-    var result = await client.get(getMainUrl('/api/products/'), headers: {
-      "Content-type": "application/json",
-      "Accept": "application/json",
-      "Authorization": "Bearer $token"
-    });
+    var result = await client.get(getMainUrl('/api/products/'),
+        headers: token != null ? header(token) : null);
     if (result.statusCode == 200) {
       var jsonData = result.body;
       print('Fetch product called');
@@ -130,11 +133,8 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
 
   @override
   Future<List<Cart>> getCartList(String token) async {
-    var result = await client.get(getMainUrl('/api/carts/'), headers: {
-      "Content-type": "application/json",
-      "Accept": "application/json",
-      "Authorization": "Bearer $token"
-    });
+    var result = await client.get(getMainUrl('/api/carts/'),
+        headers: token != null ? header(token) : null);
     if (result.statusCode == 200) {
       var jsonData = result.body;
       print('getCartList');
@@ -189,10 +189,8 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
 
   @override
   Future<List<ProductComment>> getComments(String token, int id) async {
-    var result = await client.get(getMainUrl('api/comments/$id'), headers: {
-      "Accept": "application/json",
-      "Authorization": "Bearer $token"
-    });
+    var result = await client.get(getMainUrl('api/comments/$id'),
+        headers: token != null ? header(token) : null);
     var jsonData = result.body;
     // print(jsonData);
     if (result.statusCode == 200) {

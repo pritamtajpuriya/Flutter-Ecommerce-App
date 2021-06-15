@@ -4,6 +4,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:sajilo_dokan/domain/model/product_comment.dart';
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
+import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
 class ProductDetailsController extends GetxController {
   final LocalRepositoryInterface localRepositoryInterface;
@@ -45,26 +46,30 @@ class ProductDetailsController extends GetxController {
 
   Future<void> makeFavorite(int id) async {
     final token = await localRepositoryInterface.getToken();
-    var result = await apiRepositoryInterface.makeFavorite(token, id);
-    print('fab btn called');
+    if (token != null) {
+      var result = await apiRepositoryInterface.makeFavorite(token, id);
+      print('fab btn called');
 
-    if (result == true) {
-      clickFavorite();
-      Get.snackbar(
-          initbool.value
-              ? 'Add item to favorit list successfully!'
-              : 'Remove from favorite',
-          '',
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          borderRadius: 0,
-          backgroundColor: Colors.black.withOpacity(0.8),
-          isDismissible: true,
-          margin: EdgeInsets.all(0),
-          padding: EdgeInsets.all(5)
-          // animationDuration: Duration(seconds: 1),
-          // duration: Duration(seconds: 2),
-          );
+      if (result == true) {
+        clickFavorite();
+        Get.snackbar(
+            initbool.value
+                ? 'Add item to favorit list successfully!'
+                : 'Remove from favorite',
+            '',
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Colors.white,
+            borderRadius: 0,
+            backgroundColor: Colors.black.withOpacity(0.8),
+            isDismissible: true,
+            margin: EdgeInsets.all(0),
+            padding: EdgeInsets.all(5)
+            // animationDuration: Duration(seconds: 1),
+            // duration: Duration(seconds: 2),
+            );
+      }
+    } else {
+      Get.offNamed(SajiloDokanRoutes.login);
     }
   }
 
@@ -85,21 +90,29 @@ class ProductDetailsController extends GetxController {
 
   void likeBtn(int commentId, int productId) async {
     var token = await localRepositoryInterface.getToken();
-    print(commentId);
-    var result = await apiRepositoryInterface.likeComment(token, commentId);
-    print(result);
-    if (result == true) {
-      await getComments(productId, token);
+    if (token != null) {
+      var result = await apiRepositoryInterface.likeComment(token, commentId);
+
+      if (result == true) {
+        await getComments(productId, token);
+      }
+    } else {
+      Get.offNamed(SajiloDokanRoutes.login);
     }
   }
 
   void dislikeBtn(int commentId, int productId) async {
     var token = await localRepositoryInterface.getToken();
-    print(commentId);
-    var result = await apiRepositoryInterface.dislikeComment(token, commentId);
-    print(result);
-    if (result == true) {
-      await getComments(productId, token);
+
+    if (token != null) {
+      var result =
+          await apiRepositoryInterface.dislikeComment(token, commentId);
+
+      if (result == true) {
+        await getComments(productId, token);
+      }
+    } else {
+      Get.offNamed(SajiloDokanRoutes.login);
     }
   }
 }

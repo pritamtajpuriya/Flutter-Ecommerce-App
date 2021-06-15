@@ -23,9 +23,9 @@ class SplashController extends GetxController {
         await localRepositoryInterface.saveUser(result.user);
         Get.offNamed(SajiloDokanRoutes.landingHome);
       } else {
-        Get.offNamed(SajiloDokanRoutes.login);
+        Get.offNamed(SajiloDokanRoutes.landingHome);
       }
     } else
-      Get.offNamed(SajiloDokanRoutes.login);
+      Get.offNamed(SajiloDokanRoutes.landingHome);
   }
 }

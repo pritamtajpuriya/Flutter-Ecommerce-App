@@ -23,4 +23,5 @@ abstract class ApiRepositoryInterface {
   Future<List<ProductComment>> getComments(String token, int id);
   Future<bool> likeComment(String token, int id);
   Future<bool> dislikeComment(String token, int id);
+  Future<bool> addQuanity(String token, int id, int quantity);
 }

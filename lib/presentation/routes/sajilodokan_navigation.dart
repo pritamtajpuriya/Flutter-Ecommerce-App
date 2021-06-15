@@ -44,7 +44,12 @@ class SajiloDokanPages {
         name: SajiloDokanRoutes.landingHome,
         page: () => LandingHome(),
         binding: HomeBinding(),
-        bindings: [MainBinding(), HomeBinding(), CategoriesBinding()]),
+        bindings: [
+          MainBinding(),
+          HomeBinding(),
+          CategoriesBinding(),
+          CartBinding()
+        ]),
     GetPage(
         name: SajiloDokanRoutes.productDetails,
         page: () => ProductDetailsScreen(),

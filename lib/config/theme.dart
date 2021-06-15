@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AppSizes {
   static const int splashScreenTitleFontSize = 48;
@@ -51,5 +52,18 @@ class SajiloTheme {
               fontSize: 18,
               fontWeight: FontWeight.w400,
             ))));
+  }
+}
+
+class AppWidget {
+  static void snacbar(String title) {
+    Get.snackbar(title, '',
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        borderRadius: 0,
+        backgroundColor: Colors.black.withOpacity(0.8),
+        isDismissible: true,
+        margin: EdgeInsets.all(0),
+        padding: EdgeInsets.all(5));
   }
 }

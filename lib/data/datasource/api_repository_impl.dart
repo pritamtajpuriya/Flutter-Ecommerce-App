@@ -231,4 +231,23 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     }
     return false;
   }
+
+  @override
+  Future<bool> addQuanity(String token, int id, int quantity) async {
+    print('Add Quantity');
+    print('$token, $id, $quantity');
+    var result = await client.post(getMainUrl('/api/add-quantity/'), headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token"
+    }, body: {
+      "id": "$id",
+      "quantity": "$quantity"
+    });
+    print('Add Quantity');
+
+    if (result.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
 }

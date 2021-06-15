@@ -57,7 +57,8 @@ class Home extends StatelessWidget {
                 onLinkTap: () {
                   navigator.pushNamed(SajiloDokanRoutes.categoryProduct,
                       arguments: CategoryArguments(
-                          product: null, categoryName: 'New Products'));
+                          product: controller.productList,
+                          categoryName: 'New Products'));
                 },
               ),
               Container(child: Obx(() {

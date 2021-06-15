@@ -88,10 +88,7 @@ class HomeController extends GetxController {
             backgroundColor: Colors.black.withOpacity(0.8),
             isDismissible: true,
             margin: EdgeInsets.all(0),
-            padding: EdgeInsets.all(5)
-            // animationDuration: Duration(seconds: 1),
-            // duration: Duration(seconds: 2),
-            );
+            padding: EdgeInsets.all(5));
       }
     }
   }

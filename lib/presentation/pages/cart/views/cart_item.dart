@@ -60,7 +60,7 @@ class CartItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Rs ' + cart.product.price.toString(),
+                          'Rs ' + cart.amount.toString(),
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class CartItem extends StatelessWidget {
                             onTap: () {
                               controller.quantity(cart.quantity);
                               controller.showButtomSheed(
-                                  context, () {}, cart.quantity);
+                                  context, () {}, cart.id);
                             },
                             child: Text('Qty:${cart.quantity} ▾'))
                       ],

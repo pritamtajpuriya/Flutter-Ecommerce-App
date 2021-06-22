@@ -20,6 +20,23 @@ class HomeController extends GetxController {
   RxBool isFavorite = false.obs;
   var cartList = <Cart>[].obs;
   RxBool isCartLoad = false.obs;
+  RxDouble totalAmount = 0.0.obs;
+  var total;
+
+  RxList selectedCarts = [].obs;
+
+  void refreshTotal() async {
+    total = 0.0;
+    cartList.forEach((element) {
+      if (selectedCarts.contains(element.id)) {
+        total += element.amount;
+      }
+    });
+    totalAmount(total);
+  }
+
+  bool get isAllCartSelected =>
+      selectedCarts.length == cartList.length ? true : false;
 
   @override
   void onReady() {
@@ -71,6 +88,7 @@ class HomeController extends GetxController {
       }
     } finally {
       isCartLoad(false);
+      refreshTotal();
     }
   }
 

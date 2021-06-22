@@ -37,7 +37,7 @@ class AccountScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    user.username != null ? user.username : 'Sign Up/Login',
+                    user.username != null ? user.username : '',
                     style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -71,11 +71,24 @@ class AccountScreen extends StatelessWidget {
                   title: 'Contact Us',
                   onpressed: () {},
                 ),
-                ListItemCart(
-                  icon: Icons.logout,
-                  title: 'Logout',
-                  onpressed: logout,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.redAccent)),
+                      onPressed: () {
+                        Get.offNamed(SajiloDokanRoutes.login);
+                      },
+                      child: Text('Sign Up/Login')),
                 ),
+                user.username != null
+                    ? ListItemCart(
+                        icon: Icons.logout,
+                        title: 'Logout',
+                        onpressed: logout,
+                      )
+                    : SizedBox(),
               ],
             ),
           ),

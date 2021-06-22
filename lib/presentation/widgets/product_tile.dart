@@ -73,7 +73,7 @@ class ProductTile extends StatelessWidget {
                     product != null
                         ? Text('Rs. ' + '${product.price}',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFFFF7643)))
                         : Container(

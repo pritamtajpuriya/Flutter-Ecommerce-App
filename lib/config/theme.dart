@@ -33,6 +33,13 @@ class AppColors {
   static const green = Color(0xFF2AA952);
 }
 
+class CustomTextStyle {
+  static get lowVisial =>
+      TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 14);
+  static get price => TextStyle(color: Colors.redAccent, fontSize: 14);
+  static get title => TextStyle(color: Colors.black, fontSize: 16);
+}
+
 class SajiloTheme {
   static ThemeData of(context) {
     return ThemeData(

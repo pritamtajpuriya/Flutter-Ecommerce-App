@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/config/theme.dart';
+import 'package:sajilo_dokan/domain/model/cart.dart';
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dart';
@@ -13,6 +15,50 @@ class CartController extends GetxController {
 
   RxInt quantity = 2.obs;
   RxBool loading = false.obs;
+
+  ScrollController scrollController = ScrollController();
+  RxBool isVisible = true.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    // scontroller = ScrollController();
+    // scontroller.addListener(() {
+    //   if (scontroller.position.userScrollDirection == ScrollDirection.reverse) {
+    //     if (isVisible.value) {
+    //       isVisible(false);
+    //       print(isVisible);
+    //     }
+    //   }
+    //   if (scontroller.position.userScrollDirection == ScrollDirection.forward) {
+    //     if (!isVisible.value) {
+    //       isVisible(true);
+    //       print(isVisible);
+    //     }
+    //   }
+    // });
+  }
+
+  void selectAllCart() {
+    if (homecontroller.selectedCarts.length == homecontroller.cartList.length) {
+      homecontroller.selectedCarts([]);
+    } else {
+      homecontroller.selectedCarts([]);
+      homecontroller.cartList.forEach((element) {
+        homecontroller.selectedCarts.add(element.id);
+      });
+    }
+    homecontroller.refreshTotal();
+  }
+
+  void selectCart(Cart cart) {
+    if (!homecontroller.selectedCarts.contains(cart.id)) {
+      homecontroller.selectedCarts.add(cart.id);
+    } else {
+      homecontroller.selectedCarts.remove(cart.id);
+    }
+    homecontroller.refreshTotal();
+  }
 
   void addQuantity(int id, int quantity) async {
     final token = await localRepositoryInterface.getToken();

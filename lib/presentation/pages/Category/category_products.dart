@@ -25,7 +25,7 @@ class CategoryProducts extends StatelessWidget {
         SliverAppBar(
           title: null,
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
-          expandedHeight: 130,
+          expandedHeight: 150,
           floating: true,
           snap: false,
           pinned: true,

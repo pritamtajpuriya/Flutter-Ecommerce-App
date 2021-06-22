@@ -47,24 +47,26 @@ class Header extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      Positioned(
-                        right: 2,
-                        child: Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10),
-                              border:
-                                  Border.all(color: Colors.white, width: 2)),
-                          child: Center(
-                            child: Text(
-                              controller.cartList.length.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
+                      controller.cartList.length != 0
+                          ? Positioned(
+                              right: 2,
+                              child: Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: Colors.white, width: 2)),
+                                child: Center(
+                                  child: Text(
+                                    controller.cartList.length.toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SizedBox()
                     ],
                   );
                 })),

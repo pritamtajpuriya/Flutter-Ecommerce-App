@@ -6,7 +6,8 @@ import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
-class ProductDetailsController extends GetxController {
+class ProductDetailsController extends GetxController
+    with SingleGetTickerProviderMixin {
   final LocalRepositoryInterface localRepositoryInterface;
   final ApiRepositoryInterface apiRepositoryInterface;
 
@@ -24,12 +25,33 @@ class ProductDetailsController extends GetxController {
 
   PhotoViewScaleStateController controllerState;
 
+  //Animation Controller for Controll animation
+  //Declare
+  AnimationController animationController;
+
+  //Animation Onject
+  Animation colorAnimation;
+
   @override
-  void onReady() async {
-    super.onReady();
+  void onInit() async {
+    super.onInit();
     controllerState = PhotoViewScaleStateController();
     final token = await localRepositoryInterface.getToken();
     getComments(productid.value, token);
+
+    //Initialize Animation Controller
+    animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    colorAnimation = ColorTween(begin: Colors.grey[400], end: Colors.red)
+        .animate(animationController);
+    animationController.forward();
+    animationController.addListener(() => print(animationController.value));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
   }
 
   void goBack() {
@@ -46,12 +68,12 @@ class ProductDetailsController extends GetxController {
 
   Future<void> makeFavorite(int id) async {
     final token = await localRepositoryInterface.getToken();
+    clickFavorite();
     if (token != null) {
       var result = await apiRepositoryInterface.makeFavorite(token, id);
       print('fab btn called');
 
       if (result == true) {
-        clickFavorite();
         Get.snackbar(
             initbool.value
                 ? 'Add item to favorit list successfully!'
@@ -79,7 +101,7 @@ class ProductDetailsController extends GetxController {
     var data = await apiRepositoryInterface.getComments(token, id);
     print(id);
     print('GetComment call');
-    print(data);
+
     if (data != null) {
       comments(data);
     } else {

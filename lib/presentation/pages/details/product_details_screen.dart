@@ -4,6 +4,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sajilo_dokan/package/product_rating.dart';
 import 'package:sajilo_dokan/presentation/pages/details/view/image_screen.dart';
+import 'package:sajilo_dokan/presentation/widgets/favorite_btn.dart';
 
 import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
 
@@ -95,57 +96,62 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                         // IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back_ios)),
                         Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: Container(
-                              child: InkWell(
-                                  onDoubleTap: () {
-                                    navigator.pushNamed(
-                                        SajiloDokanRoutes.imageScreen,
-                                        arguments: ImageScreenArguments(
-                                            product: args.product));
-                                  },
-                                  child: PhotoViewGallery.builder(
-                                    scrollPhysics:
-                                        const BouncingScrollPhysics(),
-                                    builder: (BuildContext context, int index) {
-                                      return PhotoViewGalleryPageOptions(
-                                        disableGestures: true,
-                                        imageProvider: NetworkImage(args
-                                                    .product.images.length ==
-                                                0
-                                            ? 'https://onlinehatiya.herokuapp.com' +
-                                                args.product.image
-                                            : 'https://onlinehatiya.herokuapp.com' +
-                                                args
-                                                    .product
-                                                    .images[controller
-                                                        .selectedImage.value]
-                                                    .image),
-                                        initialScale:
-                                            PhotoViewComputedScale.contained *
-                                                0.8,
-                                      );
+                            child: Hero(
+                              tag: args.product.image,
+                              child: Container(
+                                child: InkWell(
+                                    onDoubleTap: () {
+                                      navigator.pushNamed(
+                                          SajiloDokanRoutes.imageScreen,
+                                          arguments: ImageScreenArguments(
+                                              product: args.product));
                                     },
-                                    itemCount: args.product.images.length,
-                                    loadingBuilder: (context, progress) =>
-                                        Center(
-                                      child: Container(
-                                        width: 20.0,
-                                        height: 20.0,
-                                        child: CircularProgressIndicator(
-                                          value: progress == null
-                                              ? null
-                                              : progress.cumulativeBytesLoaded /
-                                                  progress.expectedTotalBytes,
+                                    child: PhotoViewGallery.builder(
+                                      scrollPhysics:
+                                          const BouncingScrollPhysics(),
+                                      builder:
+                                          (BuildContext context, int index) {
+                                        return PhotoViewGalleryPageOptions(
+                                          disableGestures: true,
+                                          imageProvider: NetworkImage(args
+                                                      .product.images.length ==
+                                                  0
+                                              ? 'https://onlinehatiya.herokuapp.com' +
+                                                  args.product.image
+                                              : 'https://onlinehatiya.herokuapp.com' +
+                                                  args
+                                                      .product
+                                                      .images[controller
+                                                          .selectedImage.value]
+                                                      .image),
+                                          initialScale:
+                                              PhotoViewComputedScale.contained *
+                                                  0.8,
+                                        );
+                                      },
+                                      itemCount: args.product.images.length,
+                                      loadingBuilder: (context, progress) =>
+                                          Center(
+                                        child: Container(
+                                          width: 20.0,
+                                          height: 20.0,
+                                          child: CircularProgressIndicator(
+                                            value: progress == null
+                                                ? null
+                                                : progress
+                                                        .cumulativeBytesLoaded /
+                                                    progress.expectedTotalBytes,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    pageController: null,
-                                    backgroundDecoration:
-                                        BoxDecoration(color: Colors.white),
-                                    onPageChanged: (int index) {
-                                      controller.selectedImage(index);
-                                    },
-                                  )),
+                                      pageController: null,
+                                      backgroundDecoration:
+                                          BoxDecoration(color: Colors.white),
+                                      onPageChanged: (int index) {
+                                        controller.selectedImage(index);
+                                      },
+                                    )),
+                              ),
                             )),
 
                         Positioned(
@@ -202,20 +208,33 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                 Row(
                                   children: [
                                     Obx(() {
-                                      return IconButton(
-                                          onPressed: () {
-                                            controller
-                                                .makeFavorite(args.product.id);
+                                      return AnimatedContainer(
+                                        // height:
+                                        //     controller.initbool.value ? 50 : 30,
+                                        duration: Duration(microseconds: 500),
+                                        child: IconButton(
+                                            onPressed: () {
+                                              controller.makeFavorite(
+                                                  args.product.id);
 
-                                            homecontroller.fetchProduct();
-                                          },
-                                          icon: controller.initbool.value
-                                              ? Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.red,
-                                                )
-                                              : Icon(Icons.favorite_border));
+                                              homecontroller.fetchProduct();
+                                            },
+                                            icon: controller.initbool.value
+                                                ? Icon(
+                                                    Icons.favorite,
+                                                    color: Colors.red,
+                                                    size: 30,
+                                                  )
+                                                : Icon(
+                                                    Icons.favorite_border,
+                                                  )),
+                                      );
                                     }),
+                                    // FavoriteBTN(
+                                    //   controller:
+                                    //       controller.animationController,
+                                    //   colorTween: controller.colorAnimation,
+                                    // ),
                                     IconButton(
                                         onPressed: () {
                                           Share.share('App link not available');

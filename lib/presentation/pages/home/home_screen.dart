@@ -62,10 +62,11 @@ class Home extends StatelessWidget {
                 },
               ),
               Container(child: Obx(() {
+                final list = controller.productList
+                    .where((i) => i.price > 5000)
+                    .toList();
                 return ProductGridviewTile(
-                  productList: controller.isLoading.value
-                      ? controller.productList
-                      : null,
+                  productList: controller.isLoading.value ? list : null,
                 );
               })),
             ],

@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
 
@@ -40,9 +40,19 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebuggerkey'
+            keyPassword 'android'
+            storeFile file('mykey.jks')
+            storePassword 'android'
+
+        }
+    }
+
 
     buildTypes {
-        release {
+        debug{
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug

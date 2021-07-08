@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sajilo_dokan/domain/model/category.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/categories_controller.dart';
+import 'package:sajilo_dokan/presentation/pages/home/views/category.dart';
 
 class CategoriesTile extends StatelessWidget {
   final controller = Get.find<CatergoriesController>();
   final ValueChanged<int> onChanged;
-  final List categoriesList;
+  final List<Category> categoriesList;
+
   CategoriesTile({this.categoriesList, this.onChanged});
   @override
   Widget build(BuildContext context) {
@@ -16,24 +19,33 @@ class CategoriesTile extends StatelessWidget {
             (index) => InkWell(
                   onTap: () {
                     onChanged(index);
+                    print(categoriesList[index].title);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        height: 90,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.blueGrey.withOpacity(1 / (index + 1)),
-                        ),
-                        child: Center(
-                          child: Text(
-                            categoriesList[index],
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                                color: Colors.white),
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              height: 90,
+                              child: Center(
+                                child: Text(
+                                  categoriesList[index].title,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                              )),
+                          Image.asset(
+                            'assets/images/facebook.png',
+                            height: 90,
                           ),
-                        )),
+                        ],
+                      ),
+                    ),
                   ),
                 ))
       ],

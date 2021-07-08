@@ -248,4 +248,19 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     }
     return false;
   }
+
+  @override
+  Future<LoginResponse> googleSignIn(String idToken) async {
+    var result = await client.post(getMainUrl('/social_auth/google/'), body: {
+      "auth_token": idToken,
+    });
+    print('GoogleSignIn');
+    if (result.statusCode == 200) {
+      var jsondata = result.body;
+
+      return loginResponseFromJson(jsondata);
+    } else {
+      return null;
+    }
+  }
 }

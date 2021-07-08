@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/config/theme.dart';
+import 'package:sajilo_dokan/domain/model/category.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/categories_controller.dart';
 import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
@@ -25,7 +26,7 @@ class CategoryProducts extends StatelessWidget {
         SliverAppBar(
           title: null,
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
-          expandedHeight: 150,
+          expandedHeight: 250,
           floating: true,
           snap: false,
           pinned: true,
@@ -48,20 +49,76 @@ class CategoryProducts extends StatelessWidget {
                       right: 20,
                       top: 10,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
                       children: [
-                        Text('Filter'),
-                        Obx(() {
-                          return IconButton(
-                              onPressed: () {
-                                controller
-                                    .changeGridMode(controller.isGrid.value);
-                              },
-                              icon: !controller.isGrid.value
-                                  ? Icon(Icons.grid_view)
-                                  : Icon(Icons.format_list_bulleted));
-                        })
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Filter'),
+                            Obx(() {
+                              return IconButton(
+                                  onPressed: () {
+                                    controller.changeGridMode(
+                                        controller.isGrid.value);
+                                  },
+                                  icon: !controller.isGrid.value
+                                      ? Icon(Icons.grid_view)
+                                      : Icon(Icons.format_list_bulleted));
+                            })
+                          ],
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.redAccent,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Center(
+                                    child: Text(
+                                      'All',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              ...List.generate(
+                                  args.category.length,
+                                  (index) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.black,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15),
+                                            child: Center(
+                                              child: Text(
+                                                args.category[index].title,
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ))
+                            ],
+                          ),
+                        )
                       ],
                     )),
               ],
@@ -185,5 +242,6 @@ class CategoryProducts extends StatelessWidget {
 class CategoryArguments {
   final String categoryName;
   final List<Product> product;
-  CategoryArguments({this.categoryName, this.product});
+  final List<Category> category;
+  CategoryArguments({this.categoryName, this.product, this.category});
 }

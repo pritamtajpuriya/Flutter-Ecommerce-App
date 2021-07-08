@@ -45,6 +45,8 @@ class SajiloTheme {
     return ThemeData(
         primaryColorLight: AppColors.lightGray,
         accentColor: AppColors.red,
+        
+        primarySwatch: Colors.red,
         bottomAppBarColor: AppColors.lightGray,
         backgroundColor: AppColors.background,
         dialogBackgroundColor: AppColors.backgroundLight,

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1022319866638",
+    "project_id": "sajilo-dokan",
+    "storage_bucket": "sajilo-dokan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022319866638:android:ebf1c73f20d480134fdd5f",
+        "android_client_info": {
+          "package_name": "com.ehsnepal.apps.sajilo_dokan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022319866638-dt6cmuku12aa8qjv512b4uau4c4j2g61.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ehsnepal.apps.sajilo_dokan",
+            "certificate_hash": "49ca96fdf176e95ac9bac37fccca1f073a5a9978"
+          }
+        },
+        {
+          "client_id": "1022319866638-hht9tl3dkrl0j1ikcmvckld15nql89kg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzE2aY9UEXmpDvLmo2cBPpiQuyrXElkcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022319866638-hht9tl3dkrl0j1ikcmvckld15nql89kg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

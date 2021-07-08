@@ -77,4 +77,22 @@ class LoginController extends GetxController {
       return false;
     }
   }
+
+  Future<bool> googleAuth(String idToken) async {
+    try {
+      isLoading(true);
+      final loginResponse = await apiRepositoryInterface.googleSignIn(idToken);
+      if (loginResponse != null) {
+        await localRepositoryInterface.saveToken(loginResponse.token);
+        await localRepositoryInterface.saveUser(loginResponse.user);
+        return true;
+      } else
+        isLoading(false);
+
+      return false;
+    } on AuthException catch (_) {
+      isLoading(false);
+      return false;
+    }
+  }
 }

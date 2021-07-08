@@ -4,7 +4,6 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sajilo_dokan/package/product_rating.dart';
 import 'package:sajilo_dokan/presentation/pages/details/view/image_screen.dart';
-import 'package:sajilo_dokan/presentation/widgets/favorite_btn.dart';
 
 import 'package:sajilo_dokan/presentation/widgets/product_gridview_tile.dart';
 

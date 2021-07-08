@@ -71,17 +71,20 @@ class AccountScreen extends StatelessWidget {
                   title: 'Contact Us',
                   onpressed: () {},
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.redAccent)),
-                      onPressed: () {
-                        Get.offNamed(SajiloDokanRoutes.login);
-                      },
-                      child: Text('Sign Up/Login')),
-                ),
+                user.username == null
+                    ? Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.redAccent)),
+                            onPressed: () {
+                              Get.offNamed(SajiloDokanRoutes.login);
+                            },
+                            child: Text('Sign Up/Login')),
+                      )
+                    : SizedBox(),
                 user.username != null
                     ? ListItemCart(
                         icon: Icons.logout,

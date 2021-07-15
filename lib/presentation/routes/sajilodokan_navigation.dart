@@ -7,6 +7,10 @@ import 'package:sajilo_dokan/presentation/pages/cart/cart_screen.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_binding.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
 import 'package:sajilo_dokan/presentation/pages/details/view/image_screen.dart';
+import 'package:sajilo_dokan/presentation/pages/forgot-password/check_account_screen.dart';
+import 'package:sajilo_dokan/presentation/pages/forgot-password/create_new_password_screen.dart';
+import 'package:sajilo_dokan/presentation/pages/forgot-password/forgot-password_binding.dart';
+import 'package:sajilo_dokan/presentation/pages/forgot-password/send_code_screen.dart';
 
 import 'package:sajilo_dokan/presentation/pages/home/home_screen.dart';
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_binding.dart';
@@ -25,6 +29,9 @@ class SajiloDokanRoutes {
   static final String cart = '/cart';
   static final String categoryProduct = '/categoryProduct';
   static final String imageScreen = '/imageScreen';
+  static final String checkAccount = '/checkAccount';
+  static final String sendCodeScreen = '/sendCodeScreen';
+  static final String createNewPassword = '/createNewPassword';
 }
 
 class SajiloDokanPages {
@@ -69,6 +76,13 @@ class SajiloDokanPages {
         page: () => ImageScreen(),
         bindings: [
           ProductDetailsBinding(),
-        ])
+        ]),
+    GetPage(
+        name: SajiloDokanRoutes.checkAccount, page: () => CheckAccountScreen(), bindings:[MainBinding(),ForgotPasswordBinding()]),
+    GetPage(
+        name: SajiloDokanRoutes.sendCodeScreen, page: () => SendCodeScreen()),
+    GetPage(
+        name: SajiloDokanRoutes.createNewPassword,
+        page: () => CreateNewPassword())
   ];
 }

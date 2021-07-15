@@ -250,8 +250,9 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<LoginResponse> googleSignIn(String idToken) async {
-    var result = await client.post(getMainUrl('/social_auth/google/'), body: {
+  Future<LoginResponse> googleSignIn(String idToken, String provider) async {
+    var result =
+        await client.post(getMainUrl('/social_auth/$provider/'), body: {
       "auth_token": idToken,
     });
     print('GoogleSignIn');
@@ -261,6 +262,20 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
       return loginResponseFromJson(jsondata);
     } else {
       return null;
+    }
+  }
+
+  @override
+  Future<bool> forgetPassword(String email) async {
+    print(email);
+    var result = await client.patch(getMainUrl('/api/forget-password'),
+        body: {"email": "pritamtajpuriya@gmail.com"});
+
+    print(result.body);
+    if (result.statusCode == 201) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

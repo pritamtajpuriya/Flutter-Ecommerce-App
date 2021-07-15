@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppSizes {
   static const int splashScreenTitleFontSize = 48;
@@ -38,6 +39,8 @@ class CustomTextStyle {
       TextStyle(color: Colors.black.withOpacity(0.7), fontSize: 14);
   static get price => TextStyle(color: Colors.redAccent, fontSize: 14);
   static get title => TextStyle(color: Colors.black, fontSize: 16);
+  static get headLine => GoogleFonts.ubuntu(
+      textStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold));
 }
 
 class SajiloTheme {
@@ -45,7 +48,6 @@ class SajiloTheme {
     return ThemeData(
         primaryColorLight: AppColors.lightGray,
         accentColor: AppColors.red,
-        
         primarySwatch: Colors.red,
         bottomAppBarColor: AppColors.lightGray,
         backgroundColor: AppColors.background,
@@ -54,10 +56,11 @@ class SajiloTheme {
         dividerColor: Colors.transparent,
         appBarTheme: AppBarTheme(
             color: Colors.white,
+            titleTextStyle: TextStyle(color: Colors.black),
             iconTheme: IconThemeData(color: AppColors.black),
             textTheme: TextTheme(
                 caption: TextStyle(
-              color: AppColors.black,
+              color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.w400,
             ))));

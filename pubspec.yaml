@@ -41,6 +41,7 @@ dependencies:
   share:
   animations: ^2.0.0
   google_sign_in:
+  flutter_facebook_auth: ^3.5.0
 
 dev_dependencies:
   flutter_test:

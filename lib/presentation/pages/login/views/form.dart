@@ -1,9 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sajilo_dokan/config/theme.dart';
 import 'package:sajilo_dokan/presentation/pages/login/login_controller.dart';
 import 'package:sajilo_dokan/presentation/pages/login/views/social_button.dart';
+import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
+import 'package:sajilo_dokan/presentation/widgets/default_btn.dart';
+import 'package:sajilo_dokan/presentation/widgets/default_logo.dart';
 
 class SignForm extends StatelessWidget {
   void create() async {
@@ -21,6 +28,43 @@ class SignForm extends StatelessWidget {
   final bool remember = false;
 
   final controller = Get.find<LoginController>();
+
+  void socialLogin(String idToken, String provider) async {
+    final result = await controller.googleAuth(idToken, provider);
+    if (result) {
+      Get.offAllNamed(SajiloDokanRoutes.landingHome);
+    } else {
+      Get.snackbar('Error', 'Incorrect Password');
+    }
+  }
+
+  final googlesignIn = GoogleSignIn(
+    scopes: [
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+  );
+
+  Future<void> fblogin() async {
+    final result = await FacebookAuth.instance.login(permissions: [
+      'public_profile',
+      'email',
+    ]);
+    if (result.status == LoginStatus.success) {
+      log(result.accessToken.token);
+      socialLogin(result.accessToken.token, 'facebook');
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> login() async {
+    await googlesignIn
+        .signIn()
+        .then((result) => result.authentication)
+        .then((googleKey) => socialLogin(googleKey.idToken, 'google'))
+        .catchError((err) => null);
+  }
 
   Widget buildSignType() {
     final title = controller.isSignIn.value ? 'Welcome,' : 'Create Account';
@@ -42,19 +86,7 @@ class SignForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Image.asset(
-                      'assets/logos/logo.png',
-                      height: 100,
-                    ),
-                  )),
-            ),
+            DefaultLogo(),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,9 +185,14 @@ class SignForm extends StatelessWidget {
                       height: 10,
                     ),
                     if (controller.isSignIn.value)
-                      Text(
-                        'Forget Password ?',
-                        style: GoogleFonts.blinker(),
+                      InkWell(
+                        onTap: () {
+                          navigator.pushNamed(SajiloDokanRoutes.checkAccount);
+                        },
+                        child: Text(
+                          'Forget Password ?',
+                          style: GoogleFonts.blinker(),
+                        ),
                       ),
                   ],
                 )
@@ -165,32 +202,16 @@ class SignForm extends StatelessWidget {
               height: 20,
             ),
             InkWell(
-              onTap: () {
-                if (_formKey.currentState.validate()) {
-                  logOrRegAction();
-                } else {
-                  create();
-                }
-              },
-              child: Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(AppSizes.buttonRadius),
-                      gradient: LinearGradient(
-                          colors: [Colors.redAccent, Colors.orange],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight)),
-                  child: Center(
-                    child: Text(
-                      btnText,
-                      style: GoogleFonts.openSans(
-                          textStyle:
-                              TextStyle(fontSize: 18, color: Colors.white)),
-                    ),
-                  )),
-            ),
+                onTap: () {
+                  if (_formKey.currentState.validate()) {
+                    logOrRegAction();
+                  } else {
+                    create();
+                  }
+                },
+                child: DefaultBTN(
+                  btnText: btnText,
+                )),
             SizedBox(
               height: 10,
             ),
@@ -212,6 +233,7 @@ class SignForm extends StatelessWidget {
                     imageName: 'assets/images/search.png',
                     socialMedia: 'Google',
                     color: Colors.redAccent,
+                    onPressed: login,
                   ),
                   SizedBox(
                     width: 30,
@@ -220,6 +242,7 @@ class SignForm extends StatelessWidget {
                     imageName: 'assets/images/facebook.png',
                     socialMedia: 'Facebook',
                     color: Colors.blue,
+                    onPressed: fblogin,
                   )
                 ],
               ),

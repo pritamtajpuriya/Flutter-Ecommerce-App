@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:sajilo_dokan/presentation/pages/account/views/list_item_cart.dart';
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
@@ -14,7 +16,15 @@ class AccountScreen extends StatelessWidget {
   AccountScreen(this.index);
 
   final controller = Get.find<HomeController>();
+  final googlesignIn = GoogleSignIn(
+    scopes: [
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+  );
+
   Future<void> logout() async {
+    await googlesignIn.signOut();
     controller.logout();
 
     Get.offAllNamed(SajiloDokanRoutes.login);

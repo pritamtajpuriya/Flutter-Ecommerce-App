@@ -25,5 +25,6 @@ abstract class ApiRepositoryInterface {
   Future<bool> dislikeComment(String token, int id);
   Future<bool> addQuanity(String token, int id, int quantity);
 
-  Future<LoginResponse> googleSignIn(String idToken);
+  Future<LoginResponse> googleSignIn(String idToken, String provider);
+  Future<bool> forgetPassword(String email);
 }

@@ -27,4 +27,6 @@ abstract class ApiRepositoryInterface {
 
   Future<LoginResponse> googleSignIn(String idToken, String provider);
   Future<bool> forgetPassword(String email);
+  Future<String> verifyForgetPasswordCode(String email, String otp);
+  Future<LoginResponse> createNewPassword(String token, String newPassword);
 }

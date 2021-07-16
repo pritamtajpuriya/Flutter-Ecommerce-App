@@ -189,7 +189,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
 
   @override
   Future<List<ProductComment>> getComments(String token, int id) async {
-    var result = await client.get(getMainUrl('api/comments/$id'),
+    var result = await client.get(getMainUrl('/api/comments/$id'),
         headers: token != null ? header(token) : null);
     var jsonData = result.body;
     // print(jsonData);
@@ -268,8 +268,8 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   @override
   Future<bool> forgetPassword(String email) async {
     print(email);
-    var result = await client.patch(getMainUrl('/api/forget-password'),
-        body: {"email": "pritamtajpuriya@gmail.com"});
+    var result = await client
+        .patch(getMainUrl('/api/forget-password'), body: {"email": "$email"});
 
     print(result.body);
     if (result.statusCode == 201) {
@@ -277,5 +277,41 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
     } else {
       return false;
     }
+  }
+
+  @override
+  Future<String> verifyForgetPasswordCode(String email, String otp) async {
+    var result = await client.post(getMainUrl('/api/forget-password'),
+        body: {"email": "$email", "otp": "$otp"});
+    var data = result.body;
+    var dd = jsonDecode(data);
+
+    if (result.statusCode == 200) {
+      return dd['token'];
+    }
+    return null;
+  }
+
+  @override
+  Future<LoginResponse> createNewPassword(
+      String token, String newPassword) async {
+    var queryParameters = {
+      'q': '{https}',
+      'token': '$token',
+    };
+    var uri = Uri.https(
+      'onlinehatiya.herokuapp.com',
+      '/api/change-password',
+      queryParameters,
+    );
+    var result = await client.post(uri, body: {"new_password": "$newPassword"});
+    print(newPassword);
+    print(result.body);
+    if (result.statusCode == 200) {
+      var jsondata = result.body;
+      print(jsondata);
+      return loginResponseFromJson(jsondata);
+    }
+    return null;
   }
 }

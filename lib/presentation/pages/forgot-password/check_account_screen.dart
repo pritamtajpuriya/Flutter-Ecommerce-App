@@ -8,15 +8,13 @@ import 'package:sajilo_dokan/presentation/widgets/default_btn.dart';
 import 'package:sajilo_dokan/presentation/widgets/default_logo.dart';
 
 class CheckAccountScreen extends GetWidget<ForgotPasswordController> {
-  void forgetPassword(String email) async {
-    var result = await controller.forgotPassword(email);
+  void forgetPassword() async {
+    var result = await controller.forgotPassword();
     print(result);
     if (result) {
       navigator.pushNamed(SajiloDokanRoutes.sendCodeScreen);
     }
   }
-
-  final emailControlller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +46,7 @@ class CheckAccountScreen extends GetWidget<ForgotPasswordController> {
               height: 50,
             ),
             TextFormField(
-              controller: emailControlller,
+              controller: controller.emailController,
               autofillHints: [AutofillHints.email],
               validator: (value) {
                 if (value.isEmpty) {
@@ -71,7 +69,8 @@ class CheckAccountScreen extends GetWidget<ForgotPasswordController> {
             InkWell(
               onTap: () async {
                 print('caa');
-                forgetPassword('pritamtajpuriya@gmail.com');
+                forgetPassword();
+                // navigator.pushNamed(SajiloDokanRoutes.sendCodeScreen);
               },
               child: DefaultBTN(
                 btnText: 'Check Your Account',

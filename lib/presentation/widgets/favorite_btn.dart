@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class FavoriteBTN extends StatelessWidget {
-  final AnimationController controller;
-  final Animation colorTween;
-  final VoidCallback onPress;
+  final AnimationController? controller;
+  final Animation? colorTween;
+  final VoidCallback? onPress;
   FavoriteBTN({this.controller, this.onPress, this.colorTween});
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: controller,
+        animation: controller!,
         builder: (_, __) => IconButton(
               onPressed: onPress,
               icon: Icon(

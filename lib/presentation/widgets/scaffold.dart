@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class SajiloDokanScaffold extends StatelessWidget {
-  final Color background;
-  final String title;
+  final Color? background;
+  final String? title;
 
   final Widget body;
-  final AppBar appBar;
-  final int bottomMenuIndex;
-  final Widget bottomNavigationBar;
+  final AppBar? appBar;
+  final int? bottomMenuIndex;
+  final Widget? bottomNavigationBar;
 
   const SajiloDokanScaffold(
       {this.background,
       this.appBar,
-      @required this.title,
-      @required this.body,
+      required this.title,
+      required this.body,
       this.bottomMenuIndex,
       this.bottomNavigationBar});
   @override
@@ -26,7 +26,7 @@ class SajiloDokanScaffold extends StatelessWidget {
               elevation: 0,
               backgroundColor: Colors.white,
               title: Text(
-                title,
+                title!,
                 style: TextStyle(color: Colors.black),
               ),
               actions: [

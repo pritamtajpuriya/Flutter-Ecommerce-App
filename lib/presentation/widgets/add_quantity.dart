@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class AddQuantity extends StatelessWidget {
   // add quantity of product to cart
-  final VoidCallback addButton;
+  final VoidCallback? addButton;
 
   // subtract quantity of product to cart
-  final VoidCallback subtractButton;
-  final int noOfItem;
+  final VoidCallback? subtractButton;
+  final int? noOfItem;
   AddQuantity({this.addButton, this.subtractButton, this.noOfItem});
   @override
   Widget build(BuildContext context) {

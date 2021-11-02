@@ -7,8 +7,8 @@ LoginResponse loginResponseFromJson(String str) =>
 
 class LoginResponse {
   const LoginResponse({this.token, this.user});
-  final String token;
-  final User user;
+  final String? token;
+  final User? user;
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
         user: User.fromJson(json["user"]),
         token: json["Token"],

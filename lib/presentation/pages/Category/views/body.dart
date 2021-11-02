@@ -6,8 +6,8 @@ import 'package:sajilo_dokan/presentation/pages/home/views/category.dart';
 
 class CategoriesTile extends StatelessWidget {
   final controller = Get.find<CatergoriesController>();
-  final ValueChanged<int> onChanged;
-  final List<Category> categoriesList;
+  final ValueChanged<int>? onChanged;
+  final List<Category>? categoriesList;
 
   CategoriesTile({this.categoriesList, this.onChanged});
   @override
@@ -15,11 +15,11 @@ class CategoriesTile extends StatelessWidget {
     return Column(
       children: [
         ...List.generate(
-            categoriesList.isEmpty ? 0 : categoriesList.length,
+            categoriesList!.isEmpty ? 0 : categoriesList!.length,
             (index) => InkWell(
                   onTap: () {
-                    onChanged(index);
-                    print(categoriesList[index].title);
+                    onChanged!(index);
+                    print(categoriesList![index].title);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -32,7 +32,7 @@ class CategoriesTile extends StatelessWidget {
                               height: 90,
                               child: Center(
                                 child: Text(
-                                  categoriesList[index].title,
+                                  categoriesList![index].title!,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 22,

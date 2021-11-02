@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 class Otp extends StatefulWidget {
   final String email;
   final String newEmail;
-  final bool isGuestCheckOut;
+  final bool? isGuestCheckOut;
 
   const Otp({
-    Key key,
-    @required this.email,
+    Key? key,
+    required this.email,
     this.newEmail = "",
     this.isGuestCheckOut,
   }) : super(key: key);
@@ -23,19 +23,19 @@ class Otp extends StatefulWidget {
 class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
   // Constants
   final int time = 30;
-  AnimationController _controller;
+  AnimationController? _controller;
 
   // Variables
-  Size _screenSize;
-  int _currentDigit;
-  int _firstDigit;
-  int _secondDigit;
-  int _thirdDigit;
-  int _fourthDigit;
+  late Size _screenSize;
+  int? _currentDigit;
+  int? _firstDigit;
+  int? _secondDigit;
+  int? _thirdDigit;
+  int? _fourthDigit;
 
-  Timer timer;
-  int totalTimeInSeconds;
-  bool _hideResendButton;
+  Timer? timer;
+  int? totalTimeInSeconds;
+  late bool _hideResendButton;
 
   String userName = "";
   bool didReadNotifications = false;
@@ -274,14 +274,14 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
               });
             }
           });
-    _controller.reverse(
-        from: _controller.value == 0.0 ? 1.0 : _controller.value);
+    _controller!.reverse(
+        from: _controller!.value == 0.0 ? 1.0 : _controller!.value);
     _startCountdown();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -300,7 +300,7 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
   }
 
   // Returns "Otp custom text field"
-  Widget _otpTextField(int digit) {
+  Widget _otpTextField(int? digit) {
     return new Container(
       width: 35.0,
       height: 45.0,
@@ -323,7 +323,7 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
   }
 
   // Returns "Otp keyboard input Button"
-  Widget _otpKeyboardInputButton({String label, VoidCallback onPressed}) {
+  Widget _otpKeyboardInputButton({required String label, VoidCallback? onPressed}) {
     return new Material(
       color: Colors.transparent,
       child: new InkWell(
@@ -350,7 +350,7 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
   }
 
   // Returns "Otp keyboard action Button"
-  _otpKeyboardActionButton({Widget label, VoidCallback onPressed}) {
+  _otpKeyboardActionButton({Widget? label, VoidCallback? onPressed}) {
     return new InkWell(
       onTap: onPressed,
       borderRadius: new BorderRadius.circular(40.0),
@@ -395,8 +395,8 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
       _hideResendButton = true;
       totalTimeInSeconds = time;
     });
-    _controller.reverse(
-        from: _controller.value == 0.0 ? 1.0 : _controller.value);
+    _controller!.reverse(
+        from: _controller!.value == 0.0 ? 1.0 : _controller!.value);
   }
 
   void clearOtp() {
@@ -409,30 +409,30 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
 }
 
 class OtpTimer extends StatelessWidget {
-  final AnimationController controller;
+  final AnimationController? controller;
   double fontSize;
   Color timeColor = Colors.black;
 
   OtpTimer(this.controller, this.fontSize, this.timeColor);
 
   String get timerString {
-    Duration duration = controller.duration * controller.value;
+    Duration duration = controller!.duration! * controller!.value;
     if (duration.inHours > 0) {
       return '${duration.inHours}:${duration.inMinutes % 60}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
     }
     return '${duration.inMinutes % 60}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
-  Duration get duration {
-    Duration duration = controller.duration;
+  Duration? get duration {
+    Duration? duration = controller!.duration;
     return duration;
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget child) {
+        animation: controller!,
+        builder: (BuildContext context, Widget? child) {
           return new Text(
             timerString,
             style: new TextStyle(

@@ -11,10 +11,10 @@ import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 class SocialButton extends StatelessWidget {
   SocialButton({this.imageName, this.socialMedia, this.color, this.onPressed});
 
-  final String imageName;
-  final String socialMedia;
-  final Color color;
-  final VoidCallback onPressed;
+  final String? imageName;
+  final String? socialMedia;
+  final Color? color;
+  final VoidCallback? onPressed;
 
   final controller = Get.put(LoginController());
 
@@ -31,7 +31,7 @@ class SocialButton extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Center(
               child: Image.asset(
-            imageName,
+            imageName!,
             height: 20,
           )),
         ),

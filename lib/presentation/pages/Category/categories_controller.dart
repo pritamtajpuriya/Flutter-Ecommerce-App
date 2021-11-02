@@ -5,8 +5,8 @@ import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 
 class CatergoriesController extends GetxController {
-  final LocalRepositoryInterface localRepositoryInterface;
-  final ApiRepositoryInterface apiRepositoryInterface;
+  final LocalRepositoryInterface? localRepositoryInterface;
+  final ApiRepositoryInterface? apiRepositoryInterface;
   CatergoriesController(
       {this.apiRepositoryInterface, this.localRepositoryInterface});
 
@@ -35,7 +35,7 @@ class CatergoriesController extends GetxController {
   loadCategories() {
     try {
       isLoading(true);
-      apiRepositoryInterface
+      apiRepositoryInterface!
           .getCategories()
           .then((value) => categoriesList(value));
     } finally {
@@ -43,14 +43,14 @@ class CatergoriesController extends GetxController {
     }
   }
 
-  loadCategoryProducts(String categoryName) async {
+  loadCategoryProducts(String? categoryName) async {
     print('load');
     try {
       isCategoryProductsLoading(true);
-      await apiRepositoryInterface
+      await apiRepositoryInterface!
           .getCategorieProduct(categoryName)
           .then((value) {
-        categoryProducts(value);
+        categoryProducts(value!);
         print(categoryProducts(value));
       });
     } finally {

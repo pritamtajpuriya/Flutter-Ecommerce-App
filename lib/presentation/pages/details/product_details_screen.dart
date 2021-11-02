@@ -25,11 +25,11 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
   @override
   Widget build(BuildContext context) {
     final ProductDetailsArguments args =
-        ModalRoute.of(context).settings.arguments;
+        ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
 
     final homecontroller = Get.find<HomeController>();
-    controller.productid(args.product.id);
-    controller.setInit(args.product.favorite);
+    controller.productid(args.product!.id!);
+    controller.setInit(args.product!.favorite);
 
     return Scaffold(
       body: SafeArea(
@@ -96,11 +96,11 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                         Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: Hero(
-                              tag: args.product.image,
+                              tag: args.product!.image!,
                               child: Container(
                                 child: InkWell(
                                     onDoubleTap: () {
-                                      navigator.pushNamed(
+                                      navigator!.pushNamed(
                                           SajiloDokanRoutes.imageScreen,
                                           arguments: ImageScreenArguments(
                                               product: args.product));
@@ -113,22 +113,22 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                         return PhotoViewGalleryPageOptions(
                                           disableGestures: true,
                                           imageProvider: NetworkImage(args
-                                                      .product.images.length ==
+                                                      .product!.images!.length ==
                                                   0
                                               ? 'https://onlinehatiya.herokuapp.com' +
-                                                  args.product.image
+                                                  args.product!.image!
                                               : 'https://onlinehatiya.herokuapp.com' +
                                                   args
-                                                      .product
-                                                      .images[controller
+                                                      .product!
+                                                      .images![controller
                                                           .selectedImage.value]
-                                                      .image),
+                                                      .image!),
                                           initialScale:
                                               PhotoViewComputedScale.contained *
                                                   0.8,
                                         );
                                       },
-                                      itemCount: args.product.images.length,
+                                      itemCount: args.product!.images!.length,
                                       loadingBuilder: (context, progress) =>
                                           Center(
                                         child: Container(
@@ -139,7 +139,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                 ? null
                                                 : progress
                                                         .cumulativeBytesLoaded /
-                                                    progress.expectedTotalBytes,
+                                                    progress.expectedTotalBytes!,
                                           ),
                                         ),
                                       ),
@@ -162,13 +162,13 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                             width: 40,
                             child: Center(
                               child: Text(
-                                args.product.images.length == 0
+                                args.product!.images!.length == 0
                                     ? '${controller.index + 1} '
                                             '/' +
-                                        '${args.product.images.length + 1}'
+                                        '${args.product!.images!.length + 1}'
                                     : '${controller.index + 1} '
                                             '/' +
-                                        args.product.images.length.toString(),
+                                        args.product!.images!.length.toString(),
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.white),
                               ),
@@ -198,7 +198,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Rs.' + args.product.price.toString(),
+                                  'Rs.' + args.product!.price.toString(),
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -214,7 +214,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                         child: IconButton(
                                             onPressed: () {
                                               controller.makeFavorite(
-                                                  args.product.id);
+                                                  args.product!.id);
 
                                               homecontroller.fetchProduct();
                                             },
@@ -244,7 +244,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               ],
                             ),
                             Text(
-                              args.product.title,
+                              args.product!.title!,
                               style: GoogleFonts.ptSans(
                                   textStyle: TextStyle(
                                 fontSize: 18,
@@ -258,11 +258,11 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               children: [
                                 InkWell(
                                   onTap: () => Scrollable.ensureVisible(
-                                      dataKey.currentContext),
+                                      dataKey.currentContext!),
                                   child: Row(
                                     children: [
                                       ProductRating(
-                                        rating: args.product.avaragereview,
+                                        rating: args.product!.avaragereview,
                                         isReadOnly: true,
                                         size: 15,
                                         filledIconData: Icons.star,
@@ -278,12 +278,12 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                         width: 5,
                                       ),
                                       Text(
-                                        args.product.avaragereview.toString(),
+                                        args.product!.avaragereview.toString(),
                                         style: TextStyle(color: Colors.red),
                                       ),
                                       Text(
                                         ' / ' +
-                                            '(${args.product.noOfReviews}) reviews',
+                                            '(${args.product!.noOfReviews}) reviews',
                                         style: TextStyle(color: Colors.red),
                                       )
                                     ],
@@ -393,7 +393,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ...List.generate(
-                                  args.product.productSpecification.length,
+                                  args.product!.productSpecification!.length,
                                   (index) => Padding(
                                     padding: const EdgeInsets.only(bottom: 5),
                                     child: Row(
@@ -410,9 +410,9 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                         Expanded(
                                           child: Text(
                                             args
-                                                .product
-                                                .productSpecification[index]
-                                                .point,
+                                                .product!
+                                                .productSpecification![index]
+                                                .point!,
                                             overflow: TextOverflow.clip,
                                             style: GoogleFonts.ptSans(
                                                 fontSize: 15,
@@ -448,7 +448,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20),
                               child: Text(
-                                args.product.description,
+                                args.product!.description!,
                                 style: GoogleFonts.ptSans(
                                     fontSize: 15,
                                     color: Colors.black.withOpacity(0.6)),
@@ -519,11 +519,11 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                   children: [
                                                     Text(controller
                                                         .comments[index]
-                                                        .comment),
+                                                        .comment!),
                                                     Spacer(),
                                                     ProductRating(
                                                       rating: controller
-                                                          .comments[index].rate
+                                                          .comments[index].rate!
                                                           .toDouble(),
                                                       isReadOnly: true,
                                                       size: 12,
@@ -554,7 +554,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                   children: [
                                                     Text(
                                                       controller.comments[index]
-                                                          .user.username
+                                                          .user!.username!
                                                           .replaceAll(
                                                               '@gmail.com',
                                                               '*****'),
@@ -567,7 +567,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                       ' | ' +
                                                           controller
                                                               .comments[index]
-                                                              .whenpublished,
+                                                              .whenpublished!,
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           color: Colors.black
@@ -594,7 +594,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                                   .comments[
                                                                       index]
                                                                   .id,
-                                                              args.product.id);
+                                                              args.product!.id);
                                                         }),
                                                     Text(
                                                       controller.comments[index]
@@ -627,7 +627,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                                   .comments[
                                                                       index]
                                                                   .id,
-                                                              args.product.id);
+                                                              args.product!.id);
                                                         }),
                                                     Text(
                                                       controller.comments[index]
@@ -672,7 +672,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                     Container(child: Obx(() {
                       if (homecontroller.isLoading.value) {
                         final list = homecontroller.productList
-                            .where((i) => i.category == args.product.category)
+                            .where((i) => i.category == args.product!.category)
                             .toList();
 
                         return ProductGridviewTile(
@@ -692,7 +692,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
       bottomNavigationBar: AddToCard(
         product: args.product,
         onChanged: () {
-          homecontroller.addToCard(args.product.id);
+          homecontroller.addToCard(args.product!.id);
         },
       ),
     );
@@ -700,6 +700,6 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
 }
 
 class ProductDetailsArguments {
-  final Product product;
+  final Product? product;
   ProductDetailsArguments({this.product});
 }

@@ -19,15 +19,15 @@ class ProductComment {
     this.whenpublished,
   });
 
-  int id;
-  User user;
-  String comment;
-  int rate;
-  int getTotalLikes;
-  int getTotalDislikes;
-  bool like;
-  bool dislike;
-  String whenpublished;
+  int? id;
+  User? user;
+  String? comment;
+  int? rate;
+  int? getTotalLikes;
+  int? getTotalDislikes;
+  bool? like;
+  bool? dislike;
+  String? whenpublished;
 
   factory ProductComment.fromJson(Map<String, dynamic> json) => ProductComment(
       id: json["id"],

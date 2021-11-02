@@ -4,7 +4,7 @@ import 'package:sajilo_dokan/domain/model/product.dart';
 import 'package:sajilo_dokan/presentation/widgets/product_tile.dart';
 
 class ProductGridviewTile extends StatelessWidget {
-  final List<Product> productList;
+  final List<Product>? productList;
 
   ProductGridviewTile({this.productList});
   @override
@@ -15,11 +15,11 @@ class ProductGridviewTile extends StatelessWidget {
           shrinkWrap: true,
           primary: false,
           crossAxisCount: 2,
-          itemCount: productList != null ? productList.length : 4,
+          itemCount: productList != null ? productList!.length : 4,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
           itemBuilder: (context, index) => ProductTile(
-                product: productList != null ? productList[index] : null,
+                product: productList != null ? productList![index] : null,
               ),
           staggeredTileBuilder: (index) => StaggeredTile.fit(1)),
     );

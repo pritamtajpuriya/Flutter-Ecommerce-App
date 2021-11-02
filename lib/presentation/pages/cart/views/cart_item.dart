@@ -8,8 +8,8 @@ import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dar
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
 class CartItem extends StatelessWidget {
-  final Cart cart;
-  final int cartIndex;
+  final Cart? cart;
+  final int? cartIndex;
   CartItem({this.cart, this.cartIndex});
   final homeController = Get.find<HomeController>();
   final controller = Get.put(CartController());
@@ -22,9 +22,9 @@ class CartItem extends StatelessWidget {
               height: 20,
               child: IconButton(
                   onPressed: () {
-                    controller.selectCart(cart);
+                    controller.selectCart(cart!);
                   },
-                  icon: homeController.selectedCarts.contains(cart.id)
+                  icon: homeController.selectedCarts.contains(cart!.id)
                       ? Icon(Icons.check_box)
                       : Icon(Icons.check_box_outline_blank)));
         }),
@@ -41,13 +41,13 @@ class CartItem extends StatelessWidget {
                     onTap: () => Navigator.pushNamed(
                         context, SajiloDokanRoutes.productDetails,
                         arguments:
-                            ProductDetailsArguments(product: cart.product)),
+                            ProductDetailsArguments(product: cart!.product)),
                     child: Container(
                       height: 60,
                       width: 50,
                       child: Image.network(
                           'https://onlinehatiya.herokuapp.com' +
-                              cart.product.image,
+                              cart!.product!.image!,
                           height: 100),
                     ),
                   ),
@@ -57,14 +57,14 @@ class CartItem extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(cart.product.title,
+                          Text(cart!.product!.title!,
                               style: GoogleFonts.ptSans(),
                               overflow: TextOverflow.ellipsis),
                           SizedBox(
                             height: 5,
                           ),
                           Text(
-                            cart.product.description,
+                            cart!.product!.description!,
                             maxLines: 2,
                             style: TextStyle(fontSize: 14),
                           ),
@@ -75,7 +75,7 @@ class CartItem extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Rs ' + cart.amount.toString(),
+                                'Rs ' + cart!.amount.toString(),
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -83,11 +83,11 @@ class CartItem extends StatelessWidget {
                               ),
                               InkWell(
                                   onTap: () {
-                                    controller.quantity(cart.quantity);
+                                    controller.quantity(cart!.quantity!);
                                     controller.showButtomSheed(
-                                        context, () {}, cart.id);
+                                        context, () {}, cart!.id);
                                   },
-                                  child: Text('Qty:${cart.quantity} ▾'))
+                                  child: Text('Qty:${cart!.quantity} ▾'))
                             ],
                           )
                         ],
@@ -96,7 +96,7 @@ class CartItem extends StatelessWidget {
                   ),
                   IconButton(
                       onPressed: () {
-                        homeController.removeProductFromCart(cart.id);
+                        homeController.removeProductFromCart(cart!.id);
                       },
                       icon: Icon(Icons.cancel))
                 ],

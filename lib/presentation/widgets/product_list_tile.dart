@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
+// import 'package:sajilo_dokan/package/product_rating.dart';
 import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductListTile extends StatelessWidget {
-  final Product product;
+  final Product? product;
   ProductListTile({this.product});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => navigator.pushNamed(SajiloDokanRoutes.productDetails,
+      onTap: () => navigator!.pushNamed(SajiloDokanRoutes.productDetails,
           arguments: ProductDetailsArguments(product: product)),
       child: Padding(
         padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
@@ -28,7 +28,7 @@ class ProductListTile extends StatelessWidget {
                     width: 150,
                     child: Center(
                       child: Image.network(
-                        'https://onlinehatiya.herokuapp.com' + product.image,
+                        'https://onlinehatiya.herokuapp.com' + product!.image!,
                         height: 150,
                         width: 130,
                         fit: BoxFit.fill,
@@ -42,7 +42,7 @@ class ProductListTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            product.title,
+                            product!.title!,
                             maxLines: 2,
                             style: GoogleFonts.ptSans(),
                             overflow: TextOverflow.ellipsis,
@@ -52,20 +52,20 @@ class ProductListTile extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              SmoothStarRating(
-                                rating: product.avaragereview,
-                                isReadOnly: true,
-                                size: 15,
-                                filledIconData: Icons.star,
-                                borderColor: Colors.red,
-                                color: Colors.red,
-                                halfFilledIconData: Icons.star_half,
-                                defaultIconData: Icons.star_border,
-                                starCount: 5,
-                                allowHalfRating: true,
-                              ),
+                              // ProductRating(
+                              //   rating: product.avaragereview,
+                              //   isReadOnly: true,
+                              //   size: 15,
+                              //   filledIconData: Icons.star,
+                              //   borderColor: Colors.red,
+                              //   color: Colors.red,
+                              //   halfFilledIconData: Icons.star_half,
+                              //   defaultIconData: Icons.star_border,
+                              //   starCount: 5,
+                              //   allowHalfRating: true,
+                              // ),
                               Text(
-                                ' ' + product.avaragereview.toString(),
+                                ' ' + product!.avaragereview.toString(),
                                 style: TextStyle(color: Colors.red),
                               )
                             ],
@@ -74,7 +74,7 @@ class ProductListTile extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            'Rs ' + product.price.toString(),
+                            'Rs ' + product!.price.toString(),
                             style: TextStyle(color: Colors.redAccent),
                           )
                         ],
@@ -95,7 +95,7 @@ class ProductListTile extends StatelessWidget {
                       color: Colors.red),
                   child: Center(
                     child: Text(
-                      product.price <= 30 ? 'New' : '-30%',
+                      product!.price! <= 30 ? 'New' : '-30%',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

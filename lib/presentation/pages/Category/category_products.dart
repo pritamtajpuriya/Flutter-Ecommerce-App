@@ -14,7 +14,7 @@ class CategoryProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CategoryArguments args = ModalRoute.of(context).settings.arguments;
+    final CategoryArguments args = ModalRoute.of(context)!.settings.arguments as CategoryArguments;
 
     return Scaffold(
         // appBar: AppBar(
@@ -26,7 +26,7 @@ class CategoryProducts extends StatelessWidget {
         SliverAppBar(
           title: null,
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
-          expandedHeight: 250,
+          expandedHeight: args.category != null ? 250 : 150,
           floating: true,
           snap: false,
           pinned: true,
@@ -39,7 +39,7 @@ class CategoryProducts extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    args.categoryName,
+                    args.categoryName!,
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
@@ -69,55 +69,60 @@ class CategoryProducts extends StatelessWidget {
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.redAccent,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Center(
-                                    child: Text(
-                                      'All',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              ...List.generate(
-                                  args.category.length,
-                                  (index) => Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 10),
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Colors.black,
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15),
-                                            child: Center(
-                                              child: Text(
-                                                args.category[index].title,
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ),
+                          child: args.category != null
+                              ? Row(
+                                  children: [
+                                    Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.redAccent,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15),
+                                        child: Center(
+                                          child: Text(
+                                            'All',
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
                                         ),
-                                      ))
-                            ],
-                          ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    ...List.generate(
+                                        args.category!.length,
+                                        (index) => Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10),
+                                              child: Container(
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Colors.black,
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 15),
+                                                  child: Center(
+                                                    child: Text(
+                                                      args.category![index]
+                                                          .title!,
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ))
+                                  ],
+                                )
+                              : SizedBox.shrink(),
                         )
                       ],
                     )),
@@ -137,9 +142,9 @@ class CategoryProducts extends StatelessWidget {
                     : Column(
                         children: [
                           ...List.generate(
-                              args.product.length,
+                              args.product!.length,
                               (index) => ProductListTile(
-                                    product: args.product[index],
+                                    product: args.product![index],
                                   ))
                         ],
                       );
@@ -240,8 +245,8 @@ class CategoryProducts extends StatelessWidget {
 }
 
 class CategoryArguments {
-  final String categoryName;
-  final List<Product> product;
-  final List<Category> category;
+  final String? categoryName;
+  final List<Product>? product;
+  List<Category>? category;
   CategoryArguments({this.categoryName, this.product, this.category});
 }

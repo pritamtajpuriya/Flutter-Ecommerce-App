@@ -66,17 +66,17 @@ class CategorieScreen extends StatelessWidget {
       children: [
         ...List.generate(
             data.length,
-            (index) => data[index].children.length != 0
+            (index) => data[index].children!.length != 0
                 ? ExpansionTile(
-                    title: Text(data[index].title),
-                    children: [_buldAgainContainer(data[index].children)],
+                    title: Text(data[index].title!),
+                    children: [_buldAgainContainer(data[index].children!)],
                   )
                 : Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                         width: double.infinity,
                         child: Text(
-                          data[index].title,
+                          data[index].title!,
                           textAlign: TextAlign.start,
                         )),
                   ))
@@ -90,15 +90,15 @@ class CategorieScreen extends StatelessWidget {
       children: [
         ...List.generate(
             data.length,
-            (index) => data[index].children.length != 0
+            (index) => data[index].children!.length != 0
                 ? ExpansionTile(
-                    title: Text(data[index].title),
+                    title: Text(data[index].title!),
                     children: [],
                   )
                 : Container(
                     width: double.infinity,
                     child: Text(
-                      data[index].title,
+                      data[index].title!,
                       textAlign: TextAlign.start,
                     )))
       ],
@@ -151,7 +151,7 @@ class CategorieScreen extends StatelessWidget {
               categoriesList: ddddd,
               onChanged: (index) {
                 controller.loadCategoryProducts(ddddd[index].title);
-                navigator.pushNamed(SajiloDokanRoutes.categoryProduct,
+                navigator!.pushNamed(SajiloDokanRoutes.categoryProduct,
                     arguments: CategoryArguments(
                         categoryName: ddddd[index].title,
                         product: controller.categoryProducts,

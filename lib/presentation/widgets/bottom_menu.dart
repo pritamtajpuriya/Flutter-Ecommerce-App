@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SajilodokanBottomMenu extends StatelessWidget {
-  final int bottomMenuIndex;
-  final ValueChanged<int> onChanged;
+  final int? bottomMenuIndex;
+  final ValueChanged<int>? onChanged;
   SajilodokanBottomMenu({this.bottomMenuIndex, this.onChanged});
 
   BottomNavigationBarItem getItem(
@@ -46,21 +46,21 @@ class SajilodokanBottomMenu extends StatelessWidget {
             topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          currentIndex: bottomMenuIndex,
+          currentIndex: bottomMenuIndex!,
           onTap: (value) {
             switch (value) {
               case 0:
-                onChanged(0);
+                onChanged!(0);
                 break;
 
               case 1:
-                onChanged(1);
+                onChanged!(1);
                 break;
               case 2:
-                onChanged(2);
+                onChanged!(2);
                 break;
               case 3:
-                onChanged(3);
+                onChanged!(3);
                 break;
             }
           },

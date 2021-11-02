@@ -17,10 +17,10 @@ class SignForm extends StatelessWidget {
     Get.snackbar('Error', 'Correct your email!');
   }
 
-  final TextEditingController name;
-  final TextEditingController email;
-  final TextEditingController password;
-  final VoidCallback logOrRegAction;
+  final TextEditingController? name;
+  final TextEditingController? email;
+  final TextEditingController? password;
+  final VoidCallback? logOrRegAction;
   SignForm({this.name, this.email, this.password, this.logOrRegAction});
 
   final _formKey = GlobalKey<FormState>();
@@ -29,7 +29,7 @@ class SignForm extends StatelessWidget {
 
   final controller = Get.find<LoginController>();
 
-  void socialLogin(String idToken, String provider) async {
+  void socialLogin(String? idToken, String provider) async {
     final result = await controller.googleAuth(idToken, provider);
     if (result) {
       Get.offAllNamed(SajiloDokanRoutes.landingHome);
@@ -51,8 +51,8 @@ class SignForm extends StatelessWidget {
       'email',
     ]);
     if (result.status == LoginStatus.success) {
-      log(result.accessToken.token);
-      socialLogin(result.accessToken.token, 'facebook');
+      log(result.accessToken!.token);
+      socialLogin(result.accessToken!.token, 'facebook');
     } else {
       return null;
     }
@@ -61,7 +61,7 @@ class SignForm extends StatelessWidget {
   Future<void> login() async {
     await googlesignIn
         .signIn()
-        .then((result) => result.authentication)
+        .then((result) => result!.authentication)
         .then((googleKey) => socialLogin(googleKey.idToken, 'google'))
         .catchError((err) => null);
   }
@@ -145,7 +145,7 @@ class SignForm extends StatelessWidget {
                         controller: email,
                         autofillHints: [AutofillHints.email],
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'This field is required';
                           }
                           if (!value.contains('@')) {
@@ -187,7 +187,7 @@ class SignForm extends StatelessWidget {
                     if (controller.isSignIn.value)
                       InkWell(
                         onTap: () {
-                          navigator.pushNamed(SajiloDokanRoutes.checkAccount);
+                          navigator!.pushNamed(SajiloDokanRoutes.checkAccount);
                         },
                         child: Text(
                           'Forget Password ?',
@@ -203,8 +203,8 @@ class SignForm extends StatelessWidget {
             ),
             InkWell(
                 onTap: () {
-                  if (_formKey.currentState.validate()) {
-                    logOrRegAction();
+                  if (_formKey.currentState!.validate()) {
+                    logOrRegAction!();
                   } else {
                     create();
                   }

@@ -14,7 +14,7 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
   }
 
   @override
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString(_pref_token);
   }
@@ -30,17 +30,17 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
   }
 
   @override
-  Future<User> saveUser(User user) async {
+  Future<User?> saveUser(User? user) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString(_pref_name, user.name);
-    sharedPreferences.setString(_pref_username, user.username);
+    sharedPreferences.setString(_pref_name, user!.name!);
+    sharedPreferences.setString(_pref_username, user.username!);
 
     return user;
   }
 
   @override
-  Future<void> saveToken(String token) async {
+  Future<void> saveToken(String? token) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString(_pref_token, token);
+    sharedPreferences.setString(_pref_token, token!);
   }
 }

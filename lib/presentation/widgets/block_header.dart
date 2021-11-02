@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BlockHeader extends StatelessWidget {
-  final double width;
-  final String title;
-  final String linkText;
-  final VoidCallback onLinkTap;
+  final double? width;
+  final String? title;
+  final String? linkText;
+  final VoidCallback? onLinkTap;
   const BlockHeader({this.width, this.title, this.linkText, this.onLinkTap});
 
   @override
@@ -16,7 +16,7 @@ class BlockHeader extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              title,
+              title!,
               style:
                   GoogleFonts.sourceSansPro(textStyle: TextStyle(fontSize: 18)),
             ),
@@ -24,7 +24,7 @@ class BlockHeader extends StatelessWidget {
             InkWell(
                 onTap: onLinkTap,
                 child: Text(
-                  linkText,
+                  linkText!,
                   style: GoogleFonts.balooTamma(
                       textStyle: TextStyle(color: Colors.green)),
                 ))

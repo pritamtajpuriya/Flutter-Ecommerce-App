@@ -5,14 +5,14 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-typedef void RatingChangeCallback(double rating);
+typedef void RatingChangeCallback(double? rating);
 
 class ProductRating extends StatefulWidget {
   final int starCount;
-  final double rating;
-  final RatingChangeCallback onRated;
-  final Color color;
-  final Color borderColor;
+  final double? rating;
+  final RatingChangeCallback? onRated;
+  final Color? color;
+  final Color? borderColor;
   final double size;
   final bool allowHalfRating;
   final IconData filledIconData;
@@ -47,8 +47,8 @@ class _ProductRatingState extends State<ProductRating> {
 
   //tracks for user tapping on this widget
   bool isWidgetTapped = false;
-  double currentRating;
-  Timer debounceTimer;
+  double? currentRating;
+  Timer? debounceTimer;
   @override
   void initState() {
     currentRating = widget.rating;
@@ -76,16 +76,16 @@ class _ProductRatingState extends State<ProductRating> {
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
-    if (index >= currentRating) {
+    if (index >= currentRating!) {
       icon = Icon(
         widget.defaultIconData,
         color: widget.borderColor ?? Theme.of(context).primaryColor,
         size: widget.size,
       );
     } else if (index >
-            currentRating -
+            currentRating! -
                 (widget.allowHalfRating ? halfStarThreshold : 1.0) &&
-        index < currentRating) {
+        index < currentRating!) {
       icon = Icon(
         widget.halfFilledIconData,
         color: widget.color ?? Theme.of(context).primaryColor,
@@ -114,7 +114,7 @@ class _ProductRatingState extends State<ProductRating> {
                   isWidgetTapped = false; //reset
                 },
                 onHover: (event) {
-                  RenderBox box = context.findRenderObject();
+                  RenderBox box = context.findRenderObject() as RenderBox;
                   var _pos = box.globalToLocal(event.position);
                   var i = _pos.dx / widget.size;
                   var newRating =
@@ -133,7 +133,7 @@ class _ProductRatingState extends State<ProductRating> {
                   onTapDown: (detail) {
                     isWidgetTapped = true;
 
-                    RenderBox box = context.findRenderObject();
+                    RenderBox box = context.findRenderObject() as RenderBox;
                     var _pos = box.globalToLocal(detail.globalPosition);
                     var i = ((_pos.dx - widget.spacing) / widget.size);
                     var newRating =
@@ -148,13 +148,13 @@ class _ProductRatingState extends State<ProductRating> {
                       currentRating = newRating;
                     });
                     if (widget.onRated != null) {
-                      widget.onRated(normalizeRating(currentRating));
+                      widget.onRated!(normalizeRating(currentRating!));
                     }
                   },
                   onHorizontalDragUpdate: (dragDetails) {
                     isWidgetTapped = true;
 
-                    RenderBox box = context.findRenderObject();
+                    RenderBox box = context.findRenderObject() as RenderBox;
                     var _pos = box.globalToLocal(dragDetails.globalPosition);
                     var i = _pos.dx / widget.size;
                     var newRating =
@@ -172,7 +172,7 @@ class _ProductRatingState extends State<ProductRating> {
                     debounceTimer = Timer(Duration(milliseconds: 100), () {
                       if (widget.onRated != null) {
                         currentRating = normalizeRating(newRating);
-                        widget.onRated(currentRating);
+                        widget.onRated!(currentRating);
                       }
                     });
                   },
@@ -181,7 +181,7 @@ class _ProductRatingState extends State<ProductRating> {
               )
             : GestureDetector(
                 onTapDown: (detail) {
-                  RenderBox box = context.findRenderObject();
+                  RenderBox box = context.findRenderObject() as RenderBox;
                   var _pos = box.globalToLocal(detail.globalPosition);
                   var i = ((_pos.dx - widget.spacing) / widget.size);
                   var newRating =
@@ -198,10 +198,10 @@ class _ProductRatingState extends State<ProductRating> {
                   });
                 },
                 onTapUp: (e) {
-                  if (widget.onRated != null) widget.onRated(currentRating);
+                  if (widget.onRated != null) widget.onRated!(currentRating);
                 },
                 onHorizontalDragUpdate: (dragDetails) {
-                  RenderBox box = context.findRenderObject();
+                  RenderBox box = context.findRenderObject() as RenderBox;
                   var _pos = box.globalToLocal(dragDetails.globalPosition);
                   var i = _pos.dx / widget.size;
                   var newRating =
@@ -219,7 +219,7 @@ class _ProductRatingState extends State<ProductRating> {
                   debounceTimer = Timer(Duration(milliseconds: 100), () {
                     if (widget.onRated != null) {
                       currentRating = normalizeRating(newRating);
-                      widget.onRated(currentRating);
+                      widget.onRated!(currentRating);
                     }
                   });
                 },

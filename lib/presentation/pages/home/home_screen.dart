@@ -13,7 +13,7 @@ import 'package:sajilo_dokan/presentation/widgets/scaffold.dart';
 
 class Home extends StatelessWidget {
   final controller = Get.find<HomeController>();
-  final int index;
+  final int? index;
   Home({this.index});
 
   @override
@@ -36,16 +36,16 @@ class Home extends StatelessWidget {
                 linkText: 'View all',
                 onLinkTap: () {
                   final list = controller.productList
-                      .where((i) => i.price <= 5000)
+                      .where((i) => i.price! <= 5000)
                       .toList();
-                  navigator.pushNamed(SajiloDokanRoutes.categoryProduct,
+                  navigator!.pushNamed(SajiloDokanRoutes.categoryProduct,
                       arguments: CategoryArguments(
                           product: list, categoryName: 'Popular Product'));
                 },
               ),
               Obx(() {
                 final list = controller.productList
-                    .where((i) => i.price <= 5000)
+                    .where((i) => i.price! <= 5000)
                     .toList();
                 return PopulorProduct(
                   products: controller.isLoading.value ? list : null,
@@ -55,7 +55,9 @@ class Home extends StatelessWidget {
                 title: 'New Product',
                 linkText: 'View all',
                 onLinkTap: () {
-                  navigator.pushNamed(SajiloDokanRoutes.categoryProduct,
+                  print(controller.productList);
+                  print('ohmygod');
+                  navigator!.pushNamed(SajiloDokanRoutes.categoryProduct,
                       arguments: CategoryArguments(
                           product: controller.productList,
                           categoryName: 'New Products'));
@@ -63,7 +65,7 @@ class Home extends StatelessWidget {
               ),
               Container(child: Obx(() {
                 final list = controller.productList
-                    .where((i) => i.price > 5000)
+                    .where((i) => i.price! > 5000)
                     .toList();
                 return ProductGridviewTile(
                   productList: controller.isLoading.value ? list : null,

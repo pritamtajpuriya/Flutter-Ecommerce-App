@@ -4,7 +4,7 @@ import 'package:sajilo_dokan/config/theme.dart';
 
 class DefaultBTN extends StatelessWidget {
   DefaultBTN({this.btnText});
-  final String btnText;
+  final String? btnText;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +18,7 @@ class DefaultBTN extends StatelessWidget {
                 end: Alignment.bottomRight)),
         child: Center(
           child: Text(
-            btnText,
+            btnText!,
             style: GoogleFonts.openSans(
                 textStyle: TextStyle(fontSize: 18, color: Colors.white)),
           ),

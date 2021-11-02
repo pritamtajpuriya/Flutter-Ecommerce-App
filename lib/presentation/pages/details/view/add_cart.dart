@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
 
 class AddToCard extends StatelessWidget {
-  final VoidCallback onChanged;
+  final VoidCallback? onChanged;
   AddToCard({this.onChanged, this.product});
-  final Product product;
+  final Product? product;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +18,7 @@ class AddToCard extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () {
-                onChanged();
+                onChanged!();
               },
               child: Container(
                   decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class AddToCard extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () {
-                onChanged();
+                onChanged!();
               },
               child: Container(
                   decoration: BoxDecoration(

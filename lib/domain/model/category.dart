@@ -16,8 +16,8 @@ class Category {
     this.children,
   });
 
-  String title;
-  List<Category> children;
+  String? title;
+  List<Category>? children;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         title: json["title"],
@@ -27,6 +27,6 @@ class Category {
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "children": List<dynamic>.from(children.map((x) => x.toJson())),
+        "children": List<dynamic>.from(children!.map((x) => x.toJson())),
       };
 }

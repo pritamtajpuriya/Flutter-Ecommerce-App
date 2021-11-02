@@ -31,7 +31,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
       };
 
   @override
-  Future<LoginResponse> register(RegisterRequest registerRequest) async {
+  Future<LoginResponse?> register(RegisterRequest registerRequest) async {
     print('register');
     var result = await client.post(getMainUrl('/api/register/'), body: {
       "name": registerRequest.name,
@@ -49,7 +49,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<LoginResponse> getUserFromToken(String token) async {
+  Future<LoginResponse?> getUserFromToken(String token) async {
     var result = await client.get(getMainUrl('/api/user/profile/'), headers: {
       "Content-type": "application/json",
       "Accept": "application/json",
@@ -66,7 +66,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<LoginResponse> login(LoginRequest login) async {
+  Future<LoginResponse?> login(LoginRequest login) async {
     var result = await client.post(getMainUrl('/api/login/'),
         body: {'email': login.email, 'password': login.password});
 
@@ -81,13 +81,13 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<void> logout(String token) async {
+  Future<void> logout(String? token) async {
     print('removing token');
     return;
   }
 
   @override
-  Future<List<Product>> fetchingProdcut(String token) async {
+  Future<List<Product>?> fetchingProdcut(String? token) async {
     var result = await client.get(getMainUrl('/api/products/'),
         headers: token != null ? header(token) : null);
     if (result.statusCode == 200) {
@@ -117,7 +117,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<List<Product>> getCategorieProduct(String categoryName) async {
+  Future<List<Product>?> getCategorieProduct(String? categoryName) async {
     var result = await client.post(getMainUrl('/api/category/'),
         body: {"category_name": "$categoryName"});
     if (result.statusCode == 200) {
@@ -132,7 +132,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<List<Cart>> getCartList(String token) async {
+  Future<List<Cart>?> getCartList(String? token) async {
     var result = await client.get(getMainUrl('/api/carts/'),
         headers: token != null ? header(token) : null);
     if (result.statusCode == 200) {
@@ -146,7 +146,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<bool> addToCart(String token, int id) async {
+  Future<bool> addToCart(String token, int? id) async {
     var result = await client.post(getMainUrl('/api/carts/'), headers: {
       "Accept": "application/json",
       "Authorization": "Bearer $token"
@@ -160,7 +160,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<bool> deleteCart(String token, int id) async {
+  Future<bool> deleteCart(String? token, int? id) async {
     var result = await client.post(getMainUrl('/api/deletecart/'), headers: {
       "Accept": "application/json",
       "Authorization": "Bearer $token"
@@ -174,7 +174,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<bool> makeFavorite(String token, int id) async {
+  Future<bool> makeFavorite(String token, int? id) async {
     var result = await client.post(getMainUrl('/api/makefavorite/'), headers: {
       "Accept": "application/json",
       "Authorization": "Bearer $token"
@@ -188,7 +188,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<List<ProductComment>> getComments(String token, int id) async {
+  Future<List<ProductComment>?> getComments(String? token, int? id) async {
     var result = await client.get(getMainUrl('/api/comments/$id'),
         headers: token != null ? header(token) : null);
     var jsonData = result.body;
@@ -200,7 +200,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<bool> dislikeComment(String token, int id) async {
+  Future<bool> dislikeComment(String token, int? id) async {
     var result = await client.post(getMainUrl('/api/dislike/'), headers: {
       "Accept": "application/json",
       "Authorization": "Bearer $token"
@@ -215,7 +215,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<bool> likeComment(String token, int id) async {
+  Future<bool> likeComment(String token, int? id) async {
     var result = await client.post(getMainUrl('/api/like/'), headers: {
       "Accept": "application/json",
       "Authorization": "Bearer $token"
@@ -231,7 +231,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<bool> addQuanity(String token, int id, int quantity) async {
+  Future<bool> addQuanity(String? token, int? id, int quantity) async {
     print('Add Quantity');
     print('$token, $id, $quantity');
     var result = await client.post(getMainUrl('/api/add-quantity/'), headers: {
@@ -250,7 +250,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<LoginResponse> googleSignIn(String idToken, String provider) async {
+  Future<LoginResponse?> googleSignIn(String? idToken, String provider) async {
     var result =
         await client.post(getMainUrl('/social_auth/$provider/'), body: {
       "auth_token": idToken,
@@ -280,7 +280,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<String> verifyForgetPasswordCode(String email, String otp) async {
+  Future<String?> verifyForgetPasswordCode(String email, String otp) async {
     var result = await client.post(getMainUrl('/api/forget-password'),
         body: {"email": "$email", "otp": "$otp"});
     var data = result.body;
@@ -293,7 +293,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   }
 
   @override
-  Future<LoginResponse> createNewPassword(
+  Future<LoginResponse?> createNewPassword(
       String token, String newPassword) async {
     var queryParameters = {
       'q': '{https}',

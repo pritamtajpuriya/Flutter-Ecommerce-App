@@ -69,7 +69,7 @@ class SajiloDokanPages {
     GetPage(
         name: SajiloDokanRoutes.categoryProduct,
         page: () => CategoryProducts(),
-        bindings: [MainBinding(), CategoriesBinding()]),
+        bindings: [MainBinding(), CategoriesBinding(), HomeBinding()]),
 
     GetPage(
         name: SajiloDokanRoutes.imageScreen,
@@ -78,7 +78,9 @@ class SajiloDokanPages {
           ProductDetailsBinding(),
         ]),
     GetPage(
-        name: SajiloDokanRoutes.checkAccount, page: () => CheckAccountScreen(), bindings:[MainBinding(),ForgotPasswordBinding()]),
+        name: SajiloDokanRoutes.checkAccount,
+        page: () => CheckAccountScreen(),
+        bindings: [MainBinding(), ForgotPasswordBinding()]),
     GetPage(
         name: SajiloDokanRoutes.sendCodeScreen, page: () => SendCodeScreen()),
     GetPage(

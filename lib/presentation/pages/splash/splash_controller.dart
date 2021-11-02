@@ -4,8 +4,8 @@ import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
 class SplashController extends GetxController {
-  final LocalRepositoryInterface localRepositoryInterface;
-  final ApiRepositoryInterface apiRepositoryInterface;
+  final LocalRepositoryInterface? localRepositoryInterface;
+  final ApiRepositoryInterface? apiRepositoryInterface;
   SplashController(
       {this.localRepositoryInterface, this.apiRepositoryInterface});
 
@@ -16,11 +16,11 @@ class SplashController extends GetxController {
   }
 
   void validateSession() async {
-    final token = await localRepositoryInterface.getToken();
+    final token = await localRepositoryInterface!.getToken();
     if (token != null) {
-      final result = await apiRepositoryInterface.getUserFromToken(token);
+      final result = await apiRepositoryInterface!.getUserFromToken(token);
       if (result != null) {
-        await localRepositoryInterface.saveUser(result.user);
+        await localRepositoryInterface!.saveUser(result.user);
         Get.offNamed(SajiloDokanRoutes.landingHome);
       } else {
         Get.offNamed(SajiloDokanRoutes.landingHome);

@@ -26,19 +26,19 @@ class Product {
       this.favorite,
       this.productSpecification});
 
-  int id;
-  String title;
-  String keywords;
-  String description;
-  String image;
-  double price;
-  String slug;
-  String category;
-  double avaragereview;
-  int noOfReviews;
-  List<Images> images;
-  bool favorite;
-  List<ProductSpecification> productSpecification;
+  int? id;
+  String? title;
+  String? keywords;
+  String? description;
+  String? image;
+  double? price;
+  String? slug;
+  String? category;
+  double? avaragereview;
+  int? noOfReviews;
+  List<Images>? images;
+  bool? favorite;
+  List<ProductSpecification>? productSpecification;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
       id: json["id"],
@@ -68,7 +68,7 @@ class Product {
         "category": category,
         "avaragereview": avaragereview,
         "no_of_reviews": noOfReviews,
-        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "images": List<dynamic>.from(images!.map((x) => x.toJson())),
         "favorite": favorite,
       };
 }
@@ -78,7 +78,7 @@ class Images {
     this.image,
   });
 
-  String image;
+  String? image;
 
   factory Images.fromJson(Map<String, dynamic> json) => Images(
         image: json["image"],
@@ -94,7 +94,7 @@ class ProductSpecification {
     this.point,
   });
 
-  String point;
+  String? point;
 
   factory ProductSpecification.fromJson(Map<String, dynamic> json) =>
       ProductSpecification(

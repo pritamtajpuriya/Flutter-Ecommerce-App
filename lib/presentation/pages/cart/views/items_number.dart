@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ItemNuber extends StatelessWidget {
-  final int itemNumber;
+  final int? itemNumber;
   ItemNuber({this.itemNumber});
   @override
   Widget build(BuildContext context) {

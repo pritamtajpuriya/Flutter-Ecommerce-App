@@ -9,7 +9,7 @@ import 'package:sajilo_dokan/presentation/pages/details/product_details_controll
 class ImageScreen extends GetWidget<ProductDetailsController> {
   @override
   Widget build(BuildContext context) {
-    final ImageScreenArguments args = ModalRoute.of(context).settings.arguments;
+    final ImageScreenArguments args = ModalRoute.of(context)!.settings.arguments as ImageScreenArguments;
     return Scaffold(
       body: Container(
           color: Colors.black,
@@ -47,21 +47,21 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                     builder: (BuildContext context, int index) {
                       return PhotoViewGalleryPageOptions(
                         imageProvider: NetworkImage(
-                            args.product.images.length == 0
+                            args.product!.images!.length == 0
                                 ? 'https://onlinehatiya.herokuapp.com' +
-                                    args.product.image
+                                    args.product!.image!
                                 : 'https://onlinehatiya.herokuapp.com' +
                                     args
-                                        .product
-                                        .images[controller.selectedImage.value]
-                                        .image),
+                                        .product!
+                                        .images![controller.selectedImage.value]
+                                        .image!),
                         maxScale: PhotoViewComputedScale.covered * 2.0,
                         minScale: PhotoViewComputedScale.contained * 0.8,
                         initialScale: PhotoViewComputedScale.contained * 0.8,
                         scaleStateController: controller.controllerState,
                       );
                     },
-                    itemCount: args.product.images.length,
+                    itemCount: args.product!.images!.length,
                     loadingBuilder: (context, progress) => Center(
                       child: Container(
                         width: 20.0,
@@ -70,7 +70,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                           value: progress == null
                               ? null
                               : progress.cumulativeBytesLoaded /
-                                  progress.expectedTotalBytes,
+                                  progress.expectedTotalBytes!,
                         ),
                       ),
                     ),
@@ -103,7 +103,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
           child: Row(
             children: [
               ...List.generate(
-                  args.product.images.length,
+                  args.product!.images!.length,
                   (index) => Obx(() {
                         return Padding(
                           padding: const EdgeInsets.only(right: 10),
@@ -126,7 +126,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                                 padding: const EdgeInsets.all(5.0),
                                 child: Image.network(
                                     'https://onlinehatiya.herokuapp.com' +
-                                        args.product.images[index].image),
+                                        args.product!.images![index].image!),
                               ),
                             ),
                           ),
@@ -141,6 +141,6 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
 }
 
 class ImageScreenArguments {
-  final Product product;
+  final Product? product;
   ImageScreenArguments({this.product});
 }

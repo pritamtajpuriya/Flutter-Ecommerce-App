@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ListItemCart extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final VoidCallback onpressed;
+  final IconData? icon;
+  final String? title;
+  final VoidCallback? onpressed;
 
   ListItemCart({this.icon, this.title, this.onpressed});
   @override
@@ -35,8 +35,8 @@ class ListItemCart extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      title,
-                      style: _theme.appBarTheme.textTheme.caption,
+                      title!,
+                      style: _theme.appBarTheme.textTheme!.caption,
                     ),
                   ),
                   Spacer(),

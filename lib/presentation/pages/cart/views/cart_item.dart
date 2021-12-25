@@ -12,7 +12,7 @@ class CartItem extends StatelessWidget {
   final int? cartIndex;
   CartItem({this.cart, this.cartIndex});
   final homeController = Get.find<HomeController>();
-  final controller = Get.put(CartController());
+  final controller = Get.put(CartController(localRepositoryInterface:Get.find() , apiRepositoryInterface: Get.find()));
   @override
   Widget build(BuildContext context) {
     return Row(

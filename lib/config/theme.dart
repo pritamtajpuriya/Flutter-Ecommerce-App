@@ -47,7 +47,7 @@ class SajiloTheme {
   static ThemeData of(context) {
     return ThemeData(
         primaryColorLight: AppColors.lightGray,
-        accentColor: AppColors.red,
+      
         primarySwatch: Colors.red,
         bottomAppBarColor: AppColors.lightGray,
         backgroundColor: AppColors.background,
@@ -58,12 +58,7 @@ class SajiloTheme {
             color: Colors.white,
             titleTextStyle: TextStyle(color: Colors.black),
             iconTheme: IconThemeData(color: AppColors.black),
-            textTheme: TextTheme(
-                caption: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-            ))));
+         ));
   }
 }
 

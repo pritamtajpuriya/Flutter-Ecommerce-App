@@ -9,7 +9,8 @@ import 'package:sajilo_dokan/presentation/pages/details/product_details_controll
 class ImageScreen extends GetWidget<ProductDetailsController> {
   @override
   Widget build(BuildContext context) {
-    final ImageScreenArguments args = ModalRoute.of(context)!.settings.arguments as ImageScreenArguments;
+    final ImageScreenArguments args =
+        ModalRoute.of(context)!.settings.arguments as ImageScreenArguments;
     return Scaffold(
       body: Container(
           color: Colors.black,

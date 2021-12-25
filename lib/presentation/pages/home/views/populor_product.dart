@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sajilo_dokan/domain/model/product.dart';
-import 'package:sajilo_dokan/presentation/pages/details/product_details_screen.dart';
 import 'package:sajilo_dokan/presentation/widgets/product_tile.dart';
-import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
-
 class PopulorProduct extends StatelessWidget {
   final List<Product>? products;
   PopulorProduct({this.products});

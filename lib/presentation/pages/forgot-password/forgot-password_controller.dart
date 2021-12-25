@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:sajilo_dokan/domain/model/user.dart';
+
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 
@@ -65,7 +65,7 @@ class ForgotPasswordController extends GetxController {
       var result =
           await apiRepositoryInterface!.verifyForgetPasswordCode(email, otp);
       token(result!);
-      if (result == null) {
+      if (result.isEmpty) {
         Get.snackbar('Validation OTP', 'Do not match');
       }
 

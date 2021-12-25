@@ -11,7 +11,9 @@ import 'package:sajilo_dokan/presentation/widgets/scaffold.dart';
 
 class CartScreen extends StatelessWidget {
   final controller = Get.find<HomeController>();
-  final cardController = Get.put(CartController());
+  final cardController = Get.put(CartController(
+      apiRepositoryInterface: Get.find(),
+      localRepositoryInterface: Get.find()));
   final int index;
   CartScreen(this.index);
   final ScrollController _scrollController = ScrollController();

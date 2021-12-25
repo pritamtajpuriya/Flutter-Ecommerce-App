@@ -8,10 +8,12 @@ import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 import 'package:sajilo_dokan/presentation/pages/landing_home/home_controller.dart';
 
 class CartController extends GetxController {
-  final ApiRepositoryInterface? apiRepositoryInterface;
-  final LocalRepositoryInterface? localRepositoryInterface;
-  final homecontroller = Get.put(HomeController());
-  CartController({this.apiRepositoryInterface, this.localRepositoryInterface});
+  final ApiRepositoryInterface apiRepositoryInterface;
+  final LocalRepositoryInterface localRepositoryInterface;
+  final homecontroller = Get.put(HomeController(
+      localRepositoryInterface: Get.find(),
+      apiRepositoryInterface: Get.find()));
+  CartController({required this.apiRepositoryInterface, required this.localRepositoryInterface});
 
   RxInt quantity = 2.obs;
   RxBool loading = false.obs;
@@ -61,8 +63,8 @@ class CartController extends GetxController {
   }
 
   void addQuantity(int? id, int quantity) async {
-    final token = await localRepositoryInterface!.getToken();
-    var result = await apiRepositoryInterface!.addQuanity(token, id, quantity);
+    final token = await localRepositoryInterface.getToken();
+    var result = await apiRepositoryInterface.addQuanity(token, id, quantity);
 
     if (result == true) {
       AppWidget.snacbar('Added to cart successfully!');
@@ -70,7 +72,8 @@ class CartController extends GetxController {
     }
   }
 
-  void showButtomSheed(BuildContext context, VoidCallback onTap, int? id) async {
+  void showButtomSheed(
+      BuildContext context, VoidCallback onTap, int? id) async {
     showModalBottomSheet(
         context: context,
         builder: (context) => Container(

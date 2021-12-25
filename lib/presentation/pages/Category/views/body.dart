@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/domain/model/category.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/categories_controller.dart';
-import 'package:sajilo_dokan/presentation/pages/home/views/category.dart';
+
 
 class CategoriesTile extends StatelessWidget {
   final controller = Get.find<CatergoriesController>();

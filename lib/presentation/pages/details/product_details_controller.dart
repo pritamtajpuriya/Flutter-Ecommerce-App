@@ -8,11 +8,12 @@ import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
 class ProductDetailsController extends GetxController
     with SingleGetTickerProviderMixin {
-  final LocalRepositoryInterface? localRepositoryInterface;
-  final ApiRepositoryInterface? apiRepositoryInterface;
+  final LocalRepositoryInterface localRepositoryInterface;
+  final ApiRepositoryInterface apiRepositoryInterface;
 
   ProductDetailsController(
-      {this.apiRepositoryInterface, this.localRepositoryInterface});
+      {required this.apiRepositoryInterface,
+      required this.localRepositoryInterface});
 
   RxInt selectedImage = 0.obs;
   int get index => selectedImage.value;
@@ -36,7 +37,7 @@ class ProductDetailsController extends GetxController
   void onInit() async {
     super.onInit();
     controllerState = PhotoViewScaleStateController();
-    final token = await localRepositoryInterface!.getToken();
+    final token = await localRepositoryInterface.getToken();
     getComments(productid.value, token);
 
     //Initialize Animation Controller
@@ -67,10 +68,10 @@ class ProductDetailsController extends GetxController
   }
 
   Future<void> makeFavorite(int? id) async {
-    final token = await localRepositoryInterface!.getToken();
+    final token = await localRepositoryInterface.getToken();
     clickFavorite();
     if (token != null) {
-      var result = await apiRepositoryInterface!.makeFavorite(token, id);
+      var result = await apiRepositoryInterface.makeFavorite(token, id);
       print('fab btn called');
 
       if (result == true) {
@@ -96,9 +97,9 @@ class ProductDetailsController extends GetxController
   }
 
   Future<void> getComments(int? id, String? token) async {
-    String? token = await localRepositoryInterface!.getToken();
+    String? token = await localRepositoryInterface.getToken();
     isCommentsLoad(true);
-    var data = await apiRepositoryInterface!.getComments(token, id);
+    var data = await apiRepositoryInterface.getComments(token, id);
     print(id);
     print('GetComment call');
 
@@ -111,9 +112,9 @@ class ProductDetailsController extends GetxController
   }
 
   void likeBtn(int? commentId, int? productId) async {
-    var token = await localRepositoryInterface!.getToken();
+    var token = await localRepositoryInterface.getToken();
     if (token != null) {
-      var result = await apiRepositoryInterface!.likeComment(token, commentId);
+      var result = await apiRepositoryInterface.likeComment(token, commentId);
 
       if (result == true) {
         await getComments(productId, token);
@@ -124,11 +125,11 @@ class ProductDetailsController extends GetxController
   }
 
   void dislikeBtn(int? commentId, int? productId) async {
-    var token = await localRepositoryInterface!.getToken();
+    var token = await localRepositoryInterface.getToken();
 
     if (token != null) {
       var result =
-          await apiRepositoryInterface!.dislikeComment(token, commentId);
+          await apiRepositoryInterface.dislikeComment(token, commentId);
 
       if (result == true) {
         await getComments(productId, token);

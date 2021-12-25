@@ -8,9 +8,11 @@ import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
 class HomeController extends GetxController {
-  final ApiRepositoryInterface? apiRepositoryInterface;
-  final LocalRepositoryInterface? localRepositoryInterface;
-  HomeController({this.apiRepositoryInterface, this.localRepositoryInterface});
+  final ApiRepositoryInterface apiRepositoryInterface;
+  final LocalRepositoryInterface localRepositoryInterface;
+  HomeController(
+      {required this.apiRepositoryInterface,
+      required this.localRepositoryInterface});
 
   Rx<User> user = User.empty().obs;
   RxInt selectedIndex = 0.obs;
@@ -47,7 +49,7 @@ class HomeController extends GetxController {
   }
 
   loadUser() {
-    localRepositoryInterface!.getUser().then((value) => user(value));
+    localRepositoryInterface.getUser().then((value) => user(value));
   }
 
   void updateIndexSelected(int index) {
@@ -55,16 +57,16 @@ class HomeController extends GetxController {
   }
 
   void logout() async {
-    final token = await localRepositoryInterface!.getToken();
-    await apiRepositoryInterface!.logout(token);
-    await localRepositoryInterface!.clearAllData();
+    final token = await localRepositoryInterface.getToken();
+    await apiRepositoryInterface.logout(token);
+    await localRepositoryInterface.clearAllData();
   }
 
   void fetchProduct() async {
-    final token = await localRepositoryInterface!.getToken();
+    final token = await localRepositoryInterface.getToken();
     isLoading(false);
     try {
-      var products = await apiRepositoryInterface!.fetchingProdcut(token);
+      var products = await apiRepositoryInterface.fetchingProdcut(token);
       if (products != null) {
         productList(products);
       }
@@ -78,10 +80,10 @@ class HomeController extends GetxController {
   // }
 
   void fetchCartList() async {
-    final token = await localRepositoryInterface!.getToken();
+    final token = await localRepositoryInterface.getToken();
     try {
       isCartLoad(true);
-      var carts = await apiRepositoryInterface!.getCartList(token);
+      var carts = await apiRepositoryInterface.getCartList(token);
       print('Cartlist called');
       if (carts != null) {
         cartList(carts);
@@ -93,10 +95,10 @@ class HomeController extends GetxController {
   }
 
   void addToCard(int? id) async {
-    final token = await localRepositoryInterface!.getToken();
+    final token = await localRepositoryInterface.getToken();
     if (token != null) {
       if (!isCartLoad.value) {
-        var result = await apiRepositoryInterface!.addToCart(token, id);
+        var result = await apiRepositoryInterface.addToCart(token, id);
 
         fetchCartList();
         if (result == true) {
@@ -119,9 +121,9 @@ class HomeController extends GetxController {
   }
 
   void removeProductFromCart(int? id) async {
-    final token = await localRepositoryInterface!.getToken();
+    final token = await localRepositoryInterface.getToken();
 
-    await apiRepositoryInterface!.deleteCart(token, id);
+    await apiRepositoryInterface.deleteCart(token, id);
     fetchCartList();
   }
 

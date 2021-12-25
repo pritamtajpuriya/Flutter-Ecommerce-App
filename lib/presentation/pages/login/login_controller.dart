@@ -9,9 +9,11 @@ import 'package:sajilo_dokan/domain/request/register_request.dart';
 enum SignType { sigIn, signUp }
 
 class LoginController extends GetxController {
-  final LocalRepositoryInterface? localRepositoryInterface;
-  final ApiRepositoryInterface? apiRepositoryInterface;
-  LoginController({this.localRepositoryInterface, this.apiRepositoryInterface});
+  final LocalRepositoryInterface localRepositoryInterface;
+  final ApiRepositoryInterface apiRepositoryInterface;
+  LoginController(
+      {required this.localRepositoryInterface,
+      required this.apiRepositoryInterface});
 
   final passwordTextController = TextEditingController();
   final nameTexcontroller = TextEditingController();
@@ -39,11 +41,11 @@ class LoginController extends GetxController {
     try {
       isLoading(true);
       final loginResponse =
-          await apiRepositoryInterface!.login(LoginRequest(email, password));
+          await apiRepositoryInterface.login(LoginRequest(email, password));
 
       if (loginResponse != null) {
-        await localRepositoryInterface!.saveToken(loginResponse.token);
-        await localRepositoryInterface!.saveUser(loginResponse.user);
+        await localRepositoryInterface.saveToken(loginResponse.token);
+        await localRepositoryInterface.saveUser(loginResponse.user);
         return true;
       } else
         isLoading(false);
@@ -62,11 +64,11 @@ class LoginController extends GetxController {
 
     try {
       isLoading(true);
-      final loginResponse = await apiRepositoryInterface!.register(
+      final loginResponse = await apiRepositoryInterface.register(
           RegisterRequest(name: name, email: email, password: password));
       if (loginResponse != null) {
-        await localRepositoryInterface!.saveToken(loginResponse.token);
-        await localRepositoryInterface!.saveUser(loginResponse.user);
+        await localRepositoryInterface.saveToken(loginResponse.token);
+        await localRepositoryInterface.saveUser(loginResponse.user);
         return true;
       } else
         isLoading(false);
@@ -82,10 +84,10 @@ class LoginController extends GetxController {
     try {
       isLoading(true);
       final loginResponse =
-          await apiRepositoryInterface!.googleSignIn(idToken, provider);
+          await apiRepositoryInterface.googleSignIn(idToken, provider);
       if (loginResponse != null) {
-        await localRepositoryInterface!.saveToken(loginResponse.token);
-        await localRepositoryInterface!.saveUser(loginResponse.user);
+        await localRepositoryInterface.saveToken(loginResponse.token);
+        await localRepositoryInterface.saveUser(loginResponse.user);
         return true;
       } else
         isLoading(false);

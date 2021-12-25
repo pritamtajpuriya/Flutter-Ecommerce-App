@@ -1,13 +1,7 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sajilo_dokan/presentation/pages/login/login_controller.dart';
-import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
-
 class SocialButton extends StatelessWidget {
   SocialButton({this.imageName, this.socialMedia, this.color, this.onPressed});
 
@@ -16,7 +10,9 @@ class SocialButton extends StatelessWidget {
   final Color? color;
   final VoidCallback? onPressed;
 
-  final controller = Get.put(LoginController());
+  final controller = Get.put(LoginController(
+      apiRepositoryInterface: Get.find(),
+      localRepositoryInterface: Get.find()));
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ class ListItemCart extends StatelessWidget {
   ListItemCart({this.icon, this.title, this.onpressed});
   @override
   Widget build(BuildContext context) {
-    var _theme = Theme.of(context);
+   
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
       child: InkWell(
@@ -36,7 +36,7 @@ class ListItemCart extends StatelessWidget {
                   Expanded(
                     child: Text(
                       title!,
-                      style: _theme.appBarTheme.textTheme!.caption,
+                     
                     ),
                   ),
                   Spacer(),

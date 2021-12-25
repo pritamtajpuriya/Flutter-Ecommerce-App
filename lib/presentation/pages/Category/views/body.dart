@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:sajilo_dokan/domain/model/category.dart';
 import 'package:sajilo_dokan/presentation/pages/Category/categories_controller.dart';
 
-
 class CategoriesTile extends StatelessWidget {
   final controller = Get.find<CatergoriesController>();
   final ValueChanged<int>? onChanged;
@@ -22,7 +21,7 @@ class CategoriesTile extends StatelessWidget {
                     print(categoriesList![index].title);
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Container(
                       color: Colors.white,
                       child: Row(
@@ -40,7 +39,7 @@ class CategoriesTile extends StatelessWidget {
                                 ),
                               )),
                           Image.asset(
-                            'assets/images/facebook.png',
+                            'assets/images/default.png',
                             height: 90,
                           ),
                         ],

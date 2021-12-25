@@ -107,7 +107,7 @@ class CategorieScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Category> ddddd =
+    final List<Category> categoryList =
         data.map((dynamic e) => Category.fromJson(e)).toList();
 
     return SafeArea(
@@ -119,7 +119,7 @@ class CategorieScreen extends StatelessWidget {
             //   child: Column(
             //     children: [
             //       ...List.generate(
-            //           ddddd.length,
+            //           categoryList.length,
             //           (index) => Padding(
             //                 padding: const EdgeInsets.symmetric(vertical: 10),
             //                 child: Container(
@@ -133,11 +133,11 @@ class CategorieScreen extends StatelessWidget {
             //                           SizedBox(
             //                             width: 50,
             //                           ),
-            //                           Text(ddddd[index].title),
+            //                           Text(categoryList[index].title),
             //                         ],
             //                       ),
             //                     ),
-            //                     children: [_buldContainer(ddddd[index].children)],
+            //                     children: [_buldContainer(categoryList[index].children)],
             //                   ),
             //                 ),
             //               ))
@@ -148,14 +148,14 @@ class CategorieScreen extends StatelessWidget {
             Obx(() {
           if (!controller.isLoading.value)
             return CategoriesTile(
-              categoriesList: ddddd,
+              categoriesList: categoryList,
               onChanged: (index) {
-                controller.loadCategoryProducts(ddddd[index].title);
+                controller.loadCategoryProducts(categoryList[index].title);
                 navigator!.pushNamed(SajiloDokanRoutes.categoryProduct,
                     arguments: CategoryArguments(
-                        categoryName: ddddd[index].title,
+                        categoryName: categoryList[index].title,
                         product: controller.categoryProducts,
-                        category: ddddd[index].children));
+                        category: categoryList[index].children));
               },
             );
           else {

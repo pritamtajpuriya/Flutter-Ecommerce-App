@@ -6,8 +6,7 @@ import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
 import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 
-class ProductDetailsController extends GetxController
-    with SingleGetTickerProviderMixin {
+class ProductDetailsController extends GetxController {
   final LocalRepositoryInterface localRepositoryInterface;
   final ApiRepositoryInterface apiRepositoryInterface;
 
@@ -15,8 +14,8 @@ class ProductDetailsController extends GetxController
       {required this.apiRepositoryInterface,
       required this.localRepositoryInterface});
 
-  RxInt selectedImage = 0.obs;
-  int get index => selectedImage.value;
+  RxInt? selectedImage = 0.obs;
+  int get index => selectedImage!.value;
 
   RxBool initbool = true.obs;
   RxInt productid = 0.obs;
@@ -28,10 +27,8 @@ class ProductDetailsController extends GetxController
 
   //Animation Controller for Controll animation
   //Declare
-  late AnimationController animationController;
 
   //Animation Onject
-  Animation? colorAnimation;
 
   @override
   void onInit() async {
@@ -41,18 +38,11 @@ class ProductDetailsController extends GetxController
     getComments(productid.value, token);
 
     //Initialize Animation Controller
-    animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
-    colorAnimation = ColorTween(begin: Colors.grey[400], end: Colors.red)
-        .animate(animationController);
-    animationController.forward();
-    animationController.addListener(() => print(animationController.value));
   }
 
   @override
   void dispose() {
     super.dispose();
-    animationController.dispose();
   }
 
   void goBack() {

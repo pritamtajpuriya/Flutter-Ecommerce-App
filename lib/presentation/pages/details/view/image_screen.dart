@@ -41,21 +41,22 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                 //     ),
                 //   ),
                 // ),
-                if (controller.selectedImage.value != null)
+                if (controller.selectedImage!.value == 0)
                   //This if condition not neccesory but in builder there must be Obserable value to use Obx Or Getx
                   PhotoViewGallery.builder(
                     scrollPhysics: const BouncingScrollPhysics(),
                     builder: (BuildContext context, int index) {
                       return PhotoViewGalleryPageOptions(
-                        imageProvider: NetworkImage(
-                            args.product!.images!.length == 0
-                                ? 'https://onlinehatiya.herokuapp.com' +
-                                    args.product!.image!
-                                : 'https://onlinehatiya.herokuapp.com' +
-                                    args
-                                        .product!
-                                        .images![controller.selectedImage.value]
-                                        .image!),
+                        imageProvider: NetworkImage(args
+                                    .product!.images!.length ==
+                                0
+                            ? 'https://onlinehatiya.herokuapp.com' +
+                                args.product!.image!
+                            : 'https://onlinehatiya.herokuapp.com' +
+                                args
+                                    .product!
+                                    .images![controller.selectedImage!.value]
+                                    .image!),
                         maxScale: PhotoViewComputedScale.covered * 2.0,
                         minScale: PhotoViewComputedScale.contained * 0.8,
                         initialScale: PhotoViewComputedScale.contained * 0.8,
@@ -78,7 +79,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                     pageController: null,
                     backgroundDecoration: BoxDecoration(color: Colors.white),
                     onPageChanged: (int index) {
-                      controller.selectedImage(index);
+                      controller.selectedImage!(index);
                     },
                   ),
 
@@ -110,7 +111,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                           padding: const EdgeInsets.only(right: 10),
                           child: InkWell(
                             onTap: () {
-                              controller.selectedImage(index);
+                              controller.selectedImage!(index);
                               controller.goBack();
                             },
                             child: Container(
@@ -119,7 +120,7 @@ class ImageScreen extends GetWidget<ProductDetailsController> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                      color: controller.selectedImage.value ==
+                                      color: controller.selectedImage!.value ==
                                               index
                                           ? Colors.red
                                           : Colors.black)),

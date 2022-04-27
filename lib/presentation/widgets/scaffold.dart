@@ -8,7 +8,6 @@ class SajiloDokanScaffold extends StatelessWidget {
   final AppBar? appBar;
   final int? bottomMenuIndex;
   final Widget? bottomNavigationBar;
-
   const SajiloDokanScaffold(
       {this.background,
       this.appBar,

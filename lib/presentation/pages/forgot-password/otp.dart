@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Otp extends StatefulWidget {
@@ -274,8 +272,8 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
               });
             }
           });
-    _controller!.reverse(
-        from: _controller!.value == 0.0 ? 1.0 : _controller!.value);
+    _controller!
+        .reverse(from: _controller!.value == 0.0 ? 1.0 : _controller!.value);
     _startCountdown();
   }
 
@@ -323,7 +321,8 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
   }
 
   // Returns "Otp keyboard input Button"
-  Widget _otpKeyboardInputButton({required String label, VoidCallback? onPressed}) {
+  Widget _otpKeyboardInputButton(
+      {required String label, VoidCallback? onPressed}) {
     return new Material(
       color: Colors.transparent,
       child: new InkWell(
@@ -395,8 +394,8 @@ class _OtpState extends State<Otp> with SingleTickerProviderStateMixin {
       _hideResendButton = true;
       totalTimeInSeconds = time;
     });
-    _controller!.reverse(
-        from: _controller!.value == 0.0 ? 1.0 : _controller!.value);
+    _controller!
+        .reverse(from: _controller!.value == 0.0 ? 1.0 : _controller!.value);
   }
 
   void clearOtp() {

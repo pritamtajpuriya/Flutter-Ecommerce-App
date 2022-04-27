@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import 'package:sajilo_dokan/domain/repository/api_repository.dart';
 import 'package:sajilo_dokan/domain/repository/local_repository.dart';
@@ -81,8 +80,8 @@ class ForgotPasswordController extends GetxController {
       isLoading(true);
       final newpassword = newPasswordController.text;
       print(newpassword);
-      var result = await apiRepositoryInterface!.createNewPassword(
-          token.value, newpassword);
+      var result = await apiRepositoryInterface!
+          .createNewPassword(token.value, newpassword);
       if (result != null) {
         Get.snackbar('Message', 'New password created');
         localRepositoryInterface!.saveToken(result.token);

@@ -18,7 +18,7 @@ class SajilodokanBottomMenu extends StatelessWidget {
         height: 24.0,
         width: 24.0,
         color: bottomMenuIndex == index
-            ? theme.accentColor
+            ? theme.primaryColor
             : theme.primaryColorLight,
       ),
       label: title,
@@ -65,7 +65,7 @@ class SajilodokanBottomMenu extends StatelessWidget {
             }
           },
           items: items,
-          selectedItemColor: _theme.accentColor,
+          selectedItemColor: _theme.primaryColor,
           unselectedItemColor: _theme.primaryColorLight,
           unselectedIconTheme: IconThemeData(size: 30),
           selectedIconTheme: IconThemeData(size: 34),

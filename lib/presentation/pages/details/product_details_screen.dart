@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -21,7 +20,8 @@ import 'package:sajilo_dokan/presentation/routes/sajilodokan_navigation.dart';
 import 'package:share/share.dart';
 
 class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
-  final dataKey = new GlobalKey();
+  // final GlobalKey<ScaffoldMessengerState> dataKey =
+  //     new GlobalKey<ScaffoldMessengerState>();
   @override
   Widget build(BuildContext context) {
     final ProductDetailsArguments args =
@@ -37,6 +37,11 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
           slivers: [
             SliverAppBar(
               title: null,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () =>
+                    Navigator.of(context, rootNavigator: true).pop(),
+              ),
               actions: [
                 InkWell(onTap: () {
                   Navigator.of(context).pushNamed(SajiloDokanRoutes.cart);
@@ -113,7 +118,9 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                         return PhotoViewGalleryPageOptions(
                                           disableGestures: true,
                                           imageProvider: NetworkImage(args
-                                                      .product!.images!.length ==
+                                                      .product!
+                                                      .images!
+                                                      .length ==
                                                   0
                                               ? 'https://onlinehatiya.herokuapp.com' +
                                                   args.product!.image!
@@ -121,7 +128,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                   args
                                                       .product!
                                                       .images![controller
-                                                          .selectedImage.value]
+                                                          .selectedImage!.value]
                                                       .image!),
                                           initialScale:
                                               PhotoViewComputedScale.contained *
@@ -139,7 +146,8 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                                 ? null
                                                 : progress
                                                         .cumulativeBytesLoaded /
-                                                    progress.expectedTotalBytes!,
+                                                    progress
+                                                        .expectedTotalBytes!,
                                           ),
                                         ),
                                       ),
@@ -147,7 +155,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                                       backgroundDecoration:
                                           BoxDecoration(color: Colors.white),
                                       onPageChanged: (int index) {
-                                        controller.selectedImage(index);
+                                        controller.selectedImage!(index);
                                       },
                                     )),
                               ),
@@ -257,8 +265,8 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
-                                  onTap: () => Scrollable.ensureVisible(
-                                      dataKey.currentContext!),
+                                  // onTap: () => Scrollable.ensureVisible(
+                                  //     dataKey.currentContext!),
                                   child: Row(
                                     children: [
                                       ProductRating(
@@ -461,7 +469,7 @@ class ProductDetailsScreen extends GetWidget<ProductDetailsController> {
                       if (!controller.isCommentsLoad.value)
                         return Container(
                           color: Colors.white,
-                          key: dataKey,
+                          // key: dataKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,

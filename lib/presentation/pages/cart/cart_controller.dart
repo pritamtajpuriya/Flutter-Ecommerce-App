@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:sajilo_dokan/config/theme.dart';
 import 'package:sajilo_dokan/domain/model/cart.dart';
@@ -13,7 +12,9 @@ class CartController extends GetxController {
   final homecontroller = Get.put(HomeController(
       localRepositoryInterface: Get.find(),
       apiRepositoryInterface: Get.find()));
-  CartController({required this.apiRepositoryInterface, required this.localRepositoryInterface});
+  CartController(
+      {required this.apiRepositoryInterface,
+      required this.localRepositoryInterface});
 
   RxInt quantity = 2.obs;
   RxBool loading = false.obs;
